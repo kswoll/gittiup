@@ -1,0 +1,5 @@
+Gittiup/.vs/
+*.user
+Gittiup/Gittiup/bin/
+Gittiup/Gittiup/obj/x86/Debug/FxResources.System.Data.Common.SR.resw
+Gittiup/Gittiup/obj/
