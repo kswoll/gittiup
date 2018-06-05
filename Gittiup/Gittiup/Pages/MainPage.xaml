@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <NavigationView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" ItemInvoked="NavigationView_OnItemInvoked"
-                    AlwaysShowHeader="False">
+                    AlwaysShowHeader="False" Header="Whatup">
         <NavigationView.MenuItems>
             <NavigationViewItem Content="Repositories" Tag="repositories">
 
