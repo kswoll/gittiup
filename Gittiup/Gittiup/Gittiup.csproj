@@ -95,6 +95,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Database\GittiupDb.cs" />
+    <Compile Include="Database\Repository.cs" />
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -143,6 +145,9 @@
   <ItemGroup>
     <PackageReference Include="LibGit2Sharp">
       <Version>0.25.2</Version>
+    </PackageReference>
+    <PackageReference Include="LiteDb">
+      <Version>4.1.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.5</Version>

@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using Windows.Storage;
 using Windows.UI.Xaml.Controls;
+using Gittiup.Database;
 
 namespace Gittiup.Pages
 {
@@ -7,6 +9,22 @@ namespace Gittiup.Pages
     {
         public MainPage()
         {
+            var db = new GittiupDb();
+            var repo = new Repository
+            {
+                Path = @"c:\",
+                Url = "http://google.com"
+            };
+
+
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+
+            var col = db.GetCollection<Repository>("repositories");
+            col.Insert(repo);
+
+            var repos = col.FindAll();
+
+
             this.InitializeComponent();
         }
 
@@ -15,7 +33,6 @@ namespace Gittiup.Pages
             if (args.IsSettingsInvoked)
             {
                 ContentFrame.Navigate(typeof(SettingsPage));
-//                ContentFrame.Navigate(typeof(SettingsPage));
             }
             else
             {
