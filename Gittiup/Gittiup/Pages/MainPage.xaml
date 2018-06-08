@@ -5,14 +5,18 @@
     xmlns:local="using:Gittiup"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fa="using:FontAwesome.UWP"
+    xmlns:controls="using:Gittiup.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <NavigationView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" ItemInvoked="NavigationView_OnItemInvoked"
                     AlwaysShowHeader="False" Header="Whatup">
         <NavigationView.MenuItems>
-            <NavigationViewItem Content="Repositories" Tag="repositories">
-
+            <NavigationViewItem Tag="repositories">
+                <NavigationViewItem.Content>
+                    <controls:NavigationViewItemContent Icon="Flag"/>
+                </NavigationViewItem.Content>
             </NavigationViewItem>
         </NavigationView.MenuItems>
         <NavigationView.HeaderTemplate>
