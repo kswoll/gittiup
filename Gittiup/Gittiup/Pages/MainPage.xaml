@@ -15,7 +15,12 @@
         <NavigationView.MenuItems>
             <NavigationViewItem Tag="repositories">
                 <NavigationViewItem.Content>
-                    <controls:NavigationViewItemContent Icon="Flag"/>
+                    <controls:NavigationViewItemContent Icon="Flag" Text="Repositories" />
+                </NavigationViewItem.Content>
+            </NavigationViewItem>
+            <NavigationViewItem Tag="addRepository">
+                <NavigationViewItem.Content>
+                    <controls:NavigationViewItemContent Icon="Plus" Text="Add Repository" />
                 </NavigationViewItem.Content>
             </NavigationViewItem>
         </NavigationView.MenuItems>

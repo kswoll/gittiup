@@ -12,7 +12,7 @@
     d:DesignWidth="400">
 
     <StackPanel Orientation="Horizontal">
-        <fa:FontAwesome Icon="{Binding Icon, ElementName=itemContent}" FontSize="16" HorizontalAlignment="Center" Margin="0,0,18,0" />
-        <TextBlock Text="Repositories" />
+        <fa:FontAwesome Icon="{Binding Icon, ElementName=itemContent}" FontSize="16" HorizontalAlignment="Center" Margin="0,0,16,0" />
+        <TextBlock Text="{Binding Text, ElementName=itemContent}" />
     </StackPanel>
 </UserControl>

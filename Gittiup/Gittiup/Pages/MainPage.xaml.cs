@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Windows.Storage;
 using Windows.UI.Xaml.Controls;
+using Gittiup.Controls;
 using Gittiup.Database;
 
 namespace Gittiup.Pages
@@ -37,7 +38,7 @@ namespace Gittiup.Pages
             else
             {
                 // find NavigationViewItem with Content that equals InvokedItem
-                var item = sender.MenuItems.OfType<NavigationViewItem>().First(x => (string)x.Content == (string)args.InvokedItem);
+                var item = sender.MenuItems.OfType<NavigationViewItem>().First(x => (string)x.Tag == (string)((NavigationViewItem)((NavigationViewItemContent)args.InvokedItem).Parent).Tag);
                 NavigationView_Navigate(item);
             }
         }
@@ -48,6 +49,9 @@ namespace Gittiup.Pages
             {
                 case "repositories":
                     ContentFrame.Navigate(typeof(RepositoriesPage));
+                    break;
+                case "addRepository":
+                    ContentFrame.Navigate(typeof(AddRepositoryPage));
                     break;
             }
         }
