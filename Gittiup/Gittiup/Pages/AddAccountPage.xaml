@@ -1,0 +1,22 @@
+﻿<local:AddAccountPageBase
+    x:Class="Gittiup.Pages.AddAccountPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Gittiup.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:Gittiup.ViewModels"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    d:DataContext="{d:DesignInstance viewModels:AddAccountViewModel}">
+
+    <StackPanel Orientation="Vertical">
+        <CommandBar OverflowButtonVisibility="Collapsed" Background="Transparent">
+            <AppBarButton Icon="Save" Click="SaveButton_Click" />
+        </CommandBar>
+
+        <TextBox Header="Name" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Header="User Name" Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <PasswordBox Header="Password" />
+    </StackPanel>
+</local:AddAccountPageBase>

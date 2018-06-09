@@ -10,8 +10,8 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <NavigationView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" ItemInvoked="NavigationView_OnItemInvoked"
-                    AlwaysShowHeader="False" Header="Whatup">
+    <NavigationView x:Name="navigationView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" ItemInvoked="NavigationView_OnItemInvoked"
+                    AlwaysShowHeader="False" IsBackEnabled="true" BackRequested="NavigationView_OnBackRequested">
         <NavigationView.MenuItems>
             <NavigationViewItem Tag="repositories">
                 <NavigationViewItem.Content>
@@ -24,11 +24,13 @@
                 </NavigationViewItem.Content>
             </NavigationViewItem>
         </NavigationView.MenuItems>
+<!--
         <NavigationView.HeaderTemplate>
             <DataTemplate>
                 <TextBlock Text="Test" />
             </DataTemplate>
         </NavigationView.HeaderTemplate>
+-->
         <Frame x:Name="ContentFrame" Margin="24, 0, 24, 0">
             <Frame.ContentTransitions>
                 <TransitionCollection>

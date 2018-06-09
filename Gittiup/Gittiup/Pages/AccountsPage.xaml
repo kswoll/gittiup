@@ -1,0 +1,35 @@
+﻿<local:AccountsPageBase
+    x:Class="Gittiup.Pages.AccountsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Gittiup.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:Gittiup.ViewModels"
+    xmlns:database="using:Gittiup.Database"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    d:DataContext="{d:DesignInstance viewModels:AccountsViewModel}"
+    NavigationCacheMode="Required">
+
+    <StackPanel Orientation="Vertical">
+        <CommandBar OverflowButtonVisibility="Collapsed" Background="Transparent">
+            <AppBarButton Icon="Add" Click="AddButton_OnClick" />
+            <AppBarSeparator/>
+            <AppBarButton Icon="Edit"/>
+            <AppBarButton Icon="Delete"/>
+            <AppBarSeparator/>
+            <AppBarButton Icon="Save"/>
+        </CommandBar>
+
+        <ListView Header="Test" ItemsSource="{Binding Accounts, Mode=OneWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical" d:DataContext="{d:DesignInstance database:Account}">
+                        <TextBlock Text="{Binding Name}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackPanel>
+</local:AccountsPageBase>

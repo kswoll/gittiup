@@ -21,12 +21,23 @@ namespace Gittiup.Pages
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
 
             var col = db.GetCollection<Repository>("repositories");
-            col.Insert(repo);
+//            col.Insert(repo);
 
             var repos = col.FindAll();
 
 
             this.InitializeComponent();
+
+
+            repo = repos.First();
+            navigationView.MenuItems.Insert(0, new NavigationViewItem
+            {
+                Tag = repo.Id.ToString(),
+                Content = new NavigationViewItemContent
+                {
+                    Text = "Gittiup"
+                }
+            });
         }
 
         private void NavigationView_OnItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -53,6 +64,14 @@ namespace Gittiup.Pages
                 case "addRepository":
                     ContentFrame.Navigate(typeof(AddRepositoryPage));
                     break;
+            }
+        }
+
+        private void NavigationView_OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+        {
+            if (ContentFrame.CanGoBack)
+            {
+                ContentFrame.GoBack();
             }
         }
     }
