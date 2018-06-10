@@ -26,12 +26,7 @@ namespace Gittiup.Pages
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.AccountsViewModel.SaveAccount(new Account
-            {
-                Id = ViewModel.Id,
-                Name = ViewModel.Name,
-                UserName = ViewModel.UserName
-            });
+            ViewModel.AccountsViewModel.SaveAccount(ViewModel.Account);
 
             Frame.GoBack();
         }

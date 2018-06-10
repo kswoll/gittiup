@@ -32,9 +32,7 @@ namespace Gittiup.Pages
             Frame.Navigate(typeof(AccountPage), new AccountViewModel
             {
                 AccountsViewModel = ViewModel,
-                Id = account.Id,
-                Name = account.Name,
-                UserName = account.UserName
+                Account = account
             });
         }
     }

@@ -15,8 +15,8 @@
             <AppBarButton Icon="Save" Click="SaveButton_Click" />
         </CommandBar>
 
-        <TextBox Header="Name" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBox Header="User Name" Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Header="Name" Text="{Binding Account.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Header="User Name" Text="{Binding Account.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <PasswordBox Header="Password" />
     </StackPanel>
 </local:AccountPageBase>
