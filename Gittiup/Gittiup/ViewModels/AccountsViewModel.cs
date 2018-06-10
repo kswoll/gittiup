@@ -19,10 +19,13 @@ namespace Gittiup.ViewModels
             Accounts.AddRange(db.Accounts.FindAll());
         }
 
-        public void AddAccount(Account account)
+        public void SaveAccount(Account account)
         {
-            db.Accounts.Insert(account);
-            Accounts.Add(account);
+            if (account.Id == 0)
+            {
+                Accounts.Add(account);
+            }
+            db.Accounts.Upsert(account);
         }
     }
 }

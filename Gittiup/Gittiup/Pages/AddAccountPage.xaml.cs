@@ -6,30 +6,29 @@ using Gittiup.ViewModels;
 
 namespace Gittiup.Pages
 {
-    public class AddAccountPageBase : BasePage<AddAccountViewModel>
+    public class AccountPageBase : BasePage<AccountViewModel>
     {
     }
 
-    public sealed partial class AddAccountPage
+    public sealed partial class AccountPage
     {
-        public AddAccountPage()
+        public AccountPage()
         {
             InitializeComponent();
-
-            ViewModel = new AddAccountViewModel();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            ViewModel.AccountsViewModel = (AccountsViewModel)e.Parameter;
+            ViewModel = (AccountViewModel)e.Parameter;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.AccountsViewModel.AddAccount(new Account
+            ViewModel.AccountsViewModel.SaveAccount(new Account
             {
+                Id = ViewModel.Id,
                 Name = ViewModel.Name,
                 UserName = ViewModel.UserName
             });

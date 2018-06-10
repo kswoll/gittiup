@@ -4,17 +4,12 @@
 
 namespace Gittiup.ViewModels
 {
-    public class AddAccountViewModel
+    public class AccountViewModel
     {
-        private string name;
         public AccountsViewModel AccountsViewModel { get; set; }
 
-        public string Name
-        {
-            get => name;
-            set => name = value;
-        }
-
+        public int Id { get; set; }
+        public string Name { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
     }

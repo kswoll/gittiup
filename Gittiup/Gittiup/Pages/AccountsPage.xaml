@@ -16,7 +16,7 @@
         <CommandBar OverflowButtonVisibility="Collapsed" Background="Transparent">
             <AppBarButton Icon="Add" Click="AddButton_OnClick" />
             <AppBarSeparator/>
-            <AppBarButton Icon="Edit" IsEnabled="{Binding SelectedItem, ElementName=accountsListView, Mode=OneWay, TargetNullValue=false}" />
+            <AppBarButton Icon="Edit" IsEnabled="{Binding SelectedItem, ElementName=accountsListView, Mode=OneWay, TargetNullValue=false}" Click="EditButton_OnClick" />
             <AppBarButton Icon="Delete"/>
             <AppBarSeparator/>
             <AppBarButton Icon="Save"/>

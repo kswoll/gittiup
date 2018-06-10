@@ -20,7 +20,22 @@ namespace Gittiup.Pages
 
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(AddAccountPage), ViewModel);
+            Frame.Navigate(typeof(AccountPage), new AccountViewModel
+            {
+                AccountsViewModel = ViewModel
+            });
+        }
+
+        private void EditButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var account = (Account)accountsListView.SelectedValue;
+            Frame.Navigate(typeof(AccountPage), new AccountViewModel
+            {
+                AccountsViewModel = ViewModel,
+                Id = account.Id,
+                Name = account.Name,
+                UserName = account.UserName
+            });
         }
     }
 }

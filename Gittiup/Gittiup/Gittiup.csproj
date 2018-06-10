@@ -126,7 +126,7 @@
     <Compile Include="Utils\CredentialType.cs" />
     <Compile Include="Utils\ObservableCollectionExtensions.cs" />
     <Compile Include="ViewModels\AccountsViewModel.cs" />
-    <Compile Include="ViewModels\AddAccountViewModel.cs" />
+    <Compile Include="ViewModels\AccountViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
