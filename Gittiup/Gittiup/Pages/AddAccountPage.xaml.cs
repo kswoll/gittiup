@@ -28,7 +28,7 @@ namespace Gittiup.Pages
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.AccountsViewModel.Accounts.Add(new Account
+            ViewModel.AccountsViewModel.AddAccount(new Account
             {
                 Name = ViewModel.Name,
                 UserName = ViewModel.UserName

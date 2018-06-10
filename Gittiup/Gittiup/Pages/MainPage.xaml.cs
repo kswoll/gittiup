@@ -11,11 +11,13 @@ namespace Gittiup.Pages
         public MainPage()
         {
             var db = new GittiupDb();
+/*
             var repo = new Repository
             {
                 Path = @"c:\",
                 Url = "http://google.com"
             };
+*/
 
 
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
@@ -29,7 +31,8 @@ namespace Gittiup.Pages
             this.InitializeComponent();
 
 
-            repo = repos.First();
+//            repo = repos.First();
+/*
             navigationView.MenuItems.Insert(0, new NavigationViewItem
             {
                 Tag = repo.Id.ToString(),
@@ -38,6 +41,7 @@ namespace Gittiup.Pages
                     Text = "Gittiup"
                 }
             });
+*/
         }
 
         private void NavigationView_OnItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)

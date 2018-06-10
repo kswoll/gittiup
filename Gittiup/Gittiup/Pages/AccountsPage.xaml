@@ -16,16 +16,16 @@
         <CommandBar OverflowButtonVisibility="Collapsed" Background="Transparent">
             <AppBarButton Icon="Add" Click="AddButton_OnClick" />
             <AppBarSeparator/>
-            <AppBarButton Icon="Edit"/>
+            <AppBarButton Icon="Edit" IsEnabled="{Binding SelectedItem, ElementName=accountsListView, Mode=OneWay, TargetNullValue=false}" />
             <AppBarButton Icon="Delete"/>
             <AppBarSeparator/>
             <AppBarButton Icon="Save"/>
         </CommandBar>
 
-        <ListView Header="Test" ItemsSource="{Binding Accounts, Mode=OneWay}">
+        <ListView x:Name="accountsListView" ItemsSource="{Binding Accounts, Mode=OneWay}">
             <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical" d:DataContext="{d:DesignInstance database:Account}">
+                <DataTemplate x:DataType="database:Account">
+                    <StackPanel Orientation="Vertical">
                         <TextBlock Text="{Binding Name}" />
                     </StackPanel>
                 </DataTemplate>

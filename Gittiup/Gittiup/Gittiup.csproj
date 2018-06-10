@@ -124,6 +124,7 @@
     <Compile Include="Utils\Credential.cs" />
     <Compile Include="Utils\CredentialManager.cs" />
     <Compile Include="Utils\CredentialType.cs" />
+    <Compile Include="Utils\ObservableCollectionExtensions.cs" />
     <Compile Include="ViewModels\AccountsViewModel.cs" />
     <Compile Include="ViewModels\AddAccountViewModel.cs" />
   </ItemGroup>

@@ -15,13 +15,7 @@ namespace Gittiup.Pages
         {
             InitializeComponent();
 
-            ViewModel = new AccountsViewModel
-            {
-                Accounts = new ObservableCollection<Account>
-                {
-                    new Account { Name = "test" }
-                }
-            };
+            ViewModel = new AccountsViewModel();
         }
 
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
