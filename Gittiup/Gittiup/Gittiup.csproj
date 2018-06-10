@@ -104,29 +104,33 @@
     <Compile Include="Pages\AccountsPage.xaml.cs">
       <DependentUpon>AccountsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AddAccountPage.xaml.cs">
-      <DependentUpon>AddAccountPage.xaml</DependentUpon>
+    <Compile Include="Pages\EditAccountPage.xaml.cs">
+      <DependentUpon>EditAccountPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AddRepositoryPage.xaml.cs">
-      <DependentUpon>AddRepositoryPage.xaml</DependentUpon>
+    <Compile Include="Pages\EditRepositoryPage.xaml.cs">
+      <DependentUpon>EditRepositoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\RepositoriesPage.xaml.cs">
-      <DependentUpon>RepositoriesPage.xaml</DependentUpon>
+    <Compile Include="Pages\RepositoryPage.xaml.cs">
+      <DependentUpon>RepositoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\BaseObject.cs" />
     <Compile Include="Utils\Credential.cs" />
     <Compile Include="Utils\CredentialManager.cs" />
     <Compile Include="Utils\CredentialType.cs" />
     <Compile Include="Utils\ObservableCollectionExtensions.cs" />
     <Compile Include="ViewModels\AccountsViewModel.cs" />
-    <Compile Include="ViewModels\AccountViewModel.cs" />
+    <Compile Include="ViewModels\EditAccountViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\EditRepositoryViewModel.cs" />
+    <Compile Include="ViewModels\RepositoryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -135,6 +139,7 @@
     <None Include="Gittiup_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -157,11 +162,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\AddAccountPage.xaml">
+    <Page Include="Pages\EditAccountPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\AddRepositoryPage.xaml">
+    <Page Include="Pages\EditRepositoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -169,7 +174,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\RepositoriesPage.xaml">
+    <Page Include="Pages\RepositoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -179,6 +184,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Fody">
+      <Version>3.0.3</Version>
+    </PackageReference>
     <PackageReference Include="FontAwesome.UWP">
       <Version>4.7.0.9</Version>
     </PackageReference>
@@ -190,6 +198,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.5</Version>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody">
+      <Version>2.5.7</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

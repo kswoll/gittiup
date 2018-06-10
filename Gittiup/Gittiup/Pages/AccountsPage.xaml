@@ -17,7 +17,7 @@
             <AppBarButton Icon="Add" Click="AddButton_OnClick" />
             <AppBarSeparator/>
             <AppBarButton Icon="Edit" IsEnabled="{Binding SelectedItem, ElementName=accountsListView, Mode=OneWay, TargetNullValue=false}" Click="EditButton_OnClick" />
-            <AppBarButton Icon="Delete"/>
+            <AppBarButton Icon="Delete" IsEnabled="{Binding SelectedItem, ElementName=accountsListView, Mode=OneWay, TargetNullValue=false}" Click="DeleteButton_OnClick" />
         </CommandBar>
 
         <ListView x:Name="accountsListView" ItemsSource="{Binding Accounts, Mode=OneWay}">

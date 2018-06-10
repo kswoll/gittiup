@@ -20,20 +20,27 @@ namespace Gittiup.Pages
 
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(AccountPage), new AccountViewModel
+            Frame.Navigate(typeof(EditAccountPage), new EditAccountViewModel
             {
-                AccountsViewModel = ViewModel
+                Accounts = ViewModel.Accounts,
+                Account = new Account()
             });
         }
 
         private void EditButton_OnClick(object sender, RoutedEventArgs e)
         {
             var account = (Account)accountsListView.SelectedValue;
-            Frame.Navigate(typeof(AccountPage), new AccountViewModel
+            Frame.Navigate(typeof(EditAccountPage), new EditAccountViewModel
             {
-                AccountsViewModel = ViewModel,
+                Accounts = ViewModel.Accounts,
                 Account = account
             });
+        }
+
+        private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var account = (Account)accountsListView.SelectedValue;
+            ViewModel.DeleteAccount(account);
         }
     }
 }

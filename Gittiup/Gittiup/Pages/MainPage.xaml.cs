@@ -1,15 +1,25 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Specialized;
+using System.Linq;
 using Windows.Storage;
 using Windows.UI.Xaml.Controls;
+using FontAwesome.UWP;
 using Gittiup.Controls;
 using Gittiup.Database;
+using Gittiup.ViewModels;
 
 namespace Gittiup.Pages
 {
-    public sealed partial class MainPage : Page
+    public class MainPageBase : BasePage<MainViewModel>
+    {
+    }
+
+    public sealed partial class MainPage
     {
         public MainPage()
         {
+            ViewModel = new MainViewModel();
+
             var db = new GittiupDb();
 /*
             var repo = new Repository
@@ -30,6 +40,12 @@ namespace Gittiup.Pages
 
             this.InitializeComponent();
 
+            ViewModel.Repositories.CollectionChanged += RepositoriesOnCollectionChanged;
+
+            foreach (var repository in ViewModel.Repositories)
+            {
+                AddRepository(repository);
+            }
 
 //            repo = repos.First();
 /*
@@ -42,6 +58,39 @@ namespace Gittiup.Pages
                 }
             });
 */
+        }
+
+        private void RepositoriesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (Repository repository in e.NewItems)
+                    {
+                        AddRepository(repository);
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (Repository repository in e.OldItems)
+                    {
+                        var item = navigationView.MenuItems.Cast<NavigationViewItem>().Single(x => (string)x.Tag == $"repository-{repository.Id}");
+                        navigationView.MenuItems.Remove(item);
+                    }
+                    break;
+            }
+        }
+
+        private void AddRepository(Repository repository)
+        {
+            navigationView.MenuItems.Insert(0, new NavigationViewItem
+            {
+                Tag = $"repository-{repository.Id}",
+                Content = new NavigationViewItemContent
+                {
+                    Text = "Gittiup",
+                    Icon = FontAwesomeIcon.Flag
+                }
+            });
         }
 
         private void NavigationView_OnItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -60,13 +109,27 @@ namespace Gittiup.Pages
 
         private void NavigationView_Navigate(NavigationViewItem item)
         {
-            switch (item.Tag)
+            var tag = (string)item.Tag;
+            if (tag.StartsWith("repository-"))
             {
-                case "repositories":
-                    ContentFrame.Navigate(typeof(RepositoriesPage));
-                    break;
+                var repositoryId = int.Parse(tag.Substring("repository-".Length));
+                var repository = ViewModel.Repositories.Single(x => x.Id == repositoryId);
+                ContentFrame.Navigate(typeof(RepositoryPage), new RepositoryViewModel
+                {
+                    Repository = repository,
+                    Repositories = ViewModel.Repositories
+                });
+                return;
+            }
+
+            switch (tag)
+            {
                 case "addRepository":
-                    ContentFrame.Navigate(typeof(AddRepositoryPage));
+                    ContentFrame.Navigate(typeof(EditRepositoryPage), new EditRepositoryViewModel
+                    {
+                        Repository = new Repository(),
+                        Repositories = ViewModel.Repositories
+                    });
                     break;
             }
         }

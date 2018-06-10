@@ -1,0 +1,23 @@
+﻿<local:EditRepositoryPageBase
+    x:Class="Gittiup.Pages.EditRepositoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Gittiup.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:Gittiup.ViewModels"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModels:EditRepositoryViewModel}"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel Orientation="Vertical" Spacing="10">
+        <CommandBar OverflowButtonVisibility="Collapsed" Background="Transparent">
+            <AppBarButton Icon="Save" Click="SaveButton_Click" />
+        </CommandBar>
+
+        <TextBox Header="Name" Text="{Binding Repository.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Header="URL" Text="{Binding Repository.Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Header="Local Path" Text="{Binding Repository.Path, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+    </StackPanel>
+</local:EditRepositoryPageBase>
+

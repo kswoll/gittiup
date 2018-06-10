@@ -2,9 +2,11 @@
 //     Copyright (c) 2018 PlanGrid, Inc. All rights reserved.
 // </copyright>
 
+using Gittiup.Utils;
+
 namespace Gittiup.Database
 {
-    public class Repository
+    public class Repository : BaseObject
     {
         public int Id { get; set; }
         public string Name { get; set; }

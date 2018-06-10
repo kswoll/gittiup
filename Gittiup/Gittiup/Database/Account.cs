@@ -2,27 +2,15 @@
 //     Copyright (c) 2018 PlanGrid, Inc. All rights reserved.
 // </copyright>
 
-using System.ComponentModel;
+using Gittiup.Utils;
 
 namespace Gittiup.Database
 {
-    public class Account : INotifyPropertyChanged
+    public class Account : BaseObject
     {
-        private string name;
         public int Id { get; set; }
-
-        public string Name
-        {
-            get => name;
-            set
-            {
-                name = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
-            }
-        }
-
+        public string Name { get; set; }
         public string UserName { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        public string Password { get; set; }
     }
 }

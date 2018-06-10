@@ -12,20 +12,21 @@ namespace Gittiup.ViewModels
     {
         public ObservableCollection<Account> Accounts { get; set; } = new ObservableCollection<Account>();
 
-        private readonly GittiupDb db = new GittiupDb();
-
         public AccountsViewModel()
         {
-            Accounts.AddRange(db.Accounts.FindAll());
+            using (var db = new GittiupDb())
+            {
+                Accounts.AddRange(db.Accounts.FindAll());
+            }
         }
 
-        public void SaveAccount(Account account)
+        public void DeleteAccount(Account account)
         {
-            if (account.Id == 0)
+            Accounts.Remove(account);
+            using (var db = new GittiupDb())
             {
-                Accounts.Add(account);
+                db.Accounts.Delete(account.Id);
             }
-            db.Accounts.Upsert(account);
         }
     }
 }

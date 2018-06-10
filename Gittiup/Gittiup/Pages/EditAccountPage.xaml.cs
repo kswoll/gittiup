@@ -6,13 +6,13 @@ using Gittiup.ViewModels;
 
 namespace Gittiup.Pages
 {
-    public class AccountPageBase : BasePage<AccountViewModel>
+    public class EditAccountPageBase : BasePage<EditAccountViewModel>
     {
     }
 
-    public sealed partial class AccountPage
+    public sealed partial class EditAccountPage
     {
-        public AccountPage()
+        public EditAccountPage()
         {
             InitializeComponent();
         }
@@ -21,12 +21,12 @@ namespace Gittiup.Pages
         {
             base.OnNavigatedTo(e);
 
-            ViewModel = (AccountViewModel)e.Parameter;
+            ViewModel = (EditAccountViewModel)e.Parameter;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.AccountsViewModel.SaveAccount(ViewModel.Account);
+            ViewModel.Save();
 
             Frame.GoBack();
         }
