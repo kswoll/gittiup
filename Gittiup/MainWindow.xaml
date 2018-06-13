@@ -16,9 +16,10 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        TitleCharacterCasing="Normal">
 
-    <TabControl TabStripPlacement="Left" Margin="0" Padding="0">
+    <TabControl TabStripPlacement="Left" Margin="0" Padding="0" BorderThickness="0">
         <TabControl.Items>
             <TabItem>
                 <TabItem.Header>

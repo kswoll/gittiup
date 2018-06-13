@@ -133,8 +133,6 @@
                                     </MultiDataTrigger.Conditions>
                                     <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Background}"/>
                                     <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
@@ -143,8 +141,6 @@
                                     </MultiDataTrigger.Conditions>
                                     <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Background}"/>
                                     <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
@@ -153,8 +149,6 @@
                                     </MultiDataTrigger.Conditions>
                                     <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Background}"/>
                                     <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
@@ -163,8 +157,6 @@
                                     </MultiDataTrigger.Conditions>
                                     <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Background}"/>
                                     <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
@@ -174,8 +166,6 @@
                                     <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
                                     <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
                                     <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Border}"/>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
@@ -185,8 +175,6 @@
                                     <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
                                     <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
                                     <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Border}"/>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
@@ -196,8 +184,6 @@
                                     <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
                                     <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
                                     <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Border}"/>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
@@ -207,16 +193,12 @@
                                     <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
                                     <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
                                     <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Border}"/>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
                                         <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Left"/>
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
@@ -226,16 +208,12 @@
                                     <Setter Property="Panel.ZIndex" Value="1"/>
                                     <Setter Property="Margin" Value="-2,-2,0,-2"/>
                                     <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
                                         <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Bottom"/>
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
@@ -245,16 +223,12 @@
                                     <Setter Property="Panel.ZIndex" Value="1"/>
                                     <Setter Property="Margin" Value="-2,0,-2,-2"/>
                                     <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
                                         <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Right"/>
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
@@ -264,16 +238,12 @@
                                     <Setter Property="Panel.ZIndex" Value="1"/>
                                     <Setter Property="Margin" Value="0,-2,-2,-2"/>
                                     <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
                                         <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
@@ -283,8 +253,6 @@
                                     <Setter Property="Panel.ZIndex" Value="1"/>
                                     <Setter Property="Margin" Value="-2,-2,-2,0"/>
                                     <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
-                                    <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
-                                    <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
                                 </MultiDataTrigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
