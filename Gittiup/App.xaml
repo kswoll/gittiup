@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Gittiup"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -13,11 +14,14 @@
 
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Buttons.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+
+                <ResourceDictionary Source="Styles\Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <SolidColorBrush x:Key="TabItem.Selected.Background" Color="#FFFFFF"/>
@@ -42,7 +46,7 @@
                                     <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
                                     <RowDefinition x:Name="RowDefinition1" Height="*"/>
                                 </Grid.RowDefinitions>
-                                <TabPanel x:Name="headerPanel" Background="Black" Grid.Column="0" IsItemsHost="true" Margin="2,2,2,0" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1"/>
+                                <TabPanel x:Name="headerPanel" Background="Black" Grid.Column="0" IsItemsHost="true" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1"/>
                                 <Border x:Name="contentPanel" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
                                     <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                                 </Border>
@@ -108,6 +112,7 @@
             <SolidColorBrush x:Key="TabItem.Disabled.Background" Color="#F0F0F0"/>
             <SolidColorBrush x:Key="TabItem.Disabled.Border" Color="#D9D9D9"/>
             <Style TargetType="{x:Type TabItem}">
+                <Setter Property="FontSize" Value="{StaticResource TitleFontSize}" />
                 <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
                 <Setter Property="Foreground" Value="Black"/>
                 <Setter Property="Background" Value="{StaticResource TabItem.Static.Background}"/>
@@ -258,6 +263,78 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
+            </Style>
+
+
+            <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+            <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+            <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+            <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+            <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+            <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+            <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+            <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+            <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsDefaulted" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="{x:Type mah:CustomDialog}" BasedOn="{StaticResource {x:Type mah:BaseMetroDialog}}">
+                <Style.Resources>
+                    <Style BasedOn="{StaticResource MetroFlatButton}" TargetType="{x:Type Button}">
+                        <Setter Property="mah:ControlsHelper.ContentCharacterCasing" Value="Upper" />
+                    </Style>
+
+                    <Style x:Key="AccentedDialogSquareButton"
+                           BasedOn="{StaticResource MetroFlatButton}"
+                           TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
+                        <Setter Property="Foreground" Value="{DynamicResource IdealForegroundColorBrush}" />
+                        <Setter Property="mah:ControlsHelper.ContentCharacterCasing" Value="Upper" />
+                    </Style>
+
+                    <Style x:Key="AccentedDialogHighlightedSquareButton"
+                           BasedOn="{StaticResource MetroFlatButton}"
+                           TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{DynamicResource HighlightBrush}" />
+                        <Setter Property="Foreground" Value="{DynamicResource IdealForegroundColorBrush}" />
+                        <Setter Property="mah:ControlsHelper.ContentCharacterCasing" Value="Upper" />
+                    </Style>
+                </Style.Resources>
             </Style>
         </ResourceDictionary>
 

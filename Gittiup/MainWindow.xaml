@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:Gittiup"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:views="clr-namespace:Gittiup.Views"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Gittiup"
         Height="450"
         Width="800"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -19,7 +20,74 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         TitleCharacterCasing="Normal">
 
-    <TabControl TabStripPlacement="Left" Margin="0" Padding="0" BorderThickness="0">
+    <mah:MetroWindow.Resources>
+        <DataTemplate x:Key="MenuItemTemplate"
+                      DataType="{x:Type mah:HamburgerMenuGlyphItem}">
+            <Grid Height="48">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           FontSize="16"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontFamily="Segoe MDL2 Assets"
+                           Foreground="White"
+                           Text="{Binding Glyph}" />
+                <TextBlock Grid.Column="1"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           Foreground="White"
+                           Text="{Binding Label}" />
+            </Grid>
+        </DataTemplate>
+    </mah:MetroWindow.Resources>
+
+    <materialDesign:DialogHost>
+        <mah:HamburgerMenu
+            x:Name="hamburgerMenu"
+            IsPaneOpen="false"
+            ItemTemplate="{StaticResource MenuItemTemplate}"
+            OptionsItemTemplate="{StaticResource MenuItemTemplate}"
+            ItemClick="HamburgerMenuControl_OnItemClick"
+            OptionsItemClick="HamburgerMenuControl_OnItemClick">
+
+            <mah:HamburgerMenu.ContentTemplate>
+                <DataTemplate DataType="{x:Type mah:HamburgerMenuItem}">
+                    <ContentControl x:Name="TheContent"
+                                    Focusable="False"
+                                    Foreground="{DynamicResource BlackBrush}"
+                                    Content="{Binding Tag}" />
+                </DataTemplate>
+            </mah:HamburgerMenu.ContentTemplate>
+
+            <mah:HamburgerMenu.ItemsSource>
+                <mah:HamburgerMenuItemCollection>
+                    <mah:HamburgerMenuGlyphItem Glyph="" Label="Home">
+                        <mah:HamburgerMenuGlyphItem.Tag>
+                            <views:RepositoriesView />
+                        </mah:HamburgerMenuGlyphItem.Tag>
+                    </mah:HamburgerMenuGlyphItem>
+                </mah:HamburgerMenuItemCollection>
+            </mah:HamburgerMenu.ItemsSource>
+
+            <!--  Options  -->
+            <mah:HamburgerMenu.OptionsItemsSource>
+                <mah:HamburgerMenuItemCollection>
+                    <mah:HamburgerMenuGlyphItem Glyph="" Label="Settings">
+                        <mah:HamburgerMenuGlyphItem.Tag>
+                            <views:SettingsView />
+                        </mah:HamburgerMenuGlyphItem.Tag>
+                    </mah:HamburgerMenuGlyphItem>
+                    <mah:HamburgerMenuGlyphItem Glyph="" Label="About">
+                    </mah:HamburgerMenuGlyphItem>
+                </mah:HamburgerMenuItemCollection>
+            </mah:HamburgerMenu.OptionsItemsSource>
+        </mah:HamburgerMenu>
+    </materialDesign:DialogHost>
+
+<!--    <TabControl TabStripPlacement="Left" Margin="0" Padding="0" BorderThickness="0">
         <TabControl.Items>
             <TabItem>
                 <TabItem.Header>
@@ -38,6 +106,6 @@
                 </TabItem.Content>
             </TabItem>
         </TabControl.Items>
-    </TabControl>
+    </TabControl>-->
 </mah:MetroWindow>
 
