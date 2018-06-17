@@ -8,6 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <TabControl x:Name="tabs" BorderThickness="0">
         <TabControl.Items>
+            <TabItem Header="General">
+            </TabItem>
             <TabItem Header="Accounts">
                 <local:AccountsView />
             </TabItem>

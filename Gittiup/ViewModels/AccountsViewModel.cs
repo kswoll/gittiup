@@ -20,6 +20,21 @@ namespace Gittiup.ViewModels
             }
         }
 
+        public void SaveAccount(AccountModel account)
+        {
+            var isNew = account.Id == 0;
+
+            using (var db = new GittiupDb())
+            {
+                db.Accounts.Upsert(account);
+            }
+
+            if (isNew)
+            {
+                Accounts.Add(account);
+            }
+        }
+
         public void DeleteAccount(AccountModel account)
         {
             Accounts.Remove(account);

@@ -6,21 +6,30 @@
              xmlns:local="clr-namespace:Gittiup.Views"
              xmlns:models="clr-namespace:Gittiup.Models"
              xmlns:viewModels="clr-namespace:Gittiup.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:AccountsViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Orientation="Vertical">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Add" Click="ButtonBase_OnClick" />
-        </StackPanel>
-        <ListView x:Name="accountsListView" ItemsSource="{Binding Accounts, Mode=OneWay}">
-            <ListView.ItemTemplate>
+        <ToolBarTray>
+            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
+                <Button ToolTip="Add" Click="AddButton_OnClick">
+                    <materialDesign:PackIcon Kind="AccountPlus" />
+                </Button>
+                <Button ToolTip="Edit" Click="EditButton_OnClick" IsEnabled="{Binding SelectedItem, ElementName=accountsListView, Mode=OneWay, TargetNullValue=false}">
+                    <materialDesign:PackIcon Kind="AccountEdit" />
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        <ListBox x:Name="accountsListView" ItemsSource="{Binding Accounts, Mode=OneWay}">
+            <ListBox.ItemTemplate>
                 <DataTemplate DataType="models:AccountModel">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="{Binding Name}" />
                     </StackPanel>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </StackPanel>
 </local:AccountsViewBase>

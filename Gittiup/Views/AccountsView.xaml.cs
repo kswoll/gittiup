@@ -1,8 +1,8 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
+using Gittiup.Models;
 using Gittiup.ViewModels;
-using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
 using MaterialDesignThemes.Wpf;
 
 namespace Gittiup.Views
@@ -16,12 +16,24 @@ namespace Gittiup.Views
         public AccountsView()
         {
             InitializeComponent();
+
+            ViewModel = new AccountsViewModel();
         }
 
-        private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private async void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var addAccount = new AddAccountDialog();
-            await ((MetroWindow)Window.GetWindow(this)).ShowMetroDialogAsync(addAccount);
+            var account = new AccountModel();
+            var addAccount = new EditAccountDialog(account);
+            await DialogHost.Show(addAccount, "RootDialog");
+            ViewModel.SaveAccount(account);
+        }
+
+        private async void EditButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var account = (AccountModel)accountsListView.SelectedItem;
+            var editAccount = new EditAccountDialog(account);
+            await DialogHost.Show(editAccount, "RootDialog");
+            ViewModel.SaveAccount(account);
         }
     }
 }

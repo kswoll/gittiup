@@ -1,0 +1,57 @@
+﻿<views:EditAccountDialogBase x:Class="Gittiup.Views.EditAccountDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Gittiup"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:views="clr-namespace:Gittiup.Views"
+             xmlns:viewModels="clr-namespace:Gittiup.ViewModels"
+             mc:Ignorable="d"
+             Width="300"
+             d:DataContext="{d:DesignInstance viewModels:EditAccountViewModel}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Orientation="Vertical">
+        <StackPanel Margin="16">
+            <TextBlock>Add a new account</TextBlock>
+            <TextBox Margin="0 8 0 0" HorizontalAlignment="Stretch" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Account.Name}">
+                <materialDesign:HintAssist.Hint>
+                    <TextBlock>Name</TextBlock>
+                </materialDesign:HintAssist.Hint>
+            </TextBox>
+            <TextBox Margin="0 8 0 0" HorizontalAlignment="Stretch" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Account.UserName}">
+                <materialDesign:HintAssist.Hint>
+                    <TextBlock>User Name</TextBlock>
+                </materialDesign:HintAssist.Hint>
+            </TextBox>
+            <PasswordBox x:Name="password" Margin="0 8 0 0" HorizontalAlignment="Stretch">
+                <materialDesign:HintAssist.Hint>
+                    <TextBlock>Password</TextBlock>
+                </materialDesign:HintAssist.Hint>
+            </PasswordBox>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                <Button IsDefault="True" Margin="0 8 8 0" Command="materialDesign:DialogHost.CloseDialogCommand">
+                    <Button.CommandParameter>
+                        <system:Boolean>True</system:Boolean>
+                    </Button.CommandParameter>
+                    ACCEPT
+                </Button>
+                <Button IsCancel="True" Margin="0 8 8 0" Command="materialDesign:DialogHost.CloseDialogCommand">
+                    <Button.CommandParameter>
+                        <system:Boolean>False</system:Boolean>
+                    </Button.CommandParameter>
+                    CANCEL
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</views:EditAccountDialogBase>
+
+
+
+
+
+
+

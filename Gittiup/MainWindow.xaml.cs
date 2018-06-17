@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using MahApps.Metro.Controls;
 
 namespace Gittiup
 {
@@ -11,11 +10,6 @@ namespace Gittiup
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void HamburgerMenuControl_OnItemClick(object sender, ItemClickEventArgs e)
-        {
-            hamburgerMenu.Content = e.ClickedItem;
         }
     }
 }
