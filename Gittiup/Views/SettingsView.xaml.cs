@@ -23,6 +23,8 @@ namespace Gittiup.Views
         public SettingsView()
         {
             InitializeComponent();
+
+//            tabsLayout.FloatingItems.Add("Plus");
         }
     }
 }

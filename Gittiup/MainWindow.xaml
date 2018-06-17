@@ -28,7 +28,7 @@
                         <materialDesign:PackIcon Kind="AccessPointNetwork" Width="26" Height="26" Foreground="Aqua" />
                     </TabItem.Header>
                     <TabItem.Content>
-                        Hello
+                        <views:RepositoriesView />
                     </TabItem.Content>
                 </TabItem>
                 <TabItem>

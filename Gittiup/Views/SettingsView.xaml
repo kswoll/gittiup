@@ -4,15 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Gittiup.Views"
+             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+             xmlns:dockablz="http://dragablz.net/winfx/xaml/dockablz"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <TabControl x:Name="tabs" BorderThickness="0">
-        <TabControl.Items>
+    <dockablz:Layout x:Name="tabsLayout"
+                     Partition="2AE89D18-F236-4D20-9605-6C03319038E6"
+                     FloatingItemsSource="{Binding ToolItems}"
+                     FloatingItemHeaderMemberPath="Header"
+                     IsFloatDropZoneEnabled="True"
+                     ClosingFloatingItemCallback="{Binding ClosingFloatingItemHandler}"
+                     FloatingItemsContainerMargin="0 2 0 0">
+        <dragablz:TabablzControl x:Name="tabs">
+            <dragablz:TabablzControl.InterTabController>
+                <dragablz:InterTabController />
+            </dragablz:TabablzControl.InterTabController>
             <TabItem Header="General">
             </TabItem>
             <TabItem Header="Accounts">
                 <local:AccountsView />
             </TabItem>
-        </TabControl.Items>
-    </TabControl>
+        </dragablz:TabablzControl>
+    </dockablz:Layout>
 </UserControl>

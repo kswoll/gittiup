@@ -1,0 +1,45 @@
+﻿<local:EditRepositoryDialogBase x:Class="Gittiup.Views.EditRepositoryDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Gittiup.Views"
+             xmlns:viewModels="clr-namespace:Gittiup.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModels:EditRepositoryViewModel}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Margin="16">
+        <TextBlock>Add a repository</TextBlock>
+        <TextBox Margin="0 8 0 0" HorizontalAlignment="Stretch" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Repository.Name}">
+            <materialDesign:HintAssist.Hint>
+                <TextBlock>Name</TextBlock>
+            </materialDesign:HintAssist.Hint>
+        </TextBox>
+        <TextBox Margin="0 8 0 0" HorizontalAlignment="Stretch" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Repository.Url}">
+            <materialDesign:HintAssist.Hint>
+                <TextBlock>Url</TextBlock>
+            </materialDesign:HintAssist.Hint>
+        </TextBox>
+        <TextBox Margin="0 8 0 0" HorizontalAlignment="Stretch" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Repository.Path}">
+            <materialDesign:HintAssist.Hint>
+                <TextBlock>Local Path</TextBlock>
+            </materialDesign:HintAssist.Hint>
+        </TextBox>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+            <Button IsDefault="True" Margin="0 8 8 0" Command="materialDesign:DialogHost.CloseDialogCommand">
+                <Button.CommandParameter>
+                    <system:Boolean>True</system:Boolean>
+                </Button.CommandParameter>
+                ACCEPT
+            </Button>
+            <Button IsCancel="True" Margin="0 8 8 0" Command="materialDesign:DialogHost.CloseDialogCommand">
+                <Button.CommandParameter>
+                    <system:Boolean>False</system:Boolean>
+                </Button.CommandParameter>
+                CANCEL
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</local:EditRepositoryDialogBase>
