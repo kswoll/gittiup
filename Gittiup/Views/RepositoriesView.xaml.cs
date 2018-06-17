@@ -39,8 +39,10 @@ namespace Gittiup.Views
         {
             var repository = new RepositoryModel();
             var addRepository = new EditRepositoryDialog(repository);
-            await DialogHost.Show(addRepository, "RootDialog");
-            ViewModel.SaveRepository(repository);
+            if ((bool)await DialogHost.Show(addRepository, "RootDialog"))
+            {
+                ViewModel.SaveRepository(repository);
+            }
         }
     }
 }
