@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Dragablz;
 using Gittiup.Models;
 using Gittiup.ViewModels;
+using LibGit2Sharp;
 using MaterialDesignThemes.Wpf;
 
 namespace Gittiup.Views
@@ -28,6 +29,8 @@ namespace Gittiup.Views
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+
+//            repositories.Items.Add(new Repository());
 
 //            repositories.GetTemplateChild(TabablzControl.HeaderItemsControlPartName) as DragablzItemsControl
         }
