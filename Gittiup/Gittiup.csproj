@@ -41,6 +41,9 @@
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
     </Reference>
+    <Reference Include="Dragablz, Version=0.0.3.203, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dragablz.0.0.3.203\lib\net45\Dragablz.dll</HintPath>
+    </Reference>
     <Reference Include="LibGit2Sharp, Version=0.25.0.0, Culture=neutral, PublicKeyToken=7cbde695407f0333, processorArchitecture=MSIL">
       <HintPath>..\packages\LibGit2Sharp.0.25.2\lib\netstandard2.0\LibGit2Sharp.dll</HintPath>
     </Reference>
@@ -184,12 +187,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Dragablz\Dragablz\Dragablz.net45.csproj">
-      <Project>{7b11011c-7fd7-4ab0-a1ad-04e940b026de}</Project>
-      <Name>Dragablz.net45</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
