@@ -7,6 +7,7 @@
              xmlns:viewModels="clr-namespace:Gittiup.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:models="clr-namespace:Gittiup.Models"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:EditRepositoryViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -27,6 +28,17 @@
                 <TextBlock>Local Path</TextBlock>
             </materialDesign:HintAssist.Hint>
         </TextBox>
+        <ComboBox Margin="0 8 0 0" HorizontalAlignment="Stretch" ItemsSource="{Binding Accounts}">
+            <materialDesign:HintAssist.Hint>
+                <TextBlock>Account</TextBlock>
+            </materialDesign:HintAssist.Hint>
+            <ComboBox.ItemTemplate>
+                <DataTemplate DataType="models:AccountModel">
+                    <TextBlock Text="{Binding Name, TargetNullValue='None'}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
             <Button IsDefault="True" Margin="0 8 8 0" Command="materialDesign:DialogHost.CloseDialogCommand">
                 <Button.CommandParameter>

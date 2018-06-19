@@ -86,6 +86,7 @@
     </ApplicationDefinition>
     <Compile Include="ViewModels\EditRepositoryViewModel.cs" />
     <Compile Include="ViewModels\RepositoriesViewModel.cs" />
+    <Compile Include="ViewModels\RepositoryViewModel.cs" />
     <Compile Include="Views\EditAccountDialog.xaml.cs">
       <DependentUpon>EditAccountDialog.xaml</DependentUpon>
     </Compile>
@@ -106,6 +107,9 @@
     </Compile>
     <Compile Include="Views\RepositoriesView.xaml.cs">
       <DependentUpon>RepositoriesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RepositoryView.xaml.cs">
+      <DependentUpon>RepositoryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
@@ -147,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RepositoriesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RepositoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

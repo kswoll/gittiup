@@ -10,5 +10,6 @@ namespace Gittiup.Models
         public string Name { get; set; }
         public string Url { get; set; }
         public string Path { get; set; }
+        public AccountModel Account { get; set; }
     }
 }
