@@ -34,7 +34,7 @@
             </materialDesign:HintAssist.Hint>
             <ComboBox.ItemTemplate>
                 <DataTemplate DataType="models:AccountModel">
-                    <TextBlock Text="{Binding Name, TargetNullValue='None'}" />
+                    <TextBlock Text="{Binding Name}" />
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>

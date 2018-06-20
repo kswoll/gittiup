@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Gittiup.Models;
 using Gittiup.ViewModels;
+using LibGit2Sharp;
 
 namespace Gittiup.Views
 {
@@ -24,26 +25,34 @@ namespace Gittiup.Views
             {
                 ViewModel = new RepositoryViewModel(repository);
 
-/*
-                var branchesNode = new TreeViewNode
+                var branchesNode = new TreeViewItem
                 {
-                    Content = "Branches"
+                    Header = "Branches"
                 };
 
                 foreach (var branch in ViewModel.Repo.Branches)
                 {
-                    var branchNode = new BoundTreeViewNode<Branch>
+                    var branchNode = new TreeViewItem
                     {
-                        Content = branch.FriendlyName,
-                        Value = branch
+                        Header = branch.FriendlyName,
+                        Tag = branch
                     };
-                    branchesNode.Children.Add(branchNode);
+                    branchesNode.Items.Add(branchNode);
                 }
 
-                treeView.RootNodes.Add(branchesNode);
-*/
+                treeView.Items.Add(branchesNode);
             }
         }
 
+        private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var treeViewItem = (TreeViewItem)e.NewValue;
+            switch (treeViewItem.Tag)
+            {
+                case Branch branch:
+                    content.Content = new BranchView(branch);
+                    break;
+            }
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace Gittiup.ViewModels
 
             using (var db = new GittiupDb())
             {
-                var accounts = new AccountModel[] { null }.Concat(db.Accounts.FindAll());
+                var accounts = db.Accounts.FindAll();
                 Accounts.AddRange(accounts);
             }
         }

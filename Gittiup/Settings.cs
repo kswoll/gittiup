@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using System.IO;
 
 namespace Gittiup
 {
@@ -10,5 +11,10 @@ namespace Gittiup
     {
         public static string DbFile => $@"{RootDataDirectory}\gittiup.db";
         public static string RootDataDirectory { get; } = Environment.ExpandEnvironmentVariables(@"%LOCALAPPDATA%\Gittiup");
+
+        static Settings()
+        {
+            Directory.CreateDirectory(RootDataDirectory);
+        }
     }
 }
