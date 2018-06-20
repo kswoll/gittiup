@@ -12,6 +12,7 @@ namespace Gittiup.Controls
             // Styles don't automatically apply to subclasses, so we have to force the issue
             Style = (Style)FindResource(typeof(DataGrid));
 
+            SelectionMode = DataGridSelectionMode.Single;
             SelectionUnit = DataGridSelectionUnit.FullRow;
 
             // This is a hack to fix a bug in DataGrid where in many scenarios it fails to accurately calculate

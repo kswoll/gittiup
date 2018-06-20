@@ -85,6 +85,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\GittiupDataGrid.cs" />
+    <Compile Include="Converters\ObjectNotNullVisibilityConverter.cs" />
     <Compile Include="ViewModels\BranchViewModel.cs" />
     <Compile Include="ViewModels\EditRepositoryViewModel.cs" />
     <Compile Include="ViewModels\RepositoriesViewModel.cs" />
@@ -119,6 +120,10 @@
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Converters\Converters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\DragablzOverrides.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

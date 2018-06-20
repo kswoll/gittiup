@@ -6,11 +6,17 @@
              xmlns:local="clr-namespace:Gittiup.Views"
              xmlns:viewModels="clr-namespace:Gittiup.ViewModels"
              xmlns:controls="clr-namespace:Gittiup.Controls"
+             xmlns:libGit2Sharp="clr-namespace:LibGit2Sharp;assembly=LibGit2Sharp"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:BranchViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <controls:GittiupDataGrid ItemsSource="{Binding Branch.Commits}" AutoGenerateColumns="false">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="contentColumn" Width="*" />
+            <ColumnDefinition x:Name="splitterColumn" Width="0" />
+            <ColumnDefinition x:Name="rightColumn" Width="0" />
+        </Grid.ColumnDefinitions>
+        <controls:GittiupDataGrid x:Name="commits" ItemsSource="{Binding Branch.Commits}" AutoGenerateColumns="false" SelectionChanged="Commits_OnSelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Message" Binding="{Binding MessageShort}" Width="*" />
                 <DataGridTextColumn Header="When" Binding="{Binding Committer.When.LocalDateTime}" />
@@ -22,5 +28,13 @@
                 </Style>
             </DataGrid.Resources>
         </controls:GittiupDataGrid>
+        <GridSplitter Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" />
+        <ListView x:Name="files" Grid.Column="2">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="libGit2Sharp:TreeEntry">
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </local:BranchViewBase>

@@ -49,6 +49,7 @@
 <!--                <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml"/>-->
                 <ResourceDictionary Source="pack://application:,,,/Styles/DragablzOverrides.xaml"/>
 
+                <ResourceDictionary Source="Converters\Converters.xaml"/>
                 <ResourceDictionary Source="Styles\Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
