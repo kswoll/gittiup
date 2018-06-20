@@ -16,23 +16,26 @@
             <ColumnDefinition x:Name="splitterColumn" Width="0" />
             <ColumnDefinition x:Name="rightColumn" Width="0" />
         </Grid.ColumnDefinitions>
-        <controls:GittiupDataGrid x:Name="commits" ItemsSource="{Binding Branch.Commits}" AutoGenerateColumns="false" SelectionChanged="Commits_OnSelectionChanged">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Message" Binding="{Binding MessageShort}" Width="*" />
-                <DataGridTextColumn Header="When" Binding="{Binding Committer.When.LocalDateTime}" />
-            </DataGrid.Columns>
-            <DataGrid.Resources>
-                <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
-                    <Setter Property="BorderThickness" Value="0" />
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                </Style>
-            </DataGrid.Resources>
-        </controls:GittiupDataGrid>
+        <Grid>
+            <controls:GittiupDataGrid x:Name="commits" ItemsSource="{Binding Branch.Commits}" AutoGenerateColumns="false" SelectionChanged="Commits_OnSelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Message" Binding="{Binding MessageShort}" Width="*" />
+                    <DataGridTextColumn Header="When" Binding="{Binding Committer.When.LocalDateTime}" />
+                </DataGrid.Columns>
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                    </Style>
+                </DataGrid.Resources>
+            </controls:GittiupDataGrid>
+            <ListView x:Name="file" Visibility="Collapsed" />
+        </Grid>
         <GridSplitter Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" />
-        <ListView x:Name="files" Grid.Column="2">
+        <ListView x:Name="files" Grid.Column="2" SelectionChanged="Files_OnSelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="libGit2Sharp:TreeEntry">
-                    <TextBlock Text="{Binding Name}" />
+                    <TextBlock Text="{Binding}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

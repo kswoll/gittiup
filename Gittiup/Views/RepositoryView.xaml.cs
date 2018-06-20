@@ -50,7 +50,7 @@ namespace Gittiup.Views
             switch (treeViewItem.Tag)
             {
                 case Branch branch:
-                    content.Content = new BranchView(branch);
+                    content.Content = new BranchView(ViewModel.Repo, branch);
                     break;
             }
         }
