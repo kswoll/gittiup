@@ -7,6 +7,7 @@
              xmlns:viewModels="clr-namespace:Gittiup.ViewModels"
              xmlns:controls="clr-namespace:Gittiup.Controls"
              xmlns:libGit2Sharp="clr-namespace:LibGit2Sharp;assembly=LibGit2Sharp"
+             xmlns:diff="clr-namespace:DiffPlex.DiffBuilder.Model;assembly=DiffPlex"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:BranchViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -29,15 +30,28 @@
                     </Style>
                 </DataGrid.Resources>
             </controls:GittiupDataGrid>
-            <ListView x:Name="file" Visibility="Collapsed" />
+            <ListView x:Name="file" Visibility="Collapsed">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="diff:DiffPiece">
+                        <ItemsControl ItemsSource="{Binding SubPieces}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                    </StackPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="diff:DiffPiece">
+                                    <TextBlock>test<Run Text="{Binding Text}" /></TextBlock>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
         <GridSplitter Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" />
         <ListView x:Name="files" Grid.Column="2" SelectionChanged="Files_OnSelectionChanged">
-            <ListView.ItemTemplate>
-                <DataTemplate DataType="libGit2Sharp:TreeEntry">
-                    <TextBlock Text="{Binding}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </local:BranchViewBase>

@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using DiffPlex;
+using DiffPlex.DiffBuilder;
 using Gittiup.ViewModels;
 using LibGit2Sharp;
 
@@ -28,7 +30,6 @@ namespace Gittiup.Views
 
                 var diff = ViewModel.Repository.Diff.Compare<Patch>(commit.Tree, commit.Parents.First().Tree);
                 var paths = diff.Select(x => x.Path).ToArray();
-
                 files.ItemsSource = paths;
                 if (rightColumn.ActualWidth == 0)
                 {
@@ -71,6 +72,23 @@ namespace Gittiup.Views
                     break;
                 }
             }
+
+            var newContent = (Blob)current.Commit[path].Target;
+            var oldContent = (Blob)previous.Commit[path].Target;
+
+            var oldContentText = oldContent.GetContentText();
+            var newContentText = newContent.GetContentText();
+
+            var diffBuilder = new SideBySideDiffBuilder(new Differ());
+//            var diffBuilder = new InlineDiffBuilder(new Differ());
+            var diffs = diffBuilder.BuildDiffModel(oldContentText, newContentText);
+            file.ItemsSource = diffs.NewText.Lines;
+/*
+            foreach (var line in diffs.Lines)
+            {
+                line.
+            }
+*/
         }
     }
 }
