@@ -72,5 +72,34 @@ namespace Gittiup.Views
                 }
             }
         }
+
+        private void Test()
+        {
+            void Main()
+            {
+                var oldText = @"I am the very model of a modern Major-General,
+I've information vegetable, animal, and mineral,
+I know the kings of England, and I quote the fights historical,
+From Marathon to Waterloo, in order categorical.";
+
+                var newText = @"    I am the very model of a modern Major-General,
+    I've information vegetable, animal, and mineral,
+    I know the kings of England, and I quote the fights historical,
+    From Marathon to Waterloo, in order categorical.";
+
+                /*
+                    var newText = @"I am the very model of a cartoon individual,
+                My animation's comical, unusual, and whimsical,
+                I'm quite adept at funny gags, comedic theory I have read,
+                From wicked puns and stupid jokes to anvils that drop on your head.";
+                */
+
+                var differ = DiffMatchPatch.DiffMatchPatchModule.Default;
+                var diffs = differ.DiffMain(oldText, newText);
+                differ.DiffCleanupSemantic(diffs);
+                diffs = diffs.Where(x => x.Text.Trim() != "").ToList();
+//                diffs.Dump();
+            }
+        }
     }
 }
