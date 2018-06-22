@@ -3,4 +3,5 @@
                     xmlns:local="clr-namespace:Gittiup.Converters">
 
     <local:ObjectNotNullVisibilityConverter x:Key="ObjectNotNullVisibilityConverter" />
+    <local:DiffOperationToColorConverter x:Key="DiffOperationToColorConverter" />
 </ResourceDictionary>

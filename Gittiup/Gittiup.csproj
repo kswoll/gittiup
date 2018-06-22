@@ -91,7 +91,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\GittiupDataGrid.cs" />
+    <Compile Include="Converters\DiffOperationToColorConverter.cs" />
     <Compile Include="Converters\ObjectNotNullVisibilityConverter.cs" />
+    <Compile Include="Utils\DiffLine.cs" />
     <Compile Include="ViewModels\BranchViewModel.cs" />
     <Compile Include="ViewModels\EditRepositoryViewModel.cs" />
     <Compile Include="ViewModels\RepositoriesViewModel.cs" />

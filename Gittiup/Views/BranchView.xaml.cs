@@ -1,10 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using DiffPlex;
-using DiffPlex.DiffBuilder;
+using DiffMatchPatch;
+using Gittiup.Utils;
 using Gittiup.ViewModels;
 using LibGit2Sharp;
+using Diff = DiffMatchPatch.Diff;
+using Patch = LibGit2Sharp.Patch;
 
 namespace Gittiup.Views
 {
@@ -79,10 +83,30 @@ namespace Gittiup.Views
             var oldContentText = oldContent.GetContentText();
             var newContentText = newContent.GetContentText();
 
-            var diffBuilder = new SideBySideDiffBuilder(new Differ());
-//            var diffBuilder = new InlineDiffBuilder(new Differ());
-            var diffs = diffBuilder.BuildDiffModel(oldContentText, newContentText);
-            file.ItemsSource = diffs.NewText.Lines;
+            var differ = new DiffMatchPatch.DiffMatchPatch(.5f, 32, 4, 0.5f, 1000, 32, 0.5f, 4);
+//            var differ = DiffMatchPatchModule.Default;
+            var diffs = differ.DiffMain(oldContentText, newContentText);
+
+            var lines = new List<DiffLine>();
+            var currentLine = new DiffLine();
+            foreach (var diff in diffs)
+            {
+                var diffLines = diff.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                var newLine = false;
+                foreach (var line in diffLines)
+                {
+                    if (newLine)
+                    {
+                        lines.Add(currentLine);
+                        currentLine = new DiffLine();
+                    }
+                    currentLine.Add(new Diff(line, diff.Operation));
+                    newLine = true;
+                }
+            }
+
+            file.ItemsSource = lines;
+
 /*
             foreach (var line in diffs.Lines)
             {
