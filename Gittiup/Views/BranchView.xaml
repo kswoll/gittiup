@@ -32,7 +32,7 @@
                 </DataGrid.Resources>
             </controls:GittiupDataGrid>
             <Grid x:Name="fileView" Visibility="Collapsed">
-                <ListView x:Name="file">
+                <ListView x:Name="file" FontFamily="Consolas">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="Padding" Value="0"/>
