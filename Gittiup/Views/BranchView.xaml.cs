@@ -107,11 +107,11 @@ namespace Gittiup.Views
 
             var oldContent = (Blob)commit.Parents.FirstOrDefault()?[path]?.Target;
 //            var oldContent = (Blob)previous?.Commit[path].Target;
-            var newContent = (Blob)commit[path].Target;
+            var newContent = (Blob)commit[path]?.Target;
 //            var newContent = (Blob)current.Commit[path].Target;
 
             var oldContentText = oldContent?.GetContentText();
-            var newContentText = newContent.GetContentText();
+            var newContentText = newContent?.GetContentText();
 
             List<Diff> diffs;
             if (oldContentText == null)
