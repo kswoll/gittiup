@@ -73,6 +73,11 @@ namespace Gittiup.Views
 
         private void SelectFile()
         {
+            if (files.SelectedItem == null)
+            {
+                return;
+            }
+
             commits.Visibility = Visibility.Collapsed;
             fileView.Visibility = Visibility.Visible;
 
