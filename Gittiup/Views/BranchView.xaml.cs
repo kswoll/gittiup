@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using DiffMatchPatch;
 using Gittiup.Utils;
 using Gittiup.ViewModels;
@@ -24,6 +25,12 @@ namespace Gittiup.Views
 
             ViewModel = new BranchViewModel(repository, branch);
 //            branch.Commits.ElementAt(0).
+        }
+
+        private void CloseFile_Click(object sender, RoutedEventArgs e)
+        {
+            commits.Visibility = Visibility.Visible;
+            fileView.Visibility = Visibility.Collapsed;
         }
 
         private void Commits_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -53,8 +60,21 @@ namespace Gittiup.Views
 
         private void Files_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            SelectFile();
+        }
+
+        private void Files_OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (commits.Visibility != Visibility.Collapsed)
+            {
+                SelectFile();
+            }
+        }
+
+        private void SelectFile()
+        {
             commits.Visibility = Visibility.Collapsed;
-            file.Visibility = Visibility.Visible;
+            fileView.Visibility = Visibility.Visible;
 
             var path = (string)files.SelectedItem;
 //            var blob = (Blob)entry.Target;
@@ -64,6 +84,8 @@ namespace Gittiup.Views
             var foo = ViewModel.Repository.Commits.Select(x => x.Tree).ToArray();
 
             var commit = (Commit)commits.SelectedItem;
+
+/*
             foreach (var version in history)
             {
                 if (version.Commit.Sha == commit.Sha)
@@ -76,16 +98,32 @@ namespace Gittiup.Views
                     break;
                 }
             }
+*/
 
-            var newContent = (Blob)current.Commit[path].Target;
-            var oldContent = (Blob)previous.Commit[path].Target;
+            var oldContent = (Blob)commit.Parents.FirstOrDefault()[path].Target;
+//            var oldContent = (Blob)previous?.Commit[path].Target;
+            var newContent = (Blob)commit[path].Target;
+//            var newContent = (Blob)current.Commit[path].Target;
 
-            var oldContentText = oldContent.GetContentText();
+            var oldContentText = oldContent?.GetContentText();
             var newContentText = newContent.GetContentText();
 
-            var differ = new DiffMatchPatch.DiffMatchPatch(.5f, 32, 4, 0.5f, 1000, 32, 0.5f, 4);
-//            var differ = DiffMatchPatchModule.Default;
-            var diffs = differ.DiffMain(oldContentText, newContentText);
+            List<Diff> diffs;
+            if (oldContentText == null)
+            {
+                diffs = new List<Diff>
+                {
+                    new Diff(newContentText, Operation.Insert)
+                };
+            }
+            else
+            {
+                var differ = DiffMatchPatchModule.Default;
+                diffs = differ.DiffMain(oldContentText, newContentText);
+                differ.DiffCleanupSemantic(diffs);
+            }
+
+//            var differ = new DiffMatchPatch.DiffMatchPatch(.5f, 32, 4, 0.5f, 1000, 32, 0.5f, 4);
 
             var lines = new List<DiffLine>();
             var currentLine = new DiffLine();
@@ -118,35 +156,6 @@ namespace Gittiup.Views
                 line.
             }
 */
-        }
-
-        private void Test()
-        {
-            void Main()
-            {
-                var oldText = @"I am the very model of a modern Major-General,
-I've information vegetable, animal, and mineral,
-I know the kings of England, and I quote the fights historical,
-From Marathon to Waterloo, in order categorical.";
-
-                var newText = @"    I am the very model of a modern Major-General,
-    I've information vegetable, animal, and mineral,
-    I know the kings of England, and I quote the fights historical,
-    From Marathon to Waterloo, in order categorical.";
-
-                /*
-                    var newText = @"I am the very model of a cartoon individual,
-                My animation's comical, unusual, and whimsical,
-                I'm quite adept at funny gags, comedic theory I have read,
-                From wicked puns and stupid jokes to anvils that drop on your head.";
-                */
-
-                var differ = DiffMatchPatch.DiffMatchPatchModule.Default;
-                var diffs = differ.DiffMain(oldText, newText);
-                differ.DiffCleanupSemantic(diffs);
-                diffs = diffs.Where(x => x.Text.Trim() != "").ToList();
-//                diffs.Dump();
-            }
         }
     }
 }

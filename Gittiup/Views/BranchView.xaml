@@ -8,6 +8,7 @@
              xmlns:controls="clr-namespace:Gittiup.Controls"
              xmlns:diffMatchPatch="clr-namespace:DiffMatchPatch;assembly=Diff.Match.Patch"
              xmlns:utils="clr-namespace:Gittiup.Utils"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:BranchViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -30,36 +31,49 @@
                     </Style>
                 </DataGrid.Resources>
             </controls:GittiupDataGrid>
-            <ListView x:Name="file" Visibility="Collapsed">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Padding" Value="0"/>
-                        <Setter Property="Margin" Value="0"/>
-                        <Setter Property="BorderThickness" Value="0"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
-                    <DataTemplate DataType="utils:DiffLine">
-                        <ItemsControl ItemsSource="{Binding}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                    </StackPanel>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate DataType="diffMatchPatch:Diff">
-                                    <TextBlock Background="{Binding Operation, Converter={StaticResource DiffOperationToColorConverter}}"><Run Text="{Binding Text}" /></TextBlock>
-                                    <!-- <TextBlock Background="{Binding Operation, Converter={StaticResource ObjectNotNullVisibilityConverter}}"><Run Text="{Binding Text}" /></TextBlock> -->
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <Grid x:Name="fileView" Visibility="Collapsed">
+                <ListView x:Name="file">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="utils:DiffLine">
+                            <ItemsControl ItemsSource="{Binding}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                        </StackPanel>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="diffMatchPatch:Diff">
+                                        <TextBlock Background="{Binding Operation, Converter={StaticResource DiffOperationToColorConverter}}"><Run Text="{Binding Text}" /></TextBlock>
+                                        <!-- <TextBlock Background="{Binding Operation, Converter={StaticResource ObjectNotNullVisibilityConverter}}"><Run Text="{Binding Text}" /></TextBlock> -->
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Margin="0, 5, 20, 0"
+                        Click="CloseFile_Click">
+                    <materialDesign:PackIcon
+                        Kind="Close"
+                        Height="20"
+                        Width="20" />
+                </Button>
+            </Grid>
         </Grid>
         <GridSplitter Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" />
-        <ListView x:Name="files" Grid.Column="2" SelectionChanged="Files_OnSelectionChanged">
+        <ListView x:Name="files" Grid.Column="2" SelectionChanged="Files_OnSelectionChanged" MouseUp="Files_OnMouseUp">
         </ListView>
     </Grid>
 </local:BranchViewBase>
