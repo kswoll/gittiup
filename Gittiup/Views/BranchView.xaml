@@ -31,6 +31,13 @@
                 </DataGrid.Resources>
             </controls:GittiupDataGrid>
             <ListView x:Name="file" Visibility="Collapsed">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Margin" Value="0"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="utils:DiffLine">
                         <ItemsControl ItemsSource="{Binding}">

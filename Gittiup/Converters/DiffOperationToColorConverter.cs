@@ -12,15 +12,15 @@ namespace Gittiup.Converters
             var operation = (Operation)value;
             if (operation.IsEqual)
             {
-                return "#FFFFFF";
+                return "#33FFFFFF";
             }
             else if (operation.IsInsert)
             {
-                return "#00FF00";
+                return "#3300FF00";
             }
             else if (operation.IsDelete)
             {
-                return "#FF0000";
+                return "#33FF0000";
             }
             throw new NotImplementedException();
         }

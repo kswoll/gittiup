@@ -105,6 +105,11 @@ namespace Gittiup.Views
                 }
             }
 
+            if (currentLine.Any())
+            {
+                lines.Add(currentLine);
+            }
+
             file.ItemsSource = lines;
 
 /*
