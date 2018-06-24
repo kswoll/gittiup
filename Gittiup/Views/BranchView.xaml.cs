@@ -24,7 +24,9 @@ namespace Gittiup.Views
             InitializeComponent();
 
             ViewModel = new BranchViewModel(repository, branch);
-//            branch.Commits.ElementAt(0).
+
+            var settings = Properties.Settings.Default;
+            rightColumn.Width = new GridLength(settings.RightSidebarWidth);
         }
 
         private void CloseFile_Click(object sender, RoutedEventArgs e)
@@ -167,6 +169,13 @@ namespace Gittiup.Views
                 line.
             }
 */
+        }
+
+        private void Splitter_OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var settings = Properties.Settings.Default;
+            settings.RightSidebarWidth = (int)rightColumn.ActualWidth;
+            settings.Save();
         }
     }
 }

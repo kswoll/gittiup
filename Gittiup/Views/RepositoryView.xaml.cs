@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using Gittiup.Models;
 using Gittiup.ViewModels;
 using LibGit2Sharp;
@@ -17,6 +18,9 @@ namespace Gittiup.Views
             InitializeComponent();
 
             DataContextChanged += OnDataContextChanged;
+
+            var settings = Properties.Settings.Default;
+            sidebarColumn.Width = new GridLength(settings.LeftSidebarWidth);
         }
 
         private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -53,6 +57,13 @@ namespace Gittiup.Views
                     content.Content = new BranchView(ViewModel.Repo, branch);
                     break;
             }
+        }
+
+        private void Splitter_OnDragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            var settings = Properties.Settings.Default;
+            settings.LeftSidebarWidth = (int)sidebarColumn.ActualWidth;
+            settings.Save();
         }
     }
 }

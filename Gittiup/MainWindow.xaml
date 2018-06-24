@@ -18,7 +18,8 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        BorderThickness="0">
+        BorderThickness="0"
+        SizeChanged="MainWindow_OnSizeChanged">
 
     <materialDesign:DialogHost Identifier="RootDialog">
         <TabControl TabStripPlacement="Left">
