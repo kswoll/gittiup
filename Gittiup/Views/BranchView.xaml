@@ -72,7 +72,7 @@
                 </Button>
             </Grid>
         </Grid>
-        <GridSplitter Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" SizeChanged="Splitter_OnSizeChanged" />
+        <GridSplitter Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" DragCompleted="Splitter_OnDragCompleted" />
         <Grid Grid.Column="2" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

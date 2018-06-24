@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using DiffMatchPatch;
 using Gittiup.Utils;
@@ -24,9 +25,6 @@ namespace Gittiup.Views
             InitializeComponent();
 
             ViewModel = new BranchViewModel(repository, branch);
-
-            var settings = Properties.Settings.Default;
-            rightColumn.Width = new GridLength(settings.RightSidebarWidth);
         }
 
         private void CloseFile_Click(object sender, RoutedEventArgs e)
@@ -47,8 +45,9 @@ namespace Gittiup.Views
                 files.ItemsSource = paths;
                 if (rightColumn.ActualWidth == 0)
                 {
+                    var settings = Properties.Settings.Default;
                     splitterColumn.Width = new GridLength(5);
-                    rightColumn.Width = new GridLength(200);
+                    rightColumn.Width = new GridLength(settings.RightSidebarWidth);
                 }
             }
             else
@@ -63,7 +62,8 @@ namespace Gittiup.Views
 
         private string FormatMessage(string commitMessage)
         {
-            return $"<html style=\"font-family: Arial; font-size: 10pt;\">{commitMessage}</html>";
+            var markdownedMessage = CommonMark.CommonMarkConverter.Convert(commitMessage);
+            return $"<html style=\"font-family: Arial; font-size: 10pt;\">{markdownedMessage}</html>";
         }
 
         private void Files_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -171,11 +171,15 @@ namespace Gittiup.Views
 */
         }
 
-        private void Splitter_OnSizeChanged(object sender, SizeChangedEventArgs e)
+        private void Splitter_OnDragCompleted(object sender, DragCompletedEventArgs e)
         {
             var settings = Properties.Settings.Default;
-            settings.RightSidebarWidth = (int)rightColumn.ActualWidth;
-            settings.Save();
+            var width = (int)rightColumn.ActualWidth;
+            if (width > 0)
+            {
+                settings.RightSidebarWidth = width;
+                settings.Save();
+            }
         }
     }
 }

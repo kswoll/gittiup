@@ -97,6 +97,7 @@
     <Compile Include="Converters\DiffOperationToColorConverter.cs" />
     <Compile Include="Converters\ObjectNotNullVisibilityConverter.cs" />
     <Compile Include="Utils\DiffLine.cs" />
+    <Compile Include="Utils\StringExtensions.cs" />
     <Compile Include="ViewModels\BranchViewModel.cs" />
     <Compile Include="ViewModels\EditRepositoryViewModel.cs" />
     <Compile Include="ViewModels\RepositoriesViewModel.cs" />

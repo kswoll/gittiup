@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Gittiup.Models;
+using Gittiup.Utils;
 using Gittiup.ViewModels;
 using LibGit2Sharp;
 
@@ -31,10 +33,12 @@ namespace Gittiup.Views
 
                 var branchesNode = new TreeViewItem
                 {
-                    Header = "Branches"
+                    Header = "Branches",
+                    IsExpanded = true
                 };
+                treeView.Items.Add(branchesNode);
 
-                foreach (var branch in ViewModel.Repo.Branches)
+                foreach (var branch in ViewModel.Repo.Branches.Where(x => !x.IsRemote))
                 {
                     var branchNode = new TreeViewItem
                     {
@@ -42,9 +46,43 @@ namespace Gittiup.Views
                         Tag = branch
                     };
                     branchesNode.Items.Add(branchNode);
+
+                    if (branch.CanonicalName == ViewModel.Repo.Head.CanonicalName)
+                    {
+                        branchNode.IsSelected = true;
+                        branchNode.FontWeight = FontWeights.Bold;
+                    }
                 }
 
-                treeView.Items.Add(branchesNode);
+                if (ViewModel.Repo.Branches.Any(x => x.IsRemote))
+                {
+                    var remotesNode = new TreeViewItem
+                    {
+                        Header = "Remotes"
+                    };
+                    treeView.Items.Add(remotesNode);
+
+                    var branchesByRemote = ViewModel.Repo.Branches.Where(x => x.IsRemote).ToLookup(x => x.RemoteName);
+
+                    foreach (var remote in ViewModel.Repo.Network.Remotes)
+                    {
+                        var remoteNode = new TreeViewItem
+                        {
+                            Header = remote.Name
+                        };
+                        remotesNode.Items.Add(remoteNode);
+
+                        foreach (var branch in branchesByRemote[remote.Name])
+                        {
+                            var branchNode = new TreeViewItem
+                            {
+                                Header = branch.FriendlyName.ChopStart($"{remote.Name}/"),
+                                Tag = branch
+                            };
+                            remoteNode.Items.Add(branchNode);
+                        }
+                    }
+                }
             }
         }
 
