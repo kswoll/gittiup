@@ -38,8 +38,9 @@ namespace Gittiup.Views
             if (commits.SelectedItem != null)
             {
                 var commit = (Commit)commits.SelectedItem;
+                comment.NavigateToString(FormatMessage(commit.Message));
 
-                var diff = ViewModel.Repository.Diff.Compare<Patch>(commit.Tree, commit.Parents.First().Tree);
+                var diff = ViewModel.Repository.Diff.Compare<Patch>(commit.Tree, commit.Parents.FirstOrDefault()?.Tree);
                 var paths = diff.Select(x => x.Path).ToArray();
                 files.ItemsSource = paths;
                 if (rightColumn.ActualWidth == 0)
@@ -56,6 +57,11 @@ namespace Gittiup.Views
                     rightColumn.Width = new GridLength(0);
                 }
             }
+        }
+
+        private string FormatMessage(string commitMessage)
+        {
+            return $"<html style=\"font-family: Arial; font-size: 10pt;\">{commitMessage}</html>";
         }
 
         private void Files_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
