@@ -13,15 +13,14 @@ namespace Movel.Ears
         private readonly PropertyInfo[] path;
         private readonly object[] cache;
         private readonly EarListener[] listeners;
-        private readonly int lastItemIndex;
 
         public Ear(object target, PropertyInfo[] path)
         {
             this.target = target;
             this.path = path;
-            cache = new object[path.Length];
-            listeners = new EarListener[path.Length - 1];
-            lastItemIndex = path.Length - 1;
+            cache = new object[path.Length + 1];
+            cache[0] = target;
+            listeners = new EarListener[path.Length];
 
             RecalculateValue(0);
             AddListeners(0);
@@ -31,6 +30,7 @@ namespace Movel.Ears
         {
             var current = target;
             var isDone = false;
+
             for (var i = startingPoint; i < path.Length; i++)
             {
                 var property = path[i];
@@ -45,7 +45,7 @@ namespace Movel.Ears
                         isDone = true;
                     }
                 }
-                cache[i] = current;
+                cache[i + 1] = current;
             }
 
             var oldValue = Value;
@@ -60,10 +60,11 @@ namespace Movel.Ears
             {
                 var property = path[i];
 
-                if (current is INotifyPropertyChanged target && i < lastItemIndex)
+                if (current is INotifyPropertyChanged target)
                 {
                     var listener = EarListener.Start(this, target, i);
                     target.PropertyChanged += listener.TargetOnPropertyChanged;
+                    listeners[i] = listener;
                 }
 
                 var next = property.GetValue(current, null);
@@ -83,7 +84,7 @@ namespace Movel.Ears
             {
                 var property = path[i];
 
-                if (current is INotifyPropertyChanged target && i < lastItemIndex)
+                if (current is INotifyPropertyChanged target)
                 {
                     var listener = listeners[i];
                     target.PropertyChanged -= listener.TargetOnPropertyChanged;
