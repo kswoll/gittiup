@@ -1,5 +1,5 @@
-﻿using Gittiup.Library.Utils;
-using LibGit2Sharp;
+﻿using LibGit2Sharp;
+using Movel.Utils;
 
 namespace Gittiup.Library.ViewModels
 {

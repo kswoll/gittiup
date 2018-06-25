@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Movel.Utils;
 
 namespace Movel.Ears
 {
@@ -25,14 +24,13 @@ namespace Movel.Ears
 
         private static IEnumerable<PropertyInfo> ConvertLambdaToPropertyArray(LambdaExpression path)
         {
-            Expression body = path.Body;
+            var body = path.Body;
             if (body.NodeType == ExpressionType.Convert)
             {
                 body = ((UnaryExpression)body).Operand;
             }
 
-            var member = body as MemberExpression;
-            if (member == null)
+            if (!(body is MemberExpression member))
             {
                 return Enumerable.Empty<PropertyInfo>();
             }

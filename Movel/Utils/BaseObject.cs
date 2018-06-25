@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Gittiup.Library.Utils
+namespace Movel.Utils
 {
     public class BaseObject : INotifyPropertyChanged
     {

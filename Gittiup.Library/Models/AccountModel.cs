@@ -1,4 +1,4 @@
-﻿using Gittiup.Library.Utils;
+﻿using Movel.Utils;
 
 namespace Gittiup.Library.Models
 {

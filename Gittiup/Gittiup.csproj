@@ -210,6 +210,10 @@
       <Project>{254CCB1C-E597-44AE-865F-84F368152229}</Project>
       <Name>Gittiup.Library</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Movel\Movel.csproj">
+      <Project>{2da1cfc0-cff8-412b-919d-783d7b85a571}</Project>
+      <Name>Movel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
