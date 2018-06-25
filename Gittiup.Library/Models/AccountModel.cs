@@ -1,10 +1,6 @@
-﻿// <copyright file="AccountModel.cs" company="PlanGrid, Inc.">
-//     Copyright (c) 2018 PlanGrid, Inc. All rights reserved.
-// </copyright>
+﻿using Gittiup.Library.Utils;
 
-using Gittiup.Utils;
-
-namespace Gittiup.Models
+namespace Gittiup.Library.Models
 {
     public class AccountModel : BaseObject
     {

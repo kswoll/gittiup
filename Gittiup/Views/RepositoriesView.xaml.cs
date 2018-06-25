@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
 using Dragablz;
-using Gittiup.Models;
-using Gittiup.ViewModels;
-using LibGit2Sharp;
+using Gittiup.Library.Models;
+using Gittiup.Library.ViewModels;
 using MaterialDesignThemes.Wpf;
 
 namespace Gittiup.Views

@@ -1,8 +1,6 @@
-﻿using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
-using Gittiup.Models;
-using Gittiup.ViewModels;
+﻿using System.Windows;
+using Gittiup.Library.Models;
+using Gittiup.Library.ViewModels;
 using MaterialDesignThemes.Wpf;
 
 namespace Gittiup.Views

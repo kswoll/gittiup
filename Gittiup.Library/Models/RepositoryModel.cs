@@ -1,8 +1,4 @@
-﻿// <copyright file="RepositoryModel.cs" company="PlanGrid, Inc.">
-//     Copyright (c) 2018 PlanGrid, Inc. All rights reserved.
-// </copyright>
-
-namespace Gittiup.Models
+﻿namespace Gittiup.Library.Models
 {
     public class RepositoryModel
     {

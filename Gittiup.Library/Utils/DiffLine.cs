@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DiffMatchPatch;
 
-namespace Gittiup.Utils
+namespace Gittiup.Library.Utils
 {
     public class DiffLine : List<Diff>
     {

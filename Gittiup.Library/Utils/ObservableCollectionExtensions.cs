@@ -1,11 +1,7 @@
-﻿// <copyright file="ObservableCollectionExtensions.cs" company="PlanGrid, Inc.">
-//     Copyright (c) 2018 PlanGrid, Inc. All rights reserved.
-// </copyright>
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Gittiup.Utils
+namespace Gittiup.Library.Utils
 {
     public static class ObservableCollectionExtensions
     {

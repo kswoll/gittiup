@@ -1,11 +1,6 @@
-﻿// <copyright file="GittiupDb.cs" company="PlanGrid, Inc.">
-//     Copyright (c) 2018 PlanGrid, Inc. All rights reserved.
-// </copyright>
+﻿using LiteDB;
 
-using System.IO;
-using LiteDB;
-
-namespace Gittiup.Models
+namespace Gittiup.Library.Models
 {
     public class GittiupDb : LiteDatabase
     {

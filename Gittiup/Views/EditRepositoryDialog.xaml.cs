@@ -1,6 +1,5 @@
-﻿using System.Windows.Controls;
-using Gittiup.Models;
-using Gittiup.ViewModels;
+﻿using Gittiup.Library.Models;
+using Gittiup.Library.ViewModels;
 
 namespace Gittiup.Views
 {

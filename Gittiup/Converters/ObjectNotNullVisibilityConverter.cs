@@ -1,8 +1,4 @@
-﻿// <copyright file="ObjectNotNullVisibilityConverter.cs" company="PlanGrid, Inc.">
-//     Copyright (c) 2018 PlanGrid, Inc. All rights reserved.
-// </copyright>
-
-using System;
+﻿using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;

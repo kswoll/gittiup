@@ -8,7 +8,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:views="clr-namespace:Gittiup.Views"
-             xmlns:viewModels="clr-namespace:Gittiup.ViewModels"
+             xmlns:viewModels="clr-namespace:Gittiup.Library.ViewModels;assembly=Gittiup.Library"
              mc:Ignorable="d"
              Width="300"
              d:DataContext="{d:DesignInstance viewModels:EditAccountViewModel}"

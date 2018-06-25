@@ -96,26 +96,12 @@
     <Compile Include="Controls\GittiupDataGrid.cs" />
     <Compile Include="Converters\DiffOperationToColorConverter.cs" />
     <Compile Include="Converters\ObjectNotNullVisibilityConverter.cs" />
-    <Compile Include="Utils\DiffLine.cs" />
-    <Compile Include="Utils\StringExtensions.cs" />
-    <Compile Include="ViewModels\BranchViewModel.cs" />
-    <Compile Include="ViewModels\EditRepositoryViewModel.cs" />
-    <Compile Include="ViewModels\RepositoriesViewModel.cs" />
-    <Compile Include="ViewModels\RepositoryViewModel.cs" />
     <Compile Include="Views\BranchView.xaml.cs">
       <DependentUpon>BranchView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditAccountDialog.xaml.cs">
       <DependentUpon>EditAccountDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountModel.cs" />
-    <Compile Include="Models\GittiupDb.cs" />
-    <Compile Include="Models\RepositoryModel.cs" />
-    <Compile Include="Settings.cs" />
-    <Compile Include="Utils\BaseObject.cs" />
-    <Compile Include="Utils\ObservableCollectionExtensions.cs" />
-    <Compile Include="ViewModels\AccountsViewModel.cs" />
-    <Compile Include="ViewModels\EditAccountViewModel.cs" />
     <Compile Include="Views\AccountsView.xaml.cs">
       <DependentUpon>AccountsView.xaml</DependentUpon>
     </Compile>
@@ -219,7 +205,12 @@
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Gittiup.Library\Gittiup.Library.csproj">
+      <Project>{254CCB1C-E597-44AE-865F-84F368152229}</Project>
+      <Name>Gittiup.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

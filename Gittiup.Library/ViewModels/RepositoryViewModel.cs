@@ -1,12 +1,8 @@
-﻿// <copyright file="RepositoryViewModel.cs" company="PlanGrid, Inc.">
-//     Copyright (c) 2018 PlanGrid, Inc. All rights reserved.
-// </copyright>
-
-using Gittiup.Models;
-using Gittiup.Utils;
+﻿using Gittiup.Library.Models;
+using Gittiup.Library.Utils;
 using LibGit2Sharp;
 
-namespace Gittiup.ViewModels
+namespace Gittiup.Library.ViewModels
 {
     public class RepositoryViewModel : BaseObject
     {

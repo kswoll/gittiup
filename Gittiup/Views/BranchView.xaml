@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Gittiup.Views"
-             xmlns:viewModels="clr-namespace:Gittiup.ViewModels"
              xmlns:controls="clr-namespace:Gittiup.Controls"
              xmlns:diffMatchPatch="clr-namespace:DiffMatchPatch;assembly=Diff.Match.Patch"
-             xmlns:utils="clr-namespace:Gittiup.Utils"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModels="clr-namespace:Gittiup.Library.ViewModels;assembly=Gittiup.Library"
+             xmlns:utils="clr-namespace:Gittiup.Library.Utils;assembly=Gittiup.Library"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:BranchViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">

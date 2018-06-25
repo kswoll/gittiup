@@ -1,8 +1,4 @@
-﻿// <copyright file="BaseView.cs" company="PlanGrid, Inc.">
-//     Copyright (c) 2018 PlanGrid, Inc. All rights reserved.
-// </copyright>
-
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace Gittiup.Views
 {

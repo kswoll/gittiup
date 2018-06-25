@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Gittiup.Views"
              xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-             xmlns:models="clr-namespace:Gittiup.Models"
-             xmlns:viewModels="clr-namespace:Gittiup.ViewModels"
+             xmlns:viewModels="clr-namespace:Gittiup.Library.ViewModels;assembly=Gittiup.Library"
+             xmlns:models="clr-namespace:Gittiup.Library.Models;assembly=Gittiup.Library"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:RepositoriesViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">

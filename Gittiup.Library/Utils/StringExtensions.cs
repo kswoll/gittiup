@@ -1,4 +1,4 @@
-﻿namespace Gittiup.Utils
+﻿namespace Gittiup.Library.Utils
 {
     public static class StringExtensions
     {

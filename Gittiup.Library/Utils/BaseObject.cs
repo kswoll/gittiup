@@ -1,10 +1,6 @@
-﻿// <copyright file="BaseObject.cs" company="PlanGrid, Inc.">
-//     Copyright (c) 2018 PlanGrid, Inc. All rights reserved.
-// </copyright>
+﻿using System.ComponentModel;
 
-using System.ComponentModel;
-
-namespace Gittiup.Utils
+namespace Gittiup.Library.Utils
 {
     public class BaseObject : INotifyPropertyChanged
     {

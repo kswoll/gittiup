@@ -1,7 +1,7 @@
-﻿using Gittiup.Utils;
+﻿using Gittiup.Library.Utils;
 using LibGit2Sharp;
 
-namespace Gittiup.ViewModels
+namespace Gittiup.Library.ViewModels
 {
     public class BranchViewModel : BaseObject
     {

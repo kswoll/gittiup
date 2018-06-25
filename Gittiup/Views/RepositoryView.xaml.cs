@@ -2,9 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using Gittiup.Models;
-using Gittiup.Utils;
-using Gittiup.ViewModels;
+using Gittiup.Library.Models;
+using Gittiup.Library.Utils;
+using Gittiup.Library.ViewModels;
 using LibGit2Sharp;
 
 namespace Gittiup.Views

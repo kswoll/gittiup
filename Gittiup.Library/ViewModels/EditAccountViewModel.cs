@@ -1,11 +1,7 @@
-﻿// <copyright file="AddAccountViewModel.cs" company="PlanGrid, Inc.">
-//     Copyright (c) 2018 PlanGrid, Inc. All rights reserved.
-// </copyright>
+﻿using System.Collections.ObjectModel;
+using Gittiup.Library.Models;
 
-using System.Collections.ObjectModel;
-using Gittiup.Models;
-
-namespace Gittiup.ViewModels
+namespace Gittiup.Library.ViewModels
 {
     public class EditAccountViewModel
     {

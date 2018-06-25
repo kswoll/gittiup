@@ -1,11 +1,7 @@
-﻿// <copyright file="Settings.cs" company="PlanGrid, Inc.">
-//     Copyright (c) 2018 PlanGrid, Inc. All rights reserved.
-// </copyright>
-
-using System;
+﻿using System;
 using System.IO;
 
-namespace Gittiup
+namespace Gittiup.Library
 {
     public class Settings
     {

@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Gittiup.Views"
-             xmlns:viewModels="clr-namespace:Gittiup.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:models="clr-namespace:Gittiup.Models"
+             xmlns:viewModels="clr-namespace:Gittiup.Library.ViewModels;assembly=Gittiup.Library"
+             xmlns:models="clr-namespace:Gittiup.Library.Models;assembly=Gittiup.Library"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:EditRepositoryViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
