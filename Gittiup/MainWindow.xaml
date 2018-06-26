@@ -19,14 +19,15 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         BorderThickness="0"
-        SizeChanged="MainWindow_OnSizeChanged">
+        SizeChanged="MainWindow_OnSizeChanged"
+        Closed="MainWindow_OnClosed">
 
     <materialDesign:DialogHost Identifier="RootDialog">
         <TabControl TabStripPlacement="Left">
             <TabControl.Items>
                 <TabItem>
                     <TabItem.Header>
-                        <materialDesign:PackIcon Kind="AccessPointNetwork" Width="26" Height="26" Foreground="Aqua" />
+                        <materialDesign:PackIcon Kind="LibraryBooks" Width="26" Height="26" />
                     </TabItem.Header>
                     <TabItem.Content>
                         <views:RepositoriesView />

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace Gittiup
 {
@@ -21,6 +22,11 @@ namespace Gittiup
             settings.WindowWidth = (int)ActualWidth;
             settings.WindowHeight = (int)ActualHeight;
             settings.Save();
+        }
+
+        private void MainWindow_OnClosed(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Movel.Ears
 {
-    public class Ear<TOutput> : IEar<TOutput>
+    public class Ear<TOutput> : IEar<TOutput>, IDisposable
     {
         public TOutput Value { get; private set; }
         public event EarValueChangedHandler<TOutput> ValueChanged;
@@ -16,7 +16,12 @@ namespace Movel.Ears
 
         public Ear(object target, PropertyInfo[] path)
         {
-            this.target = target;
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+            if (path.Length == 0)
+                throw new ArgumentException($"'{nameof(path)}' cannot be empty");
+
+            this.target = target ?? throw new ArgumentNullException(nameof(target));
             this.path = path;
             cache = new object[path.Length + 1];
             cache[0] = target;
@@ -26,9 +31,14 @@ namespace Movel.Ears
             AddListeners(0);
         }
 
+        public void Dispose()
+        {
+            RemoveListeners(0);
+        }
+
         private void RecalculateValue(int startingPoint)
         {
-            var current = target;
+            var current = cache[startingPoint];
             var isDone = false;
 
             for (var i = startingPoint; i < path.Length; i++)
@@ -55,7 +65,7 @@ namespace Movel.Ears
 
         private void AddListeners(int startingPoint)
         {
-            var current = target;
+            var current = cache[startingPoint];
             for (var i = startingPoint; i < path.Length; i++)
             {
                 var property = path[i];
@@ -79,8 +89,8 @@ namespace Movel.Ears
 
         private void RemoveListeners(int startingPoint)
         {
-            var current = target;
-            for (var i = 0; i < path.Length; i++)
+            var current = cache[startingPoint];
+            for (var i = startingPoint; i < path.Length; i++)
             {
                 var property = path[i];
 
