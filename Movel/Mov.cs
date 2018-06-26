@@ -16,6 +16,22 @@ namespace Movel
             return new MovelCommand<TInput, TOutput>(execute, canExecute.ToEar());
         }
 
+        public static MovelCommand<Nothing, TOutput> CommandAsync<TOutput>(Func<Task<TOutput>> execute, Func<Nothing, bool> canExecute = null)
+        {
+            return new MovelCommand<Nothing, TOutput>(_ => execute(), canExecute.ToEar());
+        }
+
+        public static MovelCommand<Nothing, Nothing> CommandAsync(Func<Task> execute, Func<Nothing, bool> canExecute = null)
+        {
+            return new MovelCommand<Nothing, Nothing>(
+                _ =>
+                {
+                    execute();
+                    return Task.FromResult(Nothing.Value);
+                },
+                canExecute.ToEar());
+        }
+
         public static MovelCommand<TInput, Nothing> CommandAsync<TInput>(Func<TInput, Task> execute, Func<TInput, bool> canExecute = null)
         {
             return new MovelCommand<TInput, Nothing>(

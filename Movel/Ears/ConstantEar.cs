@@ -9,5 +9,9 @@
         {
             Value = value;
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

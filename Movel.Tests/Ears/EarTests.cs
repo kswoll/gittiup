@@ -23,8 +23,6 @@ namespace Movel.Tests.Ears
 
             Assert.AreEqual("bar", changed);
             Assert.AreEqual("bar", ear.Value);
-
-//            ear.Dispose();
         }
 
         [Test]

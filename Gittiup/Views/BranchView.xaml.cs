@@ -60,12 +60,6 @@ namespace Gittiup.Views
             }
         }
 
-        private string FormatMessage(string commitMessage)
-        {
-            var markdownedMessage = CommonMark.CommonMarkConverter.Convert(commitMessage);
-            return $"<html style=\"font-family: Arial; font-size: 10pt;\">{markdownedMessage}</html>";
-        }
-
         private void Files_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectFile();

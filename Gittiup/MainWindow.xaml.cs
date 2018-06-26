@@ -26,7 +26,6 @@ namespace Gittiup
 
         private void MainWindow_OnClosed(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
         }
     }
 }

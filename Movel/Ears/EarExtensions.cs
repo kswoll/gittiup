@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Movel.Utils;
 
 namespace Movel.Ears
 {
@@ -11,15 +12,19 @@ namespace Movel.Ears
     {
         public static Ear<TOutput> Listen<TOutput>(this INotifyPropertyChanged target, params PropertyInfo[] path)
         {
-            return new Ear<TOutput>(target, path);
+            var ear = new Ear<TOutput>(target, path);
+            if (target is IDisposableHost host)
+            {
+                host.Add(ear);
+            }
+            return ear;
         }
 
         public static Ear<TOutput> Listen<T, TOutput>(this T target, Expression<Func<T, TOutput>> path)
             where T : INotifyPropertyChanged
         {
             var propertyInfos = ConvertLambdaToPropertyArray(path).ToArray();
-
-            return new Ear<TOutput>(target, propertyInfos);
+            return target.Listen<TOutput>(propertyInfos);
         }
 
         private static IEnumerable<PropertyInfo> ConvertLambdaToPropertyArray(LambdaExpression path)

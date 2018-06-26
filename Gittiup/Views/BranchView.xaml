@@ -19,7 +19,7 @@
             <ColumnDefinition x:Name="rightColumn" Width="0" />
         </Grid.ColumnDefinitions>
         <Grid>
-            <controls:GittiupDataGrid x:Name="commits" ItemsSource="{Binding Branch.Commits}" AutoGenerateColumns="false" SelectionChanged="Commits_OnSelectionChanged">
+            <controls:GittiupDataGrid x:Name="commits" ItemsSource="{Binding Branch.Commits}" AutoGenerateColumns="false" SelectionChangedCommand="{Binding SelectedCommitChangedCommand}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Message" Binding="{Binding MessageShort}" Width="*" />
                     <DataGridTextColumn Header="When" Binding="{Binding Committer.When.LocalDateTime}" />

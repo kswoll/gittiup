@@ -6,7 +6,7 @@ using Movel.Ears;
 
 namespace Movel.Commands
 {
-    public class MovelCommand<TInput, TOutput> : IAsyncCommand<TInput, TOutput>, IAsyncCommand<TInput>, ICommand<TInput, TOutput>, ICommand<TInput>
+    public class MovelCommand<TInput, TOutput> : IAsyncCommand<TInput, TOutput>, IAsyncCommand<TInput>, ICommand<TInput, TOutput>, ICommand<TInput>, IDisposable
     {
         public event EventHandler CanExecuteChanged;
 
@@ -51,6 +51,11 @@ namespace Movel.Commands
         void ICommand.Execute(object parameter)
         {
             Execute((TInput)parameter);
+        }
+
+        public void Dispose()
+        {
+            canExecute.Dispose();
         }
 
         async Task<object> IAsyncCommand.ExecuteAsync(object parameter)

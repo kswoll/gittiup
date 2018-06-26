@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 
 namespace Gittiup.Views
 {
@@ -18,6 +19,7 @@ namespace Gittiup.Views
             {
                 if (viewModel != value)
                 {
+                    (viewModel as IDisposable)?.Dispose();
                     viewModel = value;
                     DataContext = value;
                 }

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Reflection;
+using Movel.Utils;
 
 namespace Movel.Ears
 {
-    public class Ear<TOutput> : IEar<TOutput>, IDisposable
+    public class Ear<TOutput> : DisposableHost, IEar<TOutput>
     {
         public TOutput Value { get; private set; }
         public event EarValueChangedHandler<TOutput> ValueChanged;
@@ -31,7 +32,7 @@ namespace Movel.Ears
             AddListeners(0);
         }
 
-        public void Dispose()
+        protected override void OnDispose()
         {
             RemoveListeners(0);
         }
