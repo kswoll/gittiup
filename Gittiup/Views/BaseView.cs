@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Windows.Controls;
+using Movel.Utils;
 
 namespace Gittiup.Views
 {
-    public class BaseView<T> : UserControl
+    public class BaseView<T> : UserControl, IDisposableHost
         where T : class
     {
-        private T viewModel;
+        private readonly DisposableHost disposableHost = new DisposableHost();
 
-        public BaseView()
-        {
-        }
+        private T viewModel;
+        private bool isDisposed;
 
         public T ViewModel
         {
@@ -24,6 +24,31 @@ namespace Gittiup.Views
                     DataContext = value;
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            if (!isDisposed)
+            {
+                OnDispose();
+                isDisposed = true;
+            }
+        }
+
+        protected virtual void OnDispose()
+        {
+            disposableHost.Dispose();
+            (ViewModel as IDisposable)?.Dispose();
+        }
+
+        public void AddDisposable(IDisposable disposable)
+        {
+            disposableHost.AddDisposable(disposable);
+        }
+
+        public void RemoveDisposable(IDisposable disposable)
+        {
+            disposableHost.RemoveDisposable(disposable);
         }
     }
 }

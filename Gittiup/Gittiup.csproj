@@ -69,6 +69,9 @@
       <HintPath>..\packages\PropertyChanged.Fody.2.5.8\lib\net452\PropertyChanged.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -96,6 +99,7 @@
     <Compile Include="Controls\GittiupDataGrid.cs" />
     <Compile Include="Converters\DiffOperationToColorConverter.cs" />
     <Compile Include="Converters\ObjectNotNullVisibilityConverter.cs" />
+    <Compile Include="Utils\VisualTreeExtensions.cs" />
     <Compile Include="Views\BranchView.xaml.cs">
       <DependentUpon>BranchView.xaml</DependentUpon>
     </Compile>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Dragablz;
 using Gittiup.Library.Models;
 using Gittiup.Library.ViewModels;
@@ -21,17 +20,6 @@ namespace Gittiup.Views
 
             repositories.CommandBindings.Clear();
             repositories.CommandBindings.Add(new CommandBinding(TabablzControl.AddItemCommand, Executed));
-
-//            repositories.NewItemFactory = () => new RepositoryModel();
-        }
-
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-
-//            repositories.Items.Add(new Repository());
-
-//            repositories.GetTemplateChild(TabablzControl.HeaderItemsControlPartName) as DragablzItemsControl
         }
 
         private async void Executed(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs)

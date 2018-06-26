@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -92,6 +93,7 @@ namespace Gittiup.Views
             switch (treeViewItem.Tag)
             {
                 case Branch branch:
+                    (content.Content as IDisposable)?.Dispose();
                     content.Content = new BranchView(ViewModel.Repo, branch);
                     break;
             }

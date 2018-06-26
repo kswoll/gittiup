@@ -13,6 +13,8 @@ namespace Gittiup.Library.ViewModels
         {
             Repository = repository;
             Repo = new Repository(repository.Path);
+
+            AddDisposable(Repo);
         }
     }
 }

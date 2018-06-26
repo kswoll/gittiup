@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using Gittiup.Utils;
 
 namespace Gittiup
 {
@@ -26,6 +27,10 @@ namespace Gittiup
 
         private void MainWindow_OnClosed(object sender, EventArgs e)
         {
+            foreach (var child in this.FindVisualDescendants<IDisposable>())
+            {
+                child.Dispose();
+            }
         }
     }
 }

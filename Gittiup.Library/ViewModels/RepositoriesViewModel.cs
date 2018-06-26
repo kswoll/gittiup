@@ -1,10 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using Gittiup.Library.Models;
 using Gittiup.Library.Utils;
+using Movel.Tests.Utils;
+using Movel.Utils;
 
 namespace Gittiup.Library.ViewModels
 {
-    public class RepositoriesViewModel
+    public class RepositoriesViewModel : BaseObject
     {
         public ObservableCollection<RepositoryModel> Repositories { get; set; } = new ObservableCollection<RepositoryModel>();
 

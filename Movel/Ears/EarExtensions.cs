@@ -60,9 +60,15 @@ namespace Movel.Ears
             return new ConstantEar<bool>(true);
         }
 
-        public static void Then<T>(this Ear<T> ear, Action action)
+        public static void Then<T>(this Ear<T> ear, EarValueChangedHandler<T> handler)
         {
-            ear.
+            ear.ValueChanged += handler;
+            ear.AddDisposable(() => ear.ValueChanged -= handler);
+        }
+
+        public static void Then<T>(this Ear<T> ear, Action handler)
+        {
+            ear.Then((_, __, ___) => handler());
         }
     }
 }

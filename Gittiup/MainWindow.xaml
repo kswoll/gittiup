@@ -30,7 +30,7 @@
                         <materialDesign:PackIcon Kind="LibraryBooks" Width="26" Height="26" />
                     </TabItem.Header>
                     <TabItem.Content>
-                        <views:RepositoriesView />
+                        <views:RepositoriesView x:Name="repositories" />
                     </TabItem.Content>
                 </TabItem>
                 <TabItem>
