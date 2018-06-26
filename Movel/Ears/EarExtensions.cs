@@ -15,7 +15,7 @@ namespace Movel.Ears
             var ear = new Ear<TOutput>(target, path);
             if (target is IDisposableHost host)
             {
-                host.Add(ear);
+                host.AddDisposable(ear);
             }
             return ear;
         }
@@ -58,6 +58,11 @@ namespace Movel.Ears
         public static IEar<bool> ToEar<TInput>(this Func<TInput, bool> canExecute)
         {
             return new ConstantEar<bool>(true);
+        }
+
+        public static void Then<T>(this Ear<T> ear, Action action)
+        {
+            ear.
         }
     }
 }

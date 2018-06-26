@@ -1,4 +1,5 @@
 ﻿using LibGit2Sharp;
+using Movel.Ears;
 using Movel.Utils;
 
 namespace Gittiup.Library.ViewModels
@@ -8,11 +9,14 @@ namespace Gittiup.Library.ViewModels
         public Repository Repository { get; }
         public Branch Branch { get; }
         public Commit SelectedCommit { get; set; }
+        public I
 
         public BranchViewModel(Repository repository, Branch branch)
         {
             Repository = repository;
             Branch = branch;
+
+            this.Listen(x => x.SelectedCommit).Then()
         }
 
         private string FormatMessage(string commitMessage)

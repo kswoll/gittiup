@@ -29,12 +29,12 @@ namespace Movel.Utils
             disposables.Clear();
         }
 
-        public void Add(IDisposable disposable)
+        public void AddDisposable(IDisposable disposable)
         {
             disposables.Add(disposable);
         }
 
-        public void Remove(IDisposable disposable)
+        public void RemoveDisposable(IDisposable disposable)
         {
             disposables.Add(disposable);
         }

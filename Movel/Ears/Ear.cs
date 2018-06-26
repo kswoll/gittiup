@@ -32,6 +32,12 @@ namespace Movel.Ears
             AddListeners(0);
         }
 
+        public void Listen(EarValueChangedHandler<TOutput> handler)
+        {
+            ValueChanged += handler;
+            this.AddDisposable(() => ValueChanged -= handler);
+        }
+
         protected override void OnDispose()
         {
             RemoveListeners(0);

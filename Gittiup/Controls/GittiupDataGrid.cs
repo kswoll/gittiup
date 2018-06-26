@@ -9,12 +9,8 @@ namespace Gittiup.Controls
 {
     public class GittiupDataGrid : DataGrid
     {
-        public static readonly DependencyProperty SelectionChangedCommandProperty = DependencyProperty.Register(nameof(SelectionChangedCommand), typeof(ICommand), typeof(GittiupDataGrid));
-
         public GittiupDataGrid()
         {
-            SelectionChanged += OnSelectionChanged;
-
             // Styles don't automatically apply to subclasses, so we have to force the issue
             Style = (Style)FindResource(typeof(DataGrid));
 
@@ -41,25 +37,6 @@ namespace Gittiup.Controls
             }
 
             LayoutUpdated += OnLayoutUpdated;
-        }
-
-        public ICommand SelectionChangedCommand
-        {
-            get => (ICommand)GetValue(SelectionChangedCommandProperty);
-            set => SetValue(SelectionChangedCommandProperty, value);
-        }
-
-        private async void OnSelectionChanged(object o, SelectionChangedEventArgs selectionChangedEventArgs)
-        {
-            var command = SelectionChangedCommand;
-            if (command is IAsyncCommand asyncCommand)
-            {
-                await asyncCommand.ExecuteAsync();
-            }
-            else
-            {
-                command.Execute(null);
-            }
         }
     }
 }

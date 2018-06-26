@@ -1,9 +1,8 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace Movel.Commands
 {
-    public interface ICommand<in TInput, TOutput> : ICommand
+    public interface ICommand<in TInput, out TOutput> : ICommand
     {
         TOutput Execute(TInput parameter);
     }

@@ -2,7 +2,7 @@
 
 namespace Movel.Utils
 {
-    public class BaseObject : INotifyPropertyChanged
+    public class BaseObject : DisposableHost, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
