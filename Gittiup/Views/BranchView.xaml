@@ -9,6 +9,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:Gittiup.Library.ViewModels;assembly=Gittiup.Library"
              xmlns:utils="clr-namespace:Gittiup.Library.Utils;assembly=Gittiup.Library"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:BranchViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -77,9 +78,13 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="5" />
+                <RowDefinition Height="500" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <WebBrowser x:Name="comment" Margin="0,2,0,0" />
+            <StackPanel Orientation="Vertical">
+                <WebBrowser x:Name="comment" Margin="0,2,0,0" Visibility="Collapsed" />
+                <Image gif:ImageBehavior.AnimatedSource="pack://application:,,,/Assets/wip.gif" Width="300" />
+            </StackPanel>
             <GridSplitter Grid.Row="1" Height="5" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
             <ListView x:Name="files" Grid.Row="2" ItemsSource="{Binding Files}"
                       MouseUp="Files_OnMouseUp"
