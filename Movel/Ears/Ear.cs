@@ -140,7 +140,7 @@ namespace Movel.Ears
                 var property = ear.path[index];
                 if (propertyChangedEventArgs.PropertyName == property.Name)
                 {
-                    var oldValue = ear.cache[index];
+                    var oldValue = ear.cache[index + 1];
                     var newValue = property.GetValue(ear.cache[index], null);
 
                     if (!Equals(oldValue, newValue))
