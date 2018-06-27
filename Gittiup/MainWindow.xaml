@@ -24,29 +24,26 @@
         NonActiveWindowTitleBrush="{DynamicResource WindowTitleColorBrush}"
         BorderThickness="0"
         SizeChanged="MainWindow_OnSizeChanged"
-        Closed="MainWindow_OnClosed">
+        Closed="MainWindow_OnClosed"
+        OverrideDefaultWindowCommandsBrush="White">
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="back" ToolTip="Back" ToolTipService.ShowOnDisabled="True" Click="Back_OnClick" Visibility="Collapsed">
+                    <materialDesign:PackIcon Kind="ArrowLeft" Width="20" Height="20" />
+                </Button>
+                <Button ToolTip="Open file" ToolTipService.ShowOnDisabled="True" Click="Settings_OnClick">
+                    <materialDesign:PackIcon Kind="Settings" Width="20" Height="20" />
+                </Button>
+            </StackPanel>
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
 
     <materialDesign:DialogHost Identifier="RootDialog">
-        <TabControl TabStripPlacement="Left">
-            <TabControl.Items>
-                <TabItem>
-                    <TabItem.Header>
-                        <materialDesign:PackIcon Kind="LibraryBooks" Width="26" Height="26" />
-                    </TabItem.Header>
-                    <TabItem.Content>
-                        <views:RepositoriesView x:Name="repositories" />
-                    </TabItem.Content>
-                </TabItem>
-                <TabItem>
-                    <TabItem.Header>
-                        <materialDesign:PackIcon Kind="Settings" Width="26" Height="26" />
-                    </TabItem.Header>
-                    <TabItem.Content>
-                        <views:SettingsView />
-                    </TabItem.Content>
-                </TabItem>
-            </TabControl.Items>
-        </TabControl>
+        <Grid>
+            <views:RepositoriesView x:Name="repositories" />
+            <views:SettingsView x:Name="settings" Visibility="Collapsed" />
+        </Grid>
     </materialDesign:DialogHost>
 </mah:MetroWindow>
 

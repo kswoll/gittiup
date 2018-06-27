@@ -32,5 +32,19 @@ namespace Gittiup
                 child.Dispose();
             }
         }
+
+        private void Settings_OnClick(object sender, RoutedEventArgs e)
+        {
+            repositories.Visibility = Visibility.Collapsed;
+            settings.Visibility = Visibility.Visible;
+            back.Visibility = Visibility.Visible;
+        }
+
+        private void Back_OnClick(object sender, RoutedEventArgs e)
+        {
+            repositories.Visibility = Visibility.Visible;
+            settings.Visibility = Visibility.Hidden;
+            back.Visibility = Visibility.Collapsed;
+        }
     }
 }

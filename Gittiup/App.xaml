@@ -53,6 +53,12 @@
 
             <!-- tell Dragablz tab control to use the Material Design theme -->
             <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" />
+
+            <Style x:Key="WindowButtonsStyle"
+                   TargetType="{x:Type Button}"
+                   BasedOn="{StaticResource MetroWindowButtonStyle}">
+                <Setter Property="Foreground" Value="White" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
