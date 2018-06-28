@@ -4,4 +4,5 @@
 
     <local:ObjectNotNullVisibilityConverter x:Key="ObjectNotNullVisibilityConverter" />
     <local:DiffOperationToColorConverter x:Key="DiffOperationToColorConverter" />
+    <local:EmailToAvatarConverter x:Key="EmailToAvatarConverter" />
 </ResourceDictionary>

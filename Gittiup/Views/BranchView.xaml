@@ -10,6 +10,7 @@
              xmlns:viewModels="clr-namespace:Gittiup.Library.ViewModels;assembly=Gittiup.Library"
              xmlns:utils="clr-namespace:Gittiup.Library.Utils;assembly=Gittiup.Library"
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             xmlns:libGit2Sharp="clr-namespace:LibGit2Sharp;assembly=LibGit2Sharp"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:BranchViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -22,6 +23,18 @@
         <Grid>
             <controls:GittiupDataGrid x:Name="commits" ItemsSource="{Binding Branch.Commits}" AutoGenerateColumns="false" SelectedValue="{Binding SelectedCommit}">
                 <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="AuthorAvatar" Width="50">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="libGit2Sharp:Commit">
+                                <Image Source="{Binding Author.Email, Converter={StaticResource EmailToAvatarConverter}}" Width="24" Height="24" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate DataType="libGit2Sharp:Commit">
+                                <TextBlock Text="Who" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Message" Binding="{Binding MessageShort}" Width="*" />
                     <DataGridTextColumn Header="When" Binding="{Binding Committer.When.LocalDateTime}" />
                 </DataGrid.Columns>
@@ -81,10 +94,10 @@
                 <RowDefinition Height="500" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Vertical">
-                <WebBrowser x:Name="comment" Margin="0,2,0,0" Visibility="Collapsed" />
-                <Image gif:ImageBehavior.AnimatedSource="pack://application:,,,/Assets/wip.gif" Width="300" />
-            </StackPanel>
+            <Grid>
+                <WebBrowser x:Name="comment" Margin="0,2,0,0" Visibility="Visible" />
+                <Image x:Name="wip" gif:ImageBehavior.AnimatedSource="pack://application:,,,/Assets/wip.gif" Width="300" Visibility="Collapsed" />
+            </Grid>
             <GridSplitter Grid.Row="1" Height="5" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
             <ListView x:Name="files" Grid.Row="2" ItemsSource="{Binding Files}"
                       MouseUp="Files_OnMouseUp"

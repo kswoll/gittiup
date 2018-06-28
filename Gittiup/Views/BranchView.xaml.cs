@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using Gittiup.Library.ViewModels;
@@ -33,6 +34,17 @@ namespace Gittiup.Views
             comment.NavigateToString(ViewModel.SelectedCommitMessage);
             if (newValue != null)
             {
+                if (newValue.Message.Trim().Equals("wip", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    wip.Visibility = Visibility.Visible;
+                    comment.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    wip.Visibility = Visibility.Hidden;
+                    comment.Visibility = Visibility.Visible;
+                }
+
                 if (rightColumn.ActualWidth == 0)
                 {
                     var settings = Properties.Settings.Default;
