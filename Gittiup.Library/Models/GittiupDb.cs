@@ -6,6 +6,7 @@ namespace Gittiup.Library.Models
     {
         public LiteCollection<AccountModel> Accounts => GetCollection<AccountModel>("accounts");
         public LiteCollection<RepositoryModel> Repositories => GetCollection<RepositoryModel>("repositories");
+        public LiteCollection<UserModel> Users => GetCollection<UserModel>("users");
 
         static GittiupDb()
         {
