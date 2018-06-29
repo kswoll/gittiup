@@ -10,7 +10,11 @@ namespace Gittiup.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var operation = (Operation)value;
-            if (operation.IsEqual)
+            if (operation == null)
+            {
+                return "Orange";
+            }
+            else if (operation.IsEqual)
             {
                 return "#33FFFFFF";
             }

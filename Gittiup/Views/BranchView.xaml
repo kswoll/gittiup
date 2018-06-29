@@ -77,20 +77,27 @@
                         </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate DataType="utils:DiffLine">
-                                <ItemsControl ItemsSource="{Binding}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                            </StackPanel>
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate DataType="diffMatchPatch:Diff">
-                                            <TextBlock MinHeight="16" Background="{Binding Operation, Converter={StaticResource DiffOperationToColorConverter}}"><Run Text="{Binding Text}" /></TextBlock>
-                                            <!-- <TextBlock Background="{Binding Operation, Converter={StaticResource ObjectNotNullVisibilityConverter}}"><Run Text="{Binding Text}" /></TextBlock> -->
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Background="{Binding Operation, Converter={StaticResource DiffOperationToColorConverter}}" />
+                                    <ItemsControl Grid.Column="1" ItemsSource="{Binding}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                </StackPanel>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate DataType="diffMatchPatch:Diff">
+                                                <TextBlock MinHeight="16" Background="{Binding Operation, Converter={StaticResource DiffOperationToColorConverter}}"><Run Text="{Binding Text}" /></TextBlock>
+                                                <!-- <TextBlock Background="{Binding Operation, Converter={StaticResource ObjectNotNullVisibilityConverter}}"><Run Text="{Binding Text}" /></TextBlock> -->
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

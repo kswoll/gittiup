@@ -72,30 +72,6 @@ namespace Gittiup.Views
             }
         }
 
-        private void OnSelectedChangesChanged(Ear<RepositoryStatus> ear, RepositoryStatus oldValue, RepositoryStatus newValue)
-        {
-            if (newValue != null)
-            {
-                wip.Visibility = Visibility.Hidden;
-                comment.Visibility = Visibility.Visible;
-
-                if (rightColumn.Width == new GridLength(0))
-                {
-                    var settings = Properties.Settings.Default;
-                    splitterColumn.Width = new GridLength(5);
-                    rightColumn.Width = new GridLength(settings.RightSidebarWidth);
-                }
-            }
-            else
-            {
-                if (rightColumn.Width != new GridLength(0))
-                {
-                    splitterColumn.Width = new GridLength(0);
-                    rightColumn.Width = new GridLength(0);
-                }
-            }
-        }
-
         private void Files_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
             if (commits.Visibility != Visibility.Collapsed)

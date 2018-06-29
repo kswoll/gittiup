@@ -86,7 +86,7 @@ namespace Gittiup.Library.ViewModels
         private string FormatMessage(string commitMessage)
         {
             var markdownedMessage = CommonMark.CommonMarkConverter.Convert(commitMessage);
-            return $"<html style=\"font-family: Arial; font-size: 10pt;\">{markdownedMessage}</html>";
+            return $"<html style=\"font-family: Arial; font-size: 10pt;\"><head><meta charset=\"UTF-8\"></head><body>{markdownedMessage}</body></html>";
         }
 
         /// <summary>
@@ -141,16 +141,26 @@ namespace Gittiup.Library.ViewModels
 
             var lines = new List<DiffLine>();
             var currentLine = new DiffLine();
+            Diff currentLineInitialDiff = null;
             foreach (var diff in diffs)
             {
                 var diffLines = diff.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
                 var newLine = false;
+                if (currentLine.All(x => x.Text.Length == 0))
+                {
+                    currentLineInitialDiff = diff;
+                }
                 foreach (var line in diffLines)
                 {
                     if (newLine)
                     {
+                        if (currentLineInitialDiff == null || Equals(currentLineInitialDiff, diff))
+                        {
+                            currentLine.Operation = diff.Operation;
+                        }
                         lines.Add(currentLine);
                         currentLine = new DiffLine();
+                        currentLineInitialDiff = diff;
                     }
                     currentLine.Add(new Diff(line, diff.Operation));
                     newLine = true;
@@ -159,6 +169,8 @@ namespace Gittiup.Library.ViewModels
 
             if (currentLine.Any())
             {
+                if (currentLine.Select(x => x.Operation).ToImmutableHashSet().Count == 1)
+                    currentLine.Operation = currentLine[0].Operation;
                 lines.Add(currentLine);
             }
 
