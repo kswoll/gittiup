@@ -28,7 +28,7 @@
                 <TextBlock>Local Path</TextBlock>
             </materialDesign:HintAssist.Hint>
         </TextBox>
-        <ComboBox Margin="0 8 0 0" HorizontalAlignment="Stretch" ItemsSource="{Binding Accounts}">
+        <ComboBox Margin="0 8 0 0" HorizontalAlignment="Stretch" ItemsSource="{Binding Accounts}" SelectedValue="{Binding Repository.Account}">
             <materialDesign:HintAssist.Hint>
                 <TextBlock>Account</TextBlock>
             </materialDesign:HintAssist.Hint>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.IO;
 using System.Linq;
 using DiffMatchPatch;
 using Gittiup.Library.Models;
@@ -17,35 +18,36 @@ namespace Gittiup.Library.ViewModels
     {
         public Repository Repository { get; }
         public Branch Branch { get; }
-        public Commit SelectedCommit { get; set; }
+        public BranchItemViewModel SelectedItemViewModel { get; set; }
         public string SelectedCommitMessage { get; set; }
         public ImmutableList<string> Files { get; set; }
         public string SelectedFile { get; set; }
         public ImmutableList<DiffLine> SelectedFileContent { get; set; }
-        public ImmutableList<BranchCommitViewModel> Commits { get; set; }
+        public ImmutableList<BranchItemViewModel> Commits { get; set; }
 
         public BranchViewModel(Repository repository, AccountModel account, Branch branch)
         {
             Repository = repository;
             Branch = branch;
 
-            this.Listen(x => x.SelectedCommit).Then(OnSelectedCommitChanged);
+            this.Listen(x => x.SelectedItemViewModel).Then(OnSelectedItemViewModelChanged);
             this.Listen(x => x.SelectedFile).Then(OnSelectedFileChanged);
 
-            var commits = new List<BranchCommitViewModel>();
+            var commits = new List<BranchItemViewModel>();
             var status = repository.RetrieveStatus(new StatusOptions()
             {
             });
             if (status.IsDirty)
             {
-                commits.Add(new BranchCommitViewModel
+                commits.Add(new BranchItemViewModel
                 {
                     Author = account.Email,
-                    Message = "(Working Copy Changes)"
+                    Message = "(Working Copy Changes)",
+                    Changes = status
                 });
             }
 
-            commits.AddRange(branch.Commits.Select(x => new BranchCommitViewModel
+            commits.AddRange(branch.Commits.Select(x => new BranchItemViewModel
             {
                 Commit = x,
                 Message = x.MessageShort,
@@ -56,20 +58,27 @@ namespace Gittiup.Library.ViewModels
             Commits = commits.ToImmutableList();
         }
 
-        private void OnSelectedCommitChanged()
+        private void OnSelectedItemViewModelChanged()
         {
-            var commit = SelectedCommit;
-            if (commit != null)
+            var item = SelectedItemViewModel;
+            if (item.Commit != null)
             {
+                var commit = item.Commit;
                 SelectedCommitMessage = FormatMessage(commit.Message);
 
                 var diff = Repository.Diff.Compare<Patch>(commit.Tree, commit.Parents.FirstOrDefault()?.Tree);
                 var paths = diff.Select(x => x.Path).ToArray();
                 Files = paths.ToImmutableList();
             }
+            else if (item.Changes != null)
+            {
+                var changes = item.Changes;
+                Files = changes.Where(x => x.State != FileStatus.Ignored).Select(x => x.FilePath).ToImmutableList();
+                SelectedCommitMessage = "<html></html>";
+            }
             else
             {
-                SelectedCommitMessage = "";
+                SelectedCommitMessage = "<html></html>";
                 Files = ImmutableList<string>.Empty;
             }
         }
@@ -89,13 +98,26 @@ namespace Gittiup.Library.ViewModels
                 return;
             }
 
-            var commit = SelectedCommit;
+            string oldContentText;
+            string newContentText;
+            if (SelectedItemViewModel.Commit != null)
+            {
+                var commit = SelectedItemViewModel.Commit;
 
-            var oldContent = (Blob)commit.Parents.FirstOrDefault()?[selectedFile]?.Target;
-            var newContent = (Blob)commit[selectedFile]?.Target;
+                var oldContent = (Blob)commit?.Parents.FirstOrDefault()?[selectedFile]?.Target;
+                var newContent = (Blob)commit?[selectedFile]?.Target;
 
-            var oldContentText = oldContent?.GetContentText();
-            var newContentText = newContent?.GetContentText();
+                oldContentText = oldContent?.GetContentText();
+                newContentText = newContent?.GetContentText();
+            }
+
+            else
+            {
+                var oldContent = (Blob)Branch.Tip[selectedFile]?.Target;
+                oldContentText = oldContent?.GetContentText();
+
+                newContentText = File.ReadAllText(Path.Combine(Repository.Info.WorkingDirectory, selectedFile));
+            }
 
             List<Diff> diffs;
             if (oldContentText == null)

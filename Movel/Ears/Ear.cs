@@ -147,10 +147,9 @@ namespace Movel.Ears
                     {
                         ear.RemoveListeners(index);
                         ear.AddListeners(index);
+                        ear.RecalculateValue(index);
                     }
                 }
-
-                ear.RecalculateValue(index);
             }
         }
     }

@@ -20,7 +20,7 @@ namespace Gittiup.Views
             InitializeComponent();
 
             ViewModel = new BranchViewModel(repository, account, branch);
-            ViewModel.Listen(x => x.SelectedCommit).Then(OnSelectedCommitChanged);
+            ViewModel.Listen(x => x.SelectedItemViewModel).Then(OnSelectedItemViewModelChanged);
             ViewModel.Listen(x => x.SelectedFile).Then(OnSelectedFileChanged);
         }
 
@@ -30,23 +30,32 @@ namespace Gittiup.Views
             fileView.Visibility = Visibility.Collapsed;
         }
 
-        private void OnSelectedCommitChanged(Ear<Commit> ear, Commit oldValue, Commit newValue)
+        private void OnSelectedItemViewModelChanged(Ear<BranchItemViewModel> ear, BranchItemViewModel oldValue, BranchItemViewModel newValue)
         {
-            comment.NavigateToString(ViewModel.SelectedCommitMessage);
             if (newValue != null)
             {
-                if (newValue.Message.Trim().Equals("wip", StringComparison.InvariantCultureIgnoreCase))
+                if (newValue.Commit != null)
                 {
-                    wip.Visibility = Visibility.Visible;
-                    comment.Visibility = Visibility.Collapsed;
+                    comment.NavigateToString(ViewModel.SelectedCommitMessage);
+
+                    if (newValue.Message.Trim().Equals("wip", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        wip.Visibility = Visibility.Visible;
+                        comment.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        wip.Visibility = Visibility.Hidden;
+                        comment.Visibility = Visibility.Visible;
+                    }
                 }
                 else
                 {
-                    wip.Visibility = Visibility.Hidden;
-                    comment.Visibility = Visibility.Visible;
+                    wip.Visibility = Visibility.Collapsed;
+                    comment.Visibility = Visibility.Collapsed;
                 }
 
-                if (rightColumn.ActualWidth == 0)
+                if (rightColumn.Width == new GridLength(0))
                 {
                     var settings = Properties.Settings.Default;
                     splitterColumn.Width = new GridLength(5);
@@ -55,7 +64,31 @@ namespace Gittiup.Views
             }
             else
             {
-                if (rightColumn.ActualWidth != 0)
+                if (rightColumn.Width != new GridLength(0))
+                {
+                    splitterColumn.Width = new GridLength(0);
+                    rightColumn.Width = new GridLength(0);
+                }
+            }
+        }
+
+        private void OnSelectedChangesChanged(Ear<RepositoryStatus> ear, RepositoryStatus oldValue, RepositoryStatus newValue)
+        {
+            if (newValue != null)
+            {
+                wip.Visibility = Visibility.Hidden;
+                comment.Visibility = Visibility.Visible;
+
+                if (rightColumn.Width == new GridLength(0))
+                {
+                    var settings = Properties.Settings.Default;
+                    splitterColumn.Width = new GridLength(5);
+                    rightColumn.Width = new GridLength(settings.RightSidebarWidth);
+                }
+            }
+            else
+            {
+                if (rightColumn.Width != new GridLength(0))
                 {
                     splitterColumn.Width = new GridLength(0);
                     rightColumn.Width = new GridLength(0);
