@@ -31,7 +31,7 @@ namespace Gittiup.Library.ViewModels
             Branch = branch;
 
             this.Listen(x => x.SelectedItemViewModel).Then(OnSelectedItemViewModelChanged);
-            this.Listen(x => x.SelectedFile).Then(OnSelectedFileChanged);
+            this.Listen(x => x.SelectedFile).Then(WhenSelectedFileChanged);
 
             var commits = new List<BranchItemViewModel>();
             var status = repository.RetrieveStatus(new StatusOptions()
@@ -89,7 +89,10 @@ namespace Gittiup.Library.ViewModels
             return $"<html style=\"font-family: Arial; font-size: 10pt;\">{markdownedMessage}</html>";
         }
 
-        private void OnSelectedFileChanged()
+        /// <summary>
+        /// Don't rename to OnSelectedFileChanged as that messes things up with NotifyPropertyChanged.Fody
+        /// </summary>
+        private void WhenSelectedFileChanged()
         {
             var selectedFile = SelectedFile;
 
@@ -116,7 +119,7 @@ namespace Gittiup.Library.ViewModels
                 var oldContent = (Blob)Branch.Tip[selectedFile]?.Target;
                 oldContentText = oldContent?.GetContentText();
 
-                newContentText = File.ReadAllText(Path.Combine(Repository.Info.WorkingDirectory, selectedFile));
+                newContentText = File.ReadAllText(Path.Combine(Repository.Info.WorkingDirectory, selectedFile)).Replace("\r\n", "\n");
             }
 
             List<Diff> diffs;

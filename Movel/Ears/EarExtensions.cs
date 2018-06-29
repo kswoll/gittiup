@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
 using Movel.Utils;
 
 namespace Movel.Ears
@@ -62,7 +63,15 @@ namespace Movel.Ears
 
         public static void Then<T>(this Ear<T> ear, EarValueChangedHandler<T> handler)
         {
-            ear.ValueChanged += handler;
+//            var semaphore = new Semaphore(1, 1);
+            var instrumentedHandler = new EarValueChangedHandler<T>((e, oldValue, newValue) =>
+            {
+//                if (semaphore.WaitOne())
+//                {
+                    handler(e, oldValue, newValue);
+//                }
+            });
+            ear.ValueChanged += instrumentedHandler;
             ear.AddDisposable(() => ear.ValueChanged -= handler);
         }
 

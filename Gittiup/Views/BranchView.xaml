@@ -86,7 +86,7 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate DataType="diffMatchPatch:Diff">
-                                            <TextBlock Background="{Binding Operation, Converter={StaticResource DiffOperationToColorConverter}}"><Run Text="{Binding Text}" /></TextBlock>
+                                            <TextBlock MinHeight="16" Background="{Binding Operation, Converter={StaticResource DiffOperationToColorConverter}}"><Run Text="{Binding Text}" /></TextBlock>
                                             <!-- <TextBlock Background="{Binding Operation, Converter={StaticResource ObjectNotNullVisibilityConverter}}"><Run Text="{Binding Text}" /></TextBlock> -->
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>

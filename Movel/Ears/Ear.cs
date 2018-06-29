@@ -135,6 +135,7 @@ namespace Movel.Ears
                 return listener;
             }
 
+
             public void TargetOnPropertyChanged(object o, PropertyChangedEventArgs propertyChangedEventArgs)
             {
                 var property = ear.path[index];
