@@ -1,12 +1,16 @@
 ﻿using System.Collections.ObjectModel;
 using Gittiup.Library.Models;
 using Gittiup.Library.Utils;
+using Movel.Ears;
+using Movel.Utils;
 
 namespace Gittiup.Library.ViewModels
 {
-    public class AccountsViewModel
+    public class AccountsViewModel : BaseObject
     {
         public ObservableCollection<AccountModel> Accounts { get; set; } = new ObservableCollection<AccountModel>();
+        public AccountModel SelectedAccount { get; set; }
+        public bool CanEditSelectedAccount { get; set; }
 
         public AccountsViewModel()
         {
@@ -14,6 +18,8 @@ namespace Gittiup.Library.ViewModels
             {
                 Accounts.AddRange(db.Accounts.FindAll());
             }
+
+            this.Listen(x => x.SelectedAccount).Then((ear, oldValue, newValue) => CanEditSelectedAccount = newValue != null);
         }
 
         public void SaveAccount(AccountModel account)

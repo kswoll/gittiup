@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using Gittiup.Library.Models;
 using Gittiup.Library.ViewModels;
 using LibGit2Sharp;
 using Movel.Ears;
@@ -14,11 +15,11 @@ namespace Gittiup.Views
 
     public partial class BranchView
     {
-        public BranchView(Repository repository, Branch branch)
+        public BranchView(Repository repository, AccountModel account, Branch branch)
         {
             InitializeComponent();
 
-            ViewModel = new BranchViewModel(repository, branch);
+            ViewModel = new BranchViewModel(repository, account, branch);
             ViewModel.Listen(x => x.SelectedCommit).Then(OnSelectedCommitChanged);
             ViewModel.Listen(x => x.SelectedFile).Then(OnSelectedFileChanged);
         }

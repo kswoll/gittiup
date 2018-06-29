@@ -17,12 +17,12 @@
                 <Button ToolTip="Add" Click="AddButton_OnClick">
                     <materialDesign:PackIcon Kind="AccountPlus" />
                 </Button>
-                <Button ToolTip="Edit" Click="EditButton_OnClick" IsEnabled="{Binding SelectedItem, ElementName=accountsListView, Mode=OneWay, TargetNullValue=false}">
+                <Button ToolTip="Edit" Click="EditButton_OnClick" IsEnabled="{Binding CanEditSelectedAccount}">
                     <materialDesign:PackIcon Kind="AccountEdit" />
                 </Button>
             </ToolBar>
         </ToolBarTray>
-        <ListBox x:Name="accountsListView" ItemsSource="{Binding Accounts, Mode=OneWay}">
+        <ListBox x:Name="accountsListView" ItemsSource="{Binding Accounts, Mode=OneWay}" SelectedValue="{Binding SelectedAccount}">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="models:AccountModel">
                     <StackPanel Orientation="Vertical">

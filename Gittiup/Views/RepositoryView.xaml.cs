@@ -94,7 +94,7 @@ namespace Gittiup.Views
             {
                 case Branch branch:
                     (content.Content as IDisposable)?.Dispose();
-                    content.Content = new BranchView(ViewModel.Repo, branch);
+                    content.Content = new BranchView(ViewModel.Repo, ViewModel.Repository.Account, branch);
                     break;
             }
         }

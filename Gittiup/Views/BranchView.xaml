@@ -14,95 +14,117 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:BranchViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="contentColumn" Width="*" />
-            <ColumnDefinition x:Name="splitterColumn" Width="0" />
-            <ColumnDefinition x:Name="rightColumn" Width="0" />
-        </Grid.ColumnDefinitions>
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" ToolBarTray.IsLocked="true">
+                <Button ToolTip="Commit">
+                    <materialDesign:PackIcon Kind="SourceCommit" />
+                </Button>
+                <Button ToolTip="Stash">
+                    <materialDesign:PackIcon Kind="Broom" />
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
         <Grid>
-            <controls:GittiupDataGrid x:Name="commits" ItemsSource="{Binding Branch.Commits}" AutoGenerateColumns="false" SelectedValue="{Binding SelectedCommit}">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="AuthorAvatar" Width="50">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate DataType="libGit2Sharp:Commit">
-                                <Image Source="{Binding Author.Email, Converter={StaticResource EmailToAvatarConverter}}" Width="24" Height="24" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                        <DataGridTemplateColumn.HeaderTemplate>
-                            <DataTemplate DataType="libGit2Sharp:Commit">
-                                <TextBlock Text="Who" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.HeaderTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Message" Binding="{Binding MessageShort}" Width="*" />
-                    <DataGridTextColumn Header="When" Binding="{Binding Committer.When.LocalDateTime}" />
-                </DataGrid.Columns>
-                <DataGrid.Resources>
-                    <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
-                        <Setter Property="BorderThickness" Value="0" />
-                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                    </Style>
-                </DataGrid.Resources>
-            </controls:GittiupDataGrid>
-            <Grid x:Name="fileView" Visibility="Collapsed">
-                <ListView x:Name="file" FontFamily="Consolas" Margin="0,2,0,0" ItemsSource="{Binding SelectedFileContent}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="Padding" Value="0"/>
-                            <Setter Property="Margin" Value="0"/>
-                            <Setter Property="BorderThickness" Value="0"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="contentColumn" Width="*" />
+                <ColumnDefinition x:Name="splitterColumn" Width="0" />
+                <ColumnDefinition x:Name="rightColumn" Width="0" />
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <controls:GittiupDataGrid x:Name="commits" ItemsSource="{Binding Commits}" AutoGenerateColumns="false" SelectedValue="{Binding SelectedCommit}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="AuthorAvatar" Width="40">
+                            <DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Padding" Value="0"/>
+                                </Style>
+                            </DataGridTemplateColumn.CellStyle>
+                            <DataGridTemplateColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                                    <Setter Property="Padding" Value="4,8,4,8"/>
+                                </Style>
+                            </DataGridTemplateColumn.HeaderStyle>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="viewModels:BranchCommitViewModel">
+                                    <Image Source="{Binding Author, Converter={StaticResource EmailToAvatarConverter}}" Width="24" Height="24" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate DataType="libGit2Sharp:Commit">
+                                    <TextBlock Text="Who" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*" />
+                        <DataGridTextColumn Header="When" Binding="{Binding When}" />
+                    </DataGrid.Columns>
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                         </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListView.ItemTemplate>
-                        <DataTemplate DataType="utils:DiffLine">
-                            <ItemsControl ItemsSource="{Binding}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                        </StackPanel>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="diffMatchPatch:Diff">
-                                        <TextBlock Background="{Binding Operation, Converter={StaticResource DiffOperationToColorConverter}}"><Run Text="{Binding Text}" /></TextBlock>
-                                        <!-- <TextBlock Background="{Binding Operation, Converter={StaticResource ObjectNotNullVisibilityConverter}}"><Run Text="{Binding Text}" /></TextBlock> -->
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </DataGrid.Resources>
+                </controls:GittiupDataGrid>
+                <Grid x:Name="fileView" Visibility="Collapsed">
+                    <ListView x:Name="file" FontFamily="Consolas" Margin="0,2,0,0" ItemsSource="{Binding SelectedFileContent}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Margin" Value="0"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate DataType="utils:DiffLine">
+                                <ItemsControl ItemsSource="{Binding}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                            </StackPanel>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="diffMatchPatch:Diff">
+                                            <TextBlock Background="{Binding Operation, Converter={StaticResource DiffOperationToColorConverter}}"><Run Text="{Binding Text}" /></TextBlock>
+                                            <!-- <TextBlock Background="{Binding Operation, Converter={StaticResource ObjectNotNullVisibilityConverter}}"><Run Text="{Binding Text}" /></TextBlock> -->
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
-                <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top"
                         Margin="0, 5, 20, 0"
                         Click="CloseFile_Click">
-                    <materialDesign:PackIcon
+                        <materialDesign:PackIcon
                         Kind="Close"
                         Height="20"
                         Width="20" />
-                </Button>
+                    </Button>
+                </Grid>
             </Grid>
-        </Grid>
-        <GridSplitter Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" DragCompleted="Splitter_OnDragCompleted" />
-        <Grid Grid.Column="2" VerticalAlignment="Stretch">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="5" />
-                <RowDefinition Height="500" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid>
-                <WebBrowser x:Name="comment" Margin="0,2,0,0" Visibility="Visible" />
-                <Image x:Name="wip" gif:ImageBehavior.AnimatedSource="pack://application:,,,/Assets/wip.gif" Width="300" Visibility="Collapsed" />
-            </Grid>
-            <GridSplitter Grid.Row="1" Height="5" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
-            <ListView x:Name="files" Grid.Row="2" ItemsSource="{Binding Files}"
+            <GridSplitter Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" DragCompleted="Splitter_OnDragCompleted" />
+            <Grid Grid.Column="2" VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="500" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <WebBrowser x:Name="comment" Margin="0,2,0,0" Visibility="Visible" />
+                    <Image x:Name="wip" gif:ImageBehavior.AnimatedSource="pack://application:,,,/Assets/wip.gif" Width="300" Visibility="Collapsed" />
+                </Grid>
+                <GridSplitter Grid.Row="1" Height="5" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
+                <ListView x:Name="files" Grid.Row="2" ItemsSource="{Binding Files}"
                       MouseUp="Files_OnMouseUp"
                       SelectedValue="{Binding SelectedFile}" />
+            </Grid>
         </Grid>
-    </Grid>
+    </DockPanel>
 </local:BranchViewBase>
 

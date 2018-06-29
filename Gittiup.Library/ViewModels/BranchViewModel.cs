@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using DiffMatchPatch;
+using Gittiup.Library.Models;
 using Gittiup.Library.Utils;
 using LibGit2Sharp;
 using Movel.Ears;
@@ -21,14 +22,38 @@ namespace Gittiup.Library.ViewModels
         public ImmutableList<string> Files { get; set; }
         public string SelectedFile { get; set; }
         public ImmutableList<DiffLine> SelectedFileContent { get; set; }
+        public ImmutableList<BranchCommitViewModel> Commits { get; set; }
 
-        public BranchViewModel(Repository repository, Branch branch)
+        public BranchViewModel(Repository repository, AccountModel account, Branch branch)
         {
             Repository = repository;
             Branch = branch;
 
             this.Listen(x => x.SelectedCommit).Then(OnSelectedCommitChanged);
             this.Listen(x => x.SelectedFile).Then(OnSelectedFileChanged);
+
+            var commits = new List<BranchCommitViewModel>();
+            var status = repository.RetrieveStatus(new StatusOptions()
+            {
+            });
+            if (status.IsDirty)
+            {
+                commits.Add(new BranchCommitViewModel
+                {
+                    Author = account.Email,
+                    Message = "(Working Copy Changes)"
+                });
+            }
+
+            commits.AddRange(branch.Commits.Select(x => new BranchCommitViewModel
+            {
+                Commit = x,
+                Message = x.MessageShort,
+                When = x.Author.When.LocalDateTime,
+                Author = x.Author.Email
+            }));
+
+            Commits = commits.ToImmutableList();
         }
 
         private void OnSelectedCommitChanged()

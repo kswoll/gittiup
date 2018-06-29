@@ -26,6 +26,11 @@
                     <TextBlock>User Name</TextBlock>
                 </materialDesign:HintAssist.Hint>
             </TextBox>
+            <TextBox Margin="0 8 0 0" HorizontalAlignment="Stretch" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Account.Email}">
+                <materialDesign:HintAssist.Hint>
+                    <TextBlock>Email</TextBlock>
+                </materialDesign:HintAssist.Hint>
+            </TextBox>
             <PasswordBox x:Name="password" Margin="0 8 0 0" HorizontalAlignment="Stretch">
                 <materialDesign:HintAssist.Hint>
                     <TextBlock>Password</TextBlock>
