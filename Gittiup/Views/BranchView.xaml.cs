@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Gittiup.Library.Models;
 using Gittiup.Library.ViewModels;
 using LibGit2Sharp;
+using MaterialDesignThemes.Wpf;
 using Movel.Ears;
 
 namespace Gittiup.Views
@@ -102,6 +103,20 @@ namespace Gittiup.Views
             {
                 settings.RightSidebarWidth = width;
                 settings.Save();
+            }
+        }
+
+        private async void Branch_OnClick(object sender, RoutedEventArgs e)
+        {
+            var model = new StringInputViewModel
+            {
+                Title = "Create Branch"
+            };
+            var dialog = new StringInputDialog(model);
+            var result = (bool)await DialogHost.Show(dialog, "RootDialog");
+            if (result)
+            {
+                ViewModel.CreateBranch(model.Input);
             }
         }
     }

@@ -13,7 +13,7 @@
              xmlns:libGit2Sharp="clr-namespace:LibGit2Sharp;assembly=LibGit2Sharp"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:BranchViewModel}"
-         d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="contentColumn" Width="*" />
@@ -30,6 +30,9 @@
                         <Button ToolTip="Stash">
                             <materialDesign:PackIcon Kind="Broom" />
                         </Button>
+                        <Button ToolTip="Branch" Click="Branch_OnClick">
+                            <materialDesign:PackIcon Kind="SourceBranch" />
+                        </Button>
                     </ToolBar>
                 </ToolBarTray>
 
@@ -37,7 +40,7 @@
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="AuthorAvatar" Width="40">
                             <DataGridTemplateColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
+                                <Style TargetType="DataGridCell" BasedOn="{StaticResource MaterialDesignDataGridCell}">
                                     <Setter Property="Padding" Value="0"/>
                                 </Style>
                             </DataGridTemplateColumn.CellStyle>

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
-using DiffMatchPatch;
 using Gittiup.Library.Models;
 using Gittiup.Library.Utils;
 using LibGit2Sharp;
 using Movel.Ears;
 using Movel.Utils;
-using Diff = DiffMatchPatch.Diff;
 using Patch = LibGit2Sharp.Patch;
 
 namespace Gittiup.Library.ViewModels
@@ -34,17 +31,20 @@ namespace Gittiup.Library.ViewModels
             this.Listen(x => x.SelectedFile).Then(WhenSelectedFileChanged);
 
             var commits = new List<BranchItemViewModel>();
-            var status = repository.RetrieveStatus(new StatusOptions()
+            if (repository.Head.CanonicalName == branch.CanonicalName)
             {
-            });
-            if (status.IsDirty)
-            {
-                commits.Add(new BranchItemViewModel
+                var status = repository.RetrieveStatus(new StatusOptions()
                 {
-                    Author = account.Email,
-                    Message = "(Working Copy Changes)",
-                    Changes = status
                 });
+                if (status.IsDirty)
+                {
+                    commits.Add(new BranchItemViewModel
+                    {
+                        Author = account.Email,
+                        Message = "(Working Copy Changes)",
+                        Changes = status
+                    });
+                }
             }
 
             commits.AddRange(branch.Commits.Select(x => new BranchItemViewModel
@@ -122,59 +122,12 @@ namespace Gittiup.Library.ViewModels
                 newContentText = File.ReadAllText(Path.Combine(Repository.Info.WorkingDirectory, selectedFile)).Replace("\r\n", "\n");
             }
 
-            List<Diff> diffs;
-            if (oldContentText == null)
-            {
-                diffs = new List<Diff>
-                {
-                    new Diff(newContentText, Operation.Insert)
-                };
-            }
-            else
-            {
-                var differ = DiffMatchPatchModule.Default;
-                diffs = differ.DiffMain(oldContentText, newContentText);
-                differ.DiffCleanupSemantic(diffs);
-            }
+            SelectedFileContent = DiffLineGenerator.GenerateLineDiffs(oldContentText, newContentText);
+        }
 
-//            var differ = new DiffMatchPatch.DiffMatchPatch(.5f, 32, 4, 0.5f, 1000, 32, 0.5f, 4);
-
-            var lines = new List<DiffLine>();
-            var currentLine = new DiffLine();
-            Diff currentLineInitialDiff = null;
-            foreach (var diff in diffs)
-            {
-                var diffLines = diff.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-                var newLine = false;
-                if (currentLine.All(x => x.Text.Length == 0))
-                {
-                    currentLineInitialDiff = diff;
-                }
-                foreach (var line in diffLines)
-                {
-                    if (newLine)
-                    {
-                        if (currentLineInitialDiff == null || Equals(currentLineInitialDiff, diff))
-                        {
-                            currentLine.Operation = diff.Operation;
-                        }
-                        lines.Add(currentLine);
-                        currentLine = new DiffLine();
-                        currentLineInitialDiff = diff;
-                    }
-                    currentLine.Add(new Diff(line, diff.Operation));
-                    newLine = true;
-                }
-            }
-
-            if (currentLine.Any())
-            {
-                if (currentLine.Select(x => x.Operation).ToImmutableHashSet().Count == 1)
-                    currentLine.Operation = currentLine[0].Operation;
-                lines.Add(currentLine);
-            }
-
-            SelectedFileContent = lines.ToImmutableList();
+        public void CreateBranch(string branchName)
+        {
+            Repository.CreateBranch(branchName);
         }
     }
 }
