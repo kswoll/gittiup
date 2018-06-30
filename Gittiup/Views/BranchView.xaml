@@ -13,26 +13,27 @@
              xmlns:libGit2Sharp="clr-namespace:LibGit2Sharp;assembly=LibGit2Sharp"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:BranchViewModel}"
-             d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel>
-        <ToolBarTray DockPanel.Dock="Top">
-            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" ToolBarTray.IsLocked="true">
-                <Button ToolTip="Commit">
-                    <materialDesign:PackIcon Kind="SourceCommit" />
-                </Button>
-                <Button ToolTip="Stash">
-                    <materialDesign:PackIcon Kind="Broom" />
-                </Button>
-            </ToolBar>
-        </ToolBarTray>
+         d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="contentColumn" Width="*" />
+            <ColumnDefinition x:Name="splitterColumn" Width="0" />
+            <ColumnDefinition x:Name="rightColumn" Width="0" />
+        </Grid.ColumnDefinitions>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="contentColumn" Width="*" />
-                <ColumnDefinition x:Name="splitterColumn" Width="0" />
-                <ColumnDefinition x:Name="rightColumn" Width="0" />
-            </Grid.ColumnDefinitions>
-            <Grid>
-                <controls:GittiupDataGrid x:Name="commits" ItemsSource="{Binding Commits}" AutoGenerateColumns="false" SelectedValue="{Binding SelectedItemViewModel}">
+            <DockPanel x:Name="commits">
+                <ToolBarTray DockPanel.Dock="Top">
+                    <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" ToolBarTray.IsLocked="true">
+                        <Button ToolTip="Commit">
+                            <materialDesign:PackIcon Kind="SourceCommit" />
+                        </Button>
+                        <Button ToolTip="Stash">
+                            <materialDesign:PackIcon Kind="Broom" />
+                        </Button>
+                    </ToolBar>
+                </ToolBarTray>
+
+                <controls:GittiupDataGrid ItemsSource="{Binding Commits}" AutoGenerateColumns="false" SelectedValue="{Binding SelectedItemViewModel}">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="AuthorAvatar" Width="40">
                             <DataGridTemplateColumn.CellStyle>
@@ -66,8 +67,21 @@
                         </Style>
                     </DataGrid.Resources>
                 </controls:GittiupDataGrid>
-                <Grid x:Name="fileView" Visibility="Collapsed">
-                    <ListView x:Name="file" FontFamily="Consolas" Margin="0,2,0,0" ItemsSource="{Binding SelectedFileContent}">
+            </DockPanel>
+
+            <DockPanel x:Name="fileView" Visibility="Collapsed">
+                <ToolBarTray DockPanel.Dock="Top">
+                    <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" ToolBarTray.IsLocked="true">
+                        <Button ToolTip="Commit">
+                            <materialDesign:PackIcon Kind="SourceCommit" />
+                        </Button>
+                        <Button ToolTip="Stash">
+                            <materialDesign:PackIcon Kind="Broom" />
+                        </Button>
+                    </ToolBar>
+                </ToolBarTray>
+                <Grid>
+                    <ListView x:Name="file" FontFamily="Consolas" Margin="0,0,0,0" ItemsSource="{Binding SelectedFileContent}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="Padding" Value="0"/>
@@ -83,7 +97,7 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Border Background="{Binding Operation, Converter={StaticResource DiffOperationToColorConverter}}" />
-                                    <ItemsControl Grid.Column="1" ItemsSource="{Binding}">
+                                    <ItemsControl Grid.Column="1" ItemsSource="{Binding}" MinHeight="17">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <StackPanel Orientation="Horizontal">
@@ -113,25 +127,24 @@
                         Width="20" />
                     </Button>
                 </Grid>
-            </Grid>
-            <GridSplitter Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" DragCompleted="Splitter_OnDragCompleted" />
-            <Grid Grid.Column="2" VerticalAlignment="Stretch">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="5" />
-                    <RowDefinition Height="500" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid>
-                    <WebBrowser x:Name="comment" Margin="0,2,0,0" Visibility="Visible" />
-                    <Image x:Name="wip" gif:ImageBehavior.AnimatedSource="pack://application:,,,/Assets/wip.gif" Width="300" Visibility="Collapsed" />
-                </Grid>
-                <GridSplitter Grid.Row="1" Height="5" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
-                <ListView x:Name="files" Grid.Row="2" ItemsSource="{Binding Files}"
-                      MouseUp="Files_OnMouseUp"
-                      SelectedValue="{Binding SelectedFile}" />
-            </Grid>
+            </DockPanel>
         </Grid>
-    </DockPanel>
+        <GridSplitter Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" DragCompleted="Splitter_OnDragCompleted" />
+        <Grid Grid.Column="2" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="500" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <WebBrowser x:Name="comment" Margin="0,2,0,0" Visibility="Visible" />
+                <Image x:Name="wip" gif:ImageBehavior.AnimatedSource="pack://application:,,,/Assets/wip.gif" Width="300" Visibility="Collapsed" />
+            </Grid>
+            <GridSplitter Grid.Row="1" Height="5" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
+            <ListView x:Name="files" Grid.Row="2" ItemsSource="{Binding Files}"
+                  MouseUp="Files_OnMouseUp"
+                  SelectedValue="{Binding SelectedFile}" />
+        </Grid>
+    </Grid>
 </local:BranchViewBase>
-
