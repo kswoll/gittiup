@@ -24,6 +24,9 @@
             <DockPanel x:Name="commits">
                 <ToolBarTray DockPanel.Dock="Top">
                     <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" ToolBarTray.IsLocked="true">
+                        <Button ToolTip="Check Out" Click="Checkout_OnClick">
+                            <materialDesign:PackIcon Kind="Switch" />
+                        </Button>
                         <Button ToolTip="Commit">
                             <materialDesign:PackIcon Kind="SourceCommit" />
                         </Button>
