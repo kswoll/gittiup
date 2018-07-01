@@ -14,6 +14,7 @@ namespace Gittiup.Library.ViewModels
     public class BranchViewModel : BaseObject
     {
         public Repository Repository { get; }
+        public AccountModel Account { get; }
         public Branch Branch { get; }
         public BranchItemViewModel SelectedItemViewModel { get; set; }
         public string SelectedCommitMessage { get; set; }
@@ -25,6 +26,7 @@ namespace Gittiup.Library.ViewModels
         public BranchViewModel(Repository repository, AccountModel account, Branch branch)
         {
             Repository = repository;
+            Account = account;
             Branch = branch;
 
             this.Listen(x => x.SelectedItemViewModel).Then(OnSelectedItemViewModelChanged);

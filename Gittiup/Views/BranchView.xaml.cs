@@ -137,6 +137,7 @@ namespace Gittiup.Views
                 repository.Branches.Update(local, x => x.TrackedBranch = origin.CanonicalName);
                 Commands.Checkout(repository, local);
             }
+            ViewModel = new BranchViewModel(repository, ViewModel.Account, branch);
         }
     }
 }
