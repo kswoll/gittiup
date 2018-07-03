@@ -7,7 +7,7 @@ using Movel.Utils;
 
 namespace Movel.Stores
 {
-    public class Store
+    public class Store : BaseObject
     {
         public Store()
         {

@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Windows;
+using Gittiup.Library.Stores;
 using Gittiup.Utils;
+using Gittiup.Views;
 
 namespace Gittiup
 {
+    public class MainWindowBase : BaseWindow<ApplicationStore>
+    {
+    }
+
     public partial class MainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = new ApplicationStore();
 
             var settings = Properties.Settings.Default;
             WindowState = settings.WindowState;

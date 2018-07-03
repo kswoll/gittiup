@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:Gittiup.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:viewModels="clr-namespace:Gittiup.Library.ViewModels;assembly=Gittiup.Library"
              xmlns:models="clr-namespace:Gittiup.Library.Models;assembly=Gittiup.Library"
+             xmlns:stores="clr-namespace:Gittiup.Library.Stores;assembly=Gittiup.Library"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance viewModels:AccountsViewModel}"
+             d:DataContext="{d:DesignInstance stores:AccountsStore}"
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Orientation="Vertical">
         <ToolBarTray>
@@ -20,9 +20,12 @@
                 <Button ToolTip="Edit" Click="EditButton_OnClick" IsEnabled="{Binding CanEditSelectedAccount}">
                     <materialDesign:PackIcon Kind="AccountEdit" />
                 </Button>
+                <Button ToolTip="Remove" Click="RemoveButton_OnClick" IsEnabled="{Binding CanEditSelectedAccount}">
+                    <materialDesign:PackIcon Kind="AccountRemove" />
+                </Button>
             </ToolBar>
         </ToolBarTray>
-        <ListBox x:Name="accountsListView" ItemsSource="{Binding Accounts, Mode=OneWay}" SelectedValue="{Binding SelectedAccount}">
+        <ListBox x:Name="accountsListView" ItemsSource="{Binding Accounts, Mode=OneWay}" SelectedValue="{Binding SelectedAccount, Mode=OneWay}">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="models:AccountModel">
                     <StackPanel Orientation="Vertical">
