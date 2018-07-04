@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Gittiup.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:viewModels="clr-namespace:Gittiup.Library.ViewModels;assembly=Gittiup.Library"
              xmlns:models="clr-namespace:Gittiup.Library.Models;assembly=Gittiup.Library"
              mc:Ignorable="d"
@@ -18,6 +17,9 @@
                     <materialDesign:PackIcon Kind="AccountPlus" />
                 </Button>
                 <Button ToolTip="Edit" Click="EditButton_OnClick" IsEnabled="{Binding CanEditSelectedAccount}">
+                    <materialDesign:PackIcon Kind="AccountEdit" />
+                </Button>
+                <Button ToolTip="Edit" Click="RemoveButton_OnClick" IsEnabled="{Binding CanEditSelectedAccount}">
                     <materialDesign:PackIcon Kind="AccountEdit" />
                 </Button>
             </ToolBar>

@@ -33,5 +33,9 @@ namespace Gittiup.Views
             await DialogHost.Show(editAccount, "RootDialog");
             ViewModel.SaveAccount(account);
         }
+
+        private void RemoveButton_OnClick(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }
