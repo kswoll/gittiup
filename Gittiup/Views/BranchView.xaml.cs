@@ -17,11 +17,14 @@ namespace Gittiup.Views
 
     public partial class BranchView
     {
-        public BranchView(Repository repository, AccountModel account, Branch branch)
+        public BranchView()
         {
             InitializeComponent();
+        }
 
-            ViewModel = new BranchViewModel(repository, account, branch);
+        protected override void OnViewModelChanged(BranchViewModel oldModel, BranchViewModel newModel)
+        {
+            base.OnViewModelChanged(oldModel, newModel);
             ViewModel.Listen(x => x.SelectedItemViewModel).Then(OnSelectedItemViewModelChanged);
             ViewModel.Listen(x => x.SelectedFile).Then(OnSelectedFileChanged);
         }

@@ -20,10 +20,16 @@ namespace Gittiup.Views
                 if (viewModel != value)
                 {
                     (viewModel as IDisposable)?.Dispose();
+                    var oldViewModel = viewModel;
                     viewModel = value;
                     DataContext = value;
+                    OnViewModelChanged(oldViewModel, value);
                 }
             }
+        }
+
+        protected virtual void OnViewModelChanged(T oldModel, T newModel)
+        {
         }
 
         public void Dispose()
