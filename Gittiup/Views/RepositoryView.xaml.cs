@@ -16,6 +16,8 @@ namespace Gittiup.Views
 
     public partial class RepositoryView
     {
+        private readonly BranchView branchView = new BranchView();
+
         public RepositoryView()
         {
             InitializeComponent();
@@ -94,6 +96,7 @@ namespace Gittiup.Views
             {
                 case Branch branch:
                     (content.Content as IDisposable)?.Dispose();
+                    ViewModel = new BranchViewModel(repository, account, branch);
                     content.Content = new BranchView(ViewModel.Repo, ViewModel.Repository.Account, branch);
                     break;
             }
