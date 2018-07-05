@@ -164,10 +164,12 @@ namespace Gittiup.Views
 
         private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+/*
             isSelectingNode = true;
             var treeViewItem = (TreeViewItem)e.NewValue;
             ViewModel.SelectedNode = treeViewItem.Tag;
             isSelectingNode = false;
+*/
         }
 
         private void Splitter_OnDragCompleted(object sender, DragCompletedEventArgs e)

@@ -15,6 +15,21 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <TreeView x:Name="treeView" HorizontalAlignment="Stretch" SelectedItemChanged="TreeView_OnSelectedItemChanged" ItemsSource="{Binding Items}">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource MaterialDesignTreeViewItem}">
+                    <d:Style.DataContext>
+                        <x:Type Type="viewModels:RepositoryItemViewModel" />
+                    </d:Style.DataContext>
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                    <Setter Property="FontWeight" Value="Normal" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TreeView.ItemContainerStyle>
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}" DataType="viewModels:RepositoryItemViewModel">
                     <TextBlock Text="{Binding Name}" />
