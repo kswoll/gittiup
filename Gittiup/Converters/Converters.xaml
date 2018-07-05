@@ -5,4 +5,5 @@
     <local:ObjectNotNullVisibilityConverter x:Key="ObjectNotNullVisibilityConverter" />
     <local:DiffOperationToColorConverter x:Key="DiffOperationToColorConverter" />
     <local:EmailToAvatarConverter x:Key="EmailToAvatarConverter" />
+    <local:BoolToFontWeightConverter x:Key="BoolToFontWeightConverter" />
 </ResourceDictionary>

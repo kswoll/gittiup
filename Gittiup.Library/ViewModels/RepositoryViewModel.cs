@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Gittiup.Library.Models;
 using Gittiup.Library.Utils;
@@ -15,16 +14,16 @@ namespace Gittiup.Library.ViewModels
     {
         public RepositoryModel Repository { get; }
         public Repository Repo { get; }
-        public IAsyncCommand<Branch> Checkout { get; }
-        public object SelectedNode { get; set; }
-        public object CheckedOutNode { get; set; }
+        public IAsyncCommand<RepositoryItemViewModel> Checkout { get; }
+        public RepositoryItemViewModel SelectedItem { get; set; }
+        public RepositoryItemViewModel CheckedOutItem { get; private set; }
         public ImmutableList<RepositoryItemViewModel> Items { get; set; }
 
         public RepositoryViewModel(RepositoryModel repository)
         {
             Repository = repository;
             Repo = new Repository(repository.Path);
-            Checkout = this.CreateCommand<Branch>(OnCheckout);
+            Checkout = this.CreateCommand<RepositoryItemViewModel>(OnCheckout);
 
             Repo.DisposeWith(this);
 
@@ -51,6 +50,8 @@ namespace Gittiup.Library.ViewModels
                 {
                     branchNode.IsSelected = true;
                     branchNode.IsCheckedOut = true;
+                    SelectedItem = branchNode;
+                    CheckedOutItem = branchNode;
                 }
             }
             branchesNode.Children = branches.ToImmutableList();
@@ -94,9 +95,10 @@ namespace Gittiup.Library.ViewModels
             Items = items.ToImmutableList();
         }
 
-        private void OnCheckout(Branch branch)
+        private void OnCheckout(RepositoryItemViewModel item)
         {
             var repository = Repo;
+            var branch = (Branch)item.Value;
 
             if (!branch.IsRemote)
             {
@@ -110,8 +112,13 @@ namespace Gittiup.Library.ViewModels
                 Commands.Checkout(repository, local);
             }
 
-            SelectedNode = branch;
-            CheckedOutNode = branch;
+            if (CheckedOutItem != null)
+            {
+                CheckedOutItem.IsCheckedOut = false;
+            }
+
+            item.IsCheckedOut = true;
+            CheckedOutItem = item;
         }
     }
 }

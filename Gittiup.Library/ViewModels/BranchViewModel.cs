@@ -14,6 +14,7 @@ namespace Gittiup.Library.ViewModels
 {
     public class BranchViewModel : BaseObject
     {
+        public RepositoryItemViewModel Item { get; }
         public Repository Repository { get; }
         public AccountModel Account { get; }
         public Branch Branch { get; }
@@ -23,10 +24,11 @@ namespace Gittiup.Library.ViewModels
         public string SelectedFile { get; set; }
         public ImmutableList<DiffLine> SelectedFileContent { get; set; }
         public ImmutableList<BranchItemViewModel> Commits { get; set; }
-        public IAsyncCommand<Branch> Checkout { get; set; }
+        public IAsyncCommand<RepositoryItemViewModel> Checkout { get; set; }
 
-        public BranchViewModel(Repository repository, AccountModel account, Branch branch)
+        public BranchViewModel(RepositoryItemViewModel item, Repository repository, AccountModel account, Branch branch)
         {
+            Item = item;
             Repository = repository;
             Account = account;
             Branch = branch;

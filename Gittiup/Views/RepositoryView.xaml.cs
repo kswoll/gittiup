@@ -20,7 +20,7 @@ namespace Gittiup.Views
     {
         private readonly BranchView branchView = new BranchView();
 
-        private bool isSelectingNode;
+//        private bool isSelectingNode;
 
         public RepositoryView()
         {
@@ -34,136 +34,28 @@ namespace Gittiup.Views
         {
             base.OnViewModelChanged(oldModel, newModel);
 
-            newModel.Listen(x => x.SelectedNode).Then(OnSelectedNodeChanged);
-            newModel.Listen(x => x.CheckedOutNode).Then(OnCheckedOutNodeChanged);
+            newModel.Listen(x => x.SelectedItem).Then(OnSelectedItemChanged);
+//            newModel.Listen(x => x.CheckedOutItem).Then(OnCheckedOutNodeChanged);
 
-/*
-            var branchesNode = new TreeViewItem
-            {
-                Header = "Branches",
-                IsExpanded = true
-            };
-            treeView.Items.Add(branchesNode);
-
-            foreach (var branch in ViewModel.Repo.Branches.Where(x => !x.IsRemote))
-            {
-                var branchNode = new TreeViewItem
-                {
-                    Header = branch.FriendlyName,
-                    Tag = branch
-                };
-                branchesNode.Items.Add(branchNode);
-
-                if (branch.CanonicalName == ViewModel.Repo.Head.CanonicalName)
-                {
-                    branchNode.IsSelected = true;
-                    branchNode.FontWeight = FontWeights.Bold;
-                }
-            }
-
-            if (ViewModel.Repo.Branches.Any(x => x.IsRemote))
-            {
-                var remotesNode = new TreeViewItem
-                {
-                    Header = "Remotes"
-                };
-                treeView.Items.Add(remotesNode);
-
-                var branchesByRemote = ViewModel.Repo.Branches.Where(x => x.IsRemote).ToLookup(x => x.RemoteName);
-
-                foreach (var remote in ViewModel.Repo.Network.Remotes)
-                {
-                    var remoteNode = new TreeViewItem
-                    {
-                        Header = remote.Name
-                    };
-                    remotesNode.Items.Add(remoteNode);
-
-                    foreach (var branch in branchesByRemote[remote.Name])
-                    {
-                        var branchNode = new TreeViewItem
-                        {
-                            Header = branch.FriendlyName.ChopStart($"{remote.Name}/"),
-                            Tag = branch
-                        };
-                        remoteNode.Items.Add(branchNode);
-                    }
-                }
-            }
-*/
+            OnSelectedItemChanged();
         }
 
-        private TreeViewItem GetTreeViewItem(object node)
+        private void OnSelectedItemChanged()
         {
-            if (node == null)
-            {
-                return null;
-            }
-
-            var stack = new Stack<TreeViewItem>();
-            foreach (var item in treeView.Items)
-            {
-                stack.Push((TreeViewItem)item);
-            }
-
-            while (stack.Any())
-            {
-                var current = stack.Pop();
-                if (current.Tag == node)
-                {
-                    return current;
-                }
-
-                foreach (TreeViewItem child in current.Items)
-                {
-                    stack.Push(child);
-                }
-            }
-
-            return null;
-        }
-
-        private void SetSelectedNode(object node)
-        {
-            if (isSelectingNode)
-                return;
-
-            var item = GetTreeViewItem(node);
-            item.IsSelected = true;
-        }
-
-        private void OnSelectedNodeChanged()
-        {
-            var node = ViewModel.SelectedNode;
-            SetSelectedNode(node);
-            switch (node)
+            var item = ViewModel.SelectedItem;
+            switch (item.Value)
             {
                 case Branch branch:
-                    branchView.ViewModel = new BranchViewModel(ViewModel.Repo, ViewModel.Repository.Account, branch);
+                    branchView.ViewModel = new BranchViewModel(item, ViewModel.Repo, ViewModel.Repository.Account, branch);
                     branchView.ViewModel.Checkout = ViewModel.Checkout;
                     content.Content = branchView;
                     break;
             }
         }
 
-        private void OnCheckedOutNodeChanged(Ear<object> ear, object oldNode, object newNode)
-        {
-            var oldItem = GetTreeViewItem(oldNode);
-            var newItem = GetTreeViewItem(newNode);
-
-            if (oldItem != null)
-            {
-                oldItem.FontWeight = FontWeights.Normal;
-            }
-
-            if (newItem != null)
-            {
-                newItem.FontWeight = FontWeights.Bold;
-            }
-        }
-
         private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            ViewModel.SelectedItem = (RepositoryItemViewModel)e.NewValue;
 /*
             isSelectingNode = true;
             var treeViewItem = (TreeViewItem)e.NewValue;

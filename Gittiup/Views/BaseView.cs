@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using Movel.Utils;
 
@@ -11,6 +12,16 @@ namespace Gittiup.Views
 
         private T viewModel;
         private bool isDisposed;
+
+        public BaseView()
+        {
+            DataContextChanged += OnDataContextChanged;
+        }
+
+        private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs args)
+        {
+            ViewModel = (T)args.NewValue;
+        }
 
         public T ViewModel
         {

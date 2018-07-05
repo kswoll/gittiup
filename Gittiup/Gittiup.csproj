@@ -106,6 +106,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\GittiupDataGrid.cs" />
+    <Compile Include="Converters\BoolToFontWeightConverter.cs" />
     <Compile Include="Converters\DiffOperationToColorConverter.cs" />
     <Compile Include="Converters\EmailToAvatarConverter.cs" />
     <Compile Include="Converters\ObjectNotNullVisibilityConverter.cs" />
