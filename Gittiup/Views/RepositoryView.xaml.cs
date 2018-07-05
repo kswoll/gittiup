@@ -26,18 +26,8 @@ namespace Gittiup.Views
         {
             InitializeComponent();
 
-            DataContextChanged += OnDataContextChanged;
-
             var settings = Properties.Settings.Default;
             sidebarColumn.Width = new GridLength(settings.LeftSidebarWidth);
-        }
-
-        private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue is RepositoryModel repository)
-            {
-                ViewModel = new RepositoryViewModel(repository);
-            }
         }
 
         protected override void OnViewModelChanged(RepositoryViewModel oldModel, RepositoryViewModel newModel)
@@ -47,6 +37,7 @@ namespace Gittiup.Views
             newModel.Listen(x => x.SelectedNode).Then(OnSelectedNodeChanged);
             newModel.Listen(x => x.CheckedOutNode).Then(OnCheckedOutNodeChanged);
 
+/*
             var branchesNode = new TreeViewItem
             {
                 Header = "Branches",
@@ -99,6 +90,7 @@ namespace Gittiup.Views
                     }
                 }
             }
+*/
         }
 
         private TreeViewItem GetTreeViewItem(object node)

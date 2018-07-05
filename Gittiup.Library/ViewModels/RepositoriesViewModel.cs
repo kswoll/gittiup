@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using Gittiup.Library.Models;
 using Gittiup.Library.Utils;
 using Movel.Utils;
@@ -7,13 +8,13 @@ namespace Gittiup.Library.ViewModels
 {
     public class RepositoriesViewModel : BaseObject
     {
-        public ObservableCollection<RepositoryModel> Repositories { get; set; } = new ObservableCollection<RepositoryModel>();
+        public ObservableCollection<RepositoryViewModel> Repositories { get; set; } = new ObservableCollection<RepositoryViewModel>();
 
         public RepositoriesViewModel()
         {
             using (var db = new GittiupDb())
             {
-                Repositories.AddRange(db.Repositories.FindAll());
+                Repositories.AddRange(db.Repositories.FindAll().Select(x => new RepositoryViewModel(x)));
             }
         }
 
@@ -28,7 +29,7 @@ namespace Gittiup.Library.ViewModels
 
             if (isNew)
             {
-                Repositories.Add(repository);
+                Repositories.Add(new RepositoryViewModel(repository));
             }
         }
     }

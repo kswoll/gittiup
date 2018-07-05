@@ -14,8 +14,12 @@
             <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <TreeView x:Name="treeView" HorizontalAlignment="Stretch" SelectedItemChanged="TreeView_OnSelectedItemChanged">
-
+        <TreeView x:Name="treeView" HorizontalAlignment="Stretch" SelectedItemChanged="TreeView_OnSelectedItemChanged" ItemsSource="{Binding Items}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}" DataType="viewModels:RepositoryItemViewModel">
+                    <TextBlock Text="{Binding Name}" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
         </TreeView>
         <GridSplitter Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" DragCompleted="Splitter_OnDragCompleted" />
         <ContentControl x:Name="content" Grid.Column="2" HorizontalAlignment="Stretch" />
