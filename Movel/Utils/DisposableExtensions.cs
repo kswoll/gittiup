@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using Movel.Utils;
 
-namespace Movel.Tests.Utils
+namespace Movel.Utils
 {
     public static class DisposableExtensions
     {
-        public static void DisposeWith(this IDisposable disposable, IDisposableHost host)
+        public static TDisposable DisposeWith<TDisposable>(this TDisposable disposable, IDisposableHost host)
+            where TDisposable : IDisposable
         {
             host.AddDisposable(disposable);
+            return disposable;
         }
 
-        public static void DisposeWith<T>(this ICollection<T> collection, IDisposableHost host)
+        public static TCollection DisposeWith<TCollection, T>(this TCollection collection, IDisposableHost host)
+            where TCollection : ICollection<T>
             where T : IDisposable
         {
             host.AddDisposable(() =>
@@ -21,6 +23,7 @@ namespace Movel.Tests.Utils
                     item?.Dispose();
                 }
             });
+            return collection;
         }
     }
 }

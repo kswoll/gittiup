@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movel.Tests", "Movel.Tests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gittiup.Library.Tests", "Gittiup.Library.Tests\Gittiup.Library.Tests.csproj", "{793A1B00-3404-4651-8132-CFA12CB2A659}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movel.Wpf", "Movel.Wpf\Movel.Wpf.csproj", "{A167BAE9-DC72-4A8C-9D22-135D26CE0870}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{793A1B00-3404-4651-8132-CFA12CB2A659}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{793A1B00-3404-4651-8132-CFA12CB2A659}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{793A1B00-3404-4651-8132-CFA12CB2A659}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A167BAE9-DC72-4A8C-9D22-135D26CE0870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A167BAE9-DC72-4A8C-9D22-135D26CE0870}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A167BAE9-DC72-4A8C-9D22-135D26CE0870}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A167BAE9-DC72-4A8C-9D22-135D26CE0870}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

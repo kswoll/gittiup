@@ -5,16 +5,16 @@ namespace Movel.Commands
 {
     public interface IAsyncCommand : ICommand
     {
-        Task<object> ExecuteAsync(object parameter = null);
+        Task ExecuteAsync();
     }
 
-    public interface IAsyncCommand<in TInput, TOutput> : IAsyncCommand
+    public interface IAsyncCommand<in TInput> : ICommand
+    {
+        Task ExecuteAsync(TInput parameter);
+    }
+
+    public interface IAsyncCommand<in TInput, TOutput> : ICommand
     {
         Task<TOutput> ExecuteAsync(TInput parameter);
-    }
-
-    public interface IAsyncCommand<in TInput> : IAsyncCommand
-    {
-        Task Execute(TInput parameter);
     }
 }

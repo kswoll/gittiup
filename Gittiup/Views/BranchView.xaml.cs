@@ -123,24 +123,5 @@ namespace Gittiup.Views
                 ViewModel.CreateBranch(model.Input);
             }
         }
-
-        private void Checkout_OnClick(object sender, RoutedEventArgs e)
-        {
-            var branch = ViewModel.Branch;
-            var repository = ViewModel.Repository;
-
-            if (!branch.IsRemote)
-            {
-                Commands.Checkout(repository, branch);
-            }
-            else
-            {
-                var origin = repository.Branches[$"origin/{branch}"];
-                var local = repository.CreateBranch(branch.CanonicalName, origin.Tip);
-                repository.Branches.Update(local, x => x.TrackedBranch = origin.CanonicalName);
-                Commands.Checkout(repository, local);
-            }
-            ViewModel = new BranchViewModel(repository, ViewModel.Account, branch);
-        }
     }
 }

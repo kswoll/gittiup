@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Movel.Ears;
+using Movel.Utils;
 
 namespace Movel.Commands
 {
-    public class MovelCommand<TInput, TOutput> : IAsyncCommand<TInput, TOutput>, IAsyncCommand<TInput>, ICommand<TInput, TOutput>, ICommand<TInput>, IDisposable
+    public class MovelCommand<TInput, TOutput> : IAsyncCommand<TInput, TOutput>, IAsyncCommand<TInput>, IDisposable, IAsyncCommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -15,7 +15,7 @@ namespace Movel.Commands
 
         public MovelCommand(Func<TInput, Task<TOutput>> execute, IEar<bool> canExecute)
         {
-            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this.execute = execute ?? (input => Task.FromResult(default(TOutput)));
             this.canExecute = canExecute ?? new ConstantEar<bool>(true);
             this.canExecute.ValueChanged += EarOnValueChanged;
         }
@@ -30,19 +30,6 @@ namespace Movel.Commands
             return canExecute.Value;
         }
 
-        public TOutput Execute(TInput parameter = default)
-        {
-            var locker = new ManualResetEvent(false);
-            TOutput result = default;
-            Task.Run(async () =>
-            {
-                result = await execute(parameter);
-                locker.Set();
-            });
-            locker.WaitOne();
-            return result;
-        }
-
         public async Task<TOutput>ExecuteAsync(TInput parameter = default)
         {
             return await execute(parameter);
@@ -50,7 +37,7 @@ namespace Movel.Commands
 
         void ICommand.Execute(object parameter)
         {
-            Execute((TInput)parameter);
+            ExecuteAsync((TInput)parameter).RunAsync();
         }
 
         public void Dispose()
@@ -58,19 +45,19 @@ namespace Movel.Commands
             canExecute.Dispose();
         }
 
-        async Task<object> IAsyncCommand.ExecuteAsync(object parameter)
+        async Task IAsyncCommand.ExecuteAsync()
         {
-            return await ExecuteAsync((TInput)parameter);
+            await ExecuteAsync();
         }
 
-        Task IAsyncCommand<TInput>.Execute(TInput parameter)
+        async Task IAsyncCommand<TInput>.ExecuteAsync(TInput parameter)
         {
-            return ExecuteAsync(parameter);
+            await ExecuteAsync(parameter);
         }
 
-        void ICommand<TInput>.Execute(TInput parameter)
+        async Task<TOutput> IAsyncCommand<TInput, TOutput>.ExecuteAsync(TInput parameter)
         {
-            Execute(parameter);
+            return await ExecuteAsync(parameter);
         }
     }
 }

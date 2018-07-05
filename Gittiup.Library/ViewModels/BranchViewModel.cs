@@ -5,6 +5,7 @@ using System.Linq;
 using Gittiup.Library.Models;
 using Gittiup.Library.Utils;
 using LibGit2Sharp;
+using Movel.Commands;
 using Movel.Ears;
 using Movel.Utils;
 using Patch = LibGit2Sharp.Patch;
@@ -22,6 +23,7 @@ namespace Gittiup.Library.ViewModels
         public string SelectedFile { get; set; }
         public ImmutableList<DiffLine> SelectedFileContent { get; set; }
         public ImmutableList<BranchItemViewModel> Commits { get; set; }
+        public IAsyncCommand<Branch> Checkout { get; set; }
 
         public BranchViewModel(Repository repository, AccountModel account, Branch branch)
         {
