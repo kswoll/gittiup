@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using Gittiup.Library.Models;
 using Gittiup.Library.ViewModels;
-using LibGit2Sharp;
 using MaterialDesignThemes.Wpf;
 using Movel.Ears;
 
