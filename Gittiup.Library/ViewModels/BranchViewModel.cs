@@ -5,6 +5,7 @@ using System.Linq;
 using Gittiup.Library.Models;
 using Gittiup.Library.Utils;
 using LibGit2Sharp;
+using Movel;
 using Movel.Commands;
 using Movel.Ears;
 using Movel.Utils;
@@ -21,10 +22,13 @@ namespace Gittiup.Library.ViewModels
         public BranchItemViewModel SelectedItemViewModel { get; set; }
         public string SelectedCommitMessage { get; set; }
         public ImmutableList<string> Files { get; set; }
+        public ImmutableList<string> StagedFiles { get; set; }
         public string SelectedFile { get; set; }
         public ImmutableList<DiffLine> SelectedFileContent { get; set; }
         public ImmutableList<BranchItemViewModel> Commits { get; set; }
+
         public IAsyncCommand<RepositoryItemViewModel> Checkout { get; set; }
+        public IAsyncCommand Commit { get; set; }
 
         public BranchViewModel(RepositoryItemViewModel item, Repository repository, AccountModel account, Branch branch)
         {
@@ -33,7 +37,7 @@ namespace Gittiup.Library.ViewModels
             Account = account;
             Branch = branch;
 
-            this.Listen(x => x.SelectedItemViewModel).Then(OnSelectedItemViewModelChanged);
+            this.Listen(x => x.SelectedItemViewModel).Then(WhenSelectedItemViewModelChanged);
             this.Listen(x => x.SelectedFile).Then(WhenSelectedFileChanged);
 
             var commits = new List<BranchItemViewModel>();
@@ -62,9 +66,15 @@ namespace Gittiup.Library.ViewModels
             }));
 
             Commits = commits.ToImmutableList();
+            Commit = this.CreateCommand(OnCommit, this.Listen(x => x.SelectedItemViewModel.IsCommittable));
         }
 
-        private void OnSelectedItemViewModelChanged()
+        private void OnCommit()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void WhenSelectedItemViewModelChanged()
         {
             var item = SelectedItemViewModel;
             if (item.Commit != null)
@@ -80,6 +90,7 @@ namespace Gittiup.Library.ViewModels
             {
                 var changes = item.Changes;
                 Files = changes.Where(x => x.State != FileStatus.Ignored).Select(x => x.FilePath).ToImmutableList();
+                StagedFiles = changes.Where(x => x.State != FileStatus.Ignored).Select(x => x.FilePath).ToImmutableList();
                 SelectedCommitMessage = "<html></html>";
             }
             else
@@ -119,10 +130,10 @@ namespace Gittiup.Library.ViewModels
                 oldContentText = oldContent?.GetContentText();
                 newContentText = newContent?.GetContentText();
             }
-
             else
             {
-                var oldContent = (Blob)Branch.Tip[selectedFile]?.Target;
+                var oldContent = Repository.Lookup<Blob>(Repository.Index[selectedFile].Id);
+//                var oldContent = (Blob)Branch.Tip[selectedFile]?.Target;
                 oldContentText = oldContent?.GetContentText();
 
                 newContentText = File.ReadAllText(Path.Combine(Repository.Info.WorkingDirectory, selectedFile)).Replace("\r\n", "\n");

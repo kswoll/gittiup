@@ -60,7 +60,7 @@ namespace Movel.Ears
             }
 
             var oldValue = Value;
-            var newValue = (TOutput)current;
+            var newValue = (TOutput)(current ?? default(TOutput));
             if (!Equals(oldValue, newValue))
             {
                 Value = (TOutput)current;

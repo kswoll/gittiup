@@ -10,5 +10,6 @@ namespace Gittiup.Library.ViewModels
         public string Message { get; set; }
         public DateTime? When { get; set; }
         public string Author { get; set; }
+        public bool IsCommittable => Changes != null;
     }
 }

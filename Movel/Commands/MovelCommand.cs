@@ -37,7 +37,7 @@ namespace Movel.Commands
 
         void ICommand.Execute(object parameter)
         {
-            ExecuteAsync((TInput)parameter).RunAsync();
+            ExecuteAsync((TInput)(parameter ?? default(TInput))).RunAsync();
         }
 
         public void Dispose()

@@ -10,9 +10,9 @@ namespace Movel
 {
     public static class Mov
     {
-        public static MovelCommand<TInput, TOutput> CommandAsync<TInput, TOutput>(Func<TInput, Task<TOutput>> execute = null, Func<TInput, bool> canExecute = null)
+        public static MovelCommand<TInput, TOutput> CommandAsync<TInput, TOutput>(Func<TInput, Task<TOutput>> execute = null, Ear<bool> canExecute = null)
         {
-            return new MovelCommand<TInput, TOutput>(execute, canExecute.ToEar());
+            return new MovelCommand<TInput, TOutput>(execute, canExecute);
         }
 
         public static MovelCommand<Nothing, TOutput> CommandAsync<TOutput>(Func<Task<TOutput>> execute = null, Func<Nothing, bool> canExecute = null)
@@ -31,7 +31,7 @@ namespace Movel
                 canExecute.ToEar());
         }
 
-        public static MovelCommand<TInput, Nothing> CommandAsync<TInput>(Func<TInput, Task> execute = null, Func<TInput, bool> canExecute = null)
+        public static MovelCommand<TInput, Nothing> CommandAsync<TInput>(Func<TInput, Task> execute = null, Ear<bool> canExecute = null)
         {
             return new MovelCommand<TInput, Nothing>(
                 async x =>
@@ -39,15 +39,15 @@ namespace Movel
                     await execute(x);
                     return Nothing.Value;
                 },
-                canExecute.ToEar());
+                canExecute);
         }
 
-        public static MovelCommand<TInput, TOutput> Command<TInput, TOutput>(Func<TInput, TOutput> execute = null, Func<TInput, bool> canExecute = null)
+        public static MovelCommand<TInput, TOutput> Command<TInput, TOutput>(Func<TInput, TOutput> execute = null, Ear<bool> canExecute = null)
         {
-            return new MovelCommand<TInput, TOutput>(x => Task.FromResult(execute(x)), canExecute.ToEar());
+            return new MovelCommand<TInput, TOutput>(x => Task.FromResult(execute(x)), canExecute);
         }
 
-        public static MovelCommand<TInput, Nothing> Command<TInput>(Action<TInput> execute = null, Func<TInput, bool> canExecute = null)
+        public static MovelCommand<TInput, Nothing> Command<TInput>(Action<TInput> execute = null, Ear<bool> canExecute = null)
         {
             return new MovelCommand<TInput, Nothing>(
                 x =>
@@ -55,7 +55,7 @@ namespace Movel
                     execute(x);
                     return Task.FromResult(Nothing.Value);
                 },
-                canExecute.ToEar());
+                canExecute);
         }
 
         public static MovelCommand<Nothing, Nothing> CommandAsync<TCanExecuteTarget>(TCanExecuteTarget canExecuteTarget, Expression<Func<TCanExecuteTarget, bool>> canExecute)
@@ -72,7 +72,7 @@ namespace Movel
 
         // Disposableb based
 
-        public static MovelCommand<TInput, TOutput> CreateCommandAsync<TInput, TOutput>(this IDisposableHost host, Func<TInput, Task<TOutput>> execute = null, Func<TInput, bool> canExecute = null)
+        public static MovelCommand<TInput, TOutput> CreateCommandAsync<TInput, TOutput>(this IDisposableHost host, Func<TInput, Task<TOutput>> execute = null, Ear<bool> canExecute = null)
         {
             return CommandAsync(execute, canExecute).DisposeWith(host);
         }
@@ -87,17 +87,29 @@ namespace Movel
             return CommandAsync(execute, canExecute).DisposeWith(host);
         }
 
-        public static MovelCommand<TInput, Nothing> CreateCommandAsync<TInput>(this IDisposableHost host, Func<TInput, Task> execute = null, Func<TInput, bool> canExecute = null)
+        public static MovelCommand<TInput, Nothing> CreateCommandAsync<TInput>(this IDisposableHost host, Func<TInput, Task> execute = null, Ear<bool> canExecute = null)
         {
             return CommandAsync(execute, canExecute);
         }
 
-        public static MovelCommand<TInput, TOutput> CreateCommand<TInput, TOutput>(this IDisposableHost host, Func<TInput, TOutput> execute = null, Func<TInput, bool> canExecute = null)
+        public static MovelCommand<TInput, TOutput> CreateCommand<TInput, TOutput>(this IDisposableHost host, Func<TInput, TOutput> execute = null, Ear<bool> canExecute = null)
         {
             return Command(execute, canExecute).DisposeWith(host);
         }
 
-        public static MovelCommand<TInput, Nothing> CreateCommand<TInput>(this IDisposableHost host, Action<TInput> execute = null, Func<TInput, bool> canExecute = null)
+        public static MovelCommand<Nothing, Nothing> CreateCommand(this IDisposableHost host, Action execute = null, Ear<bool> canExecute = null)
+        {
+            return Command<Nothing, Nothing>(
+                _ =>
+                {
+                    execute();
+                    return Nothing.Value;
+                },
+                canExecute
+            ).DisposeWith(host);
+        }
+
+        public static MovelCommand<TInput, Nothing> CreateCommand<TInput>(this IDisposableHost host, Action<TInput> execute = null, Ear<bool> canExecute = null)
         {
             return Command(execute, canExecute).DisposeWith(host);
         }

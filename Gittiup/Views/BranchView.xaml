@@ -27,7 +27,7 @@
                         <Button ToolTip="Check Out" Command="{Binding Checkout}" CommandParameter="{Binding Item}">
                             <materialDesign:PackIcon Kind="Switch" />
                         </Button>
-                        <Button ToolTip="Commit">
+                        <Button ToolTip="Commit" Command="{Binding Commit}">
                             <materialDesign:PackIcon Kind="SourceCommit" />
                         </Button>
                         <Button ToolTip="Stash">
