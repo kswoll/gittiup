@@ -28,7 +28,7 @@ namespace Gittiup.Library.ViewModels
         public ImmutableList<BranchItemViewModel> Commits { get; set; }
 
         public IAsyncCommand<RepositoryItemViewModel> Checkout { get; set; }
-        public IAsyncCommand Commit { get; set; }
+//        public IAsyncCommand Commit { get; set; }
 
         public BranchViewModel(RepositoryItemViewModel item, Repository repository, AccountModel account, Branch branch)
         {
@@ -48,16 +48,14 @@ namespace Gittiup.Library.ViewModels
                 });
                 if (status.IsDirty)
                 {
-                    commits.Add(new BranchItemViewModel
+                    commits.Add(new ChangesViewModel
                     {
-                        Author = account.Email,
-                        Message = "(Working Copy Changes)",
-                        Changes = status
+                        Status = status
                     });
                 }
             }
 
-            commits.AddRange(branch.Commits.Select(x => new BranchItemViewModel
+            commits.AddRange(branch.Commits.Select(x => new CommitViewModel
             {
                 Commit = x,
                 Message = x.MessageShort,
@@ -66,7 +64,7 @@ namespace Gittiup.Library.ViewModels
             }));
 
             Commits = commits.ToImmutableList();
-            Commit = this.CreateCommand(OnCommit, this.Listen(x => x.SelectedItemViewModel.IsCommittable));
+//            Commit = this.CreateCommand(OnCommit, this.Listen(x => x.SelectedItemViewModel.IsCommittable));
         }
 
         private void OnCommit()
