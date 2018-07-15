@@ -1,7 +1,7 @@
-﻿using System;
+﻿using System.Collections.Immutable;
 using System.Windows;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
+using Gittiup.Library.Utils;
 using Gittiup.Library.ViewModels;
 using MaterialDesignThemes.Wpf;
 using Movel.Ears;
@@ -14,16 +14,20 @@ namespace Gittiup.Views
 
     public partial class NodeView
     {
+        private readonly CommitView commitView = new CommitView();
+        private readonly ChangesView changesView = new ChangesView();
+
         public NodeView()
         {
             InitializeComponent();
+
+            commitView.SelectedFileChanged += OnSelectedFileChanged;
         }
 
         protected override void OnViewModelChanged(NodeViewModel oldModel, NodeViewModel newModel)
         {
             base.OnViewModelChanged(oldModel, newModel);
             ViewModel.Listen(x => x.SelectedItemViewModel).Then(OnSelectedItemViewModelChanged);
-            ViewModel.Listen(x => x.SelectedFile).Then(OnSelectedFileChanged);
         }
 
         private void CloseFile_Click(object sender, RoutedEventArgs e)
@@ -36,25 +40,12 @@ namespace Gittiup.Views
         {
             if (newValue != null)
             {
-                if (newValue.Commit != null)
+                switch (newValue)
                 {
-                    comment.NavigateToString(ViewModel.SelectedCommitMessage);
-
-                    if (newValue.Message.Trim().Equals("wip", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        wip.Visibility = Visibility.Visible;
-                        comment.Visibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        wip.Visibility = Visibility.Hidden;
-                        comment.Visibility = Visibility.Visible;
-                    }
-                }
-                else
-                {
-                    wip.Visibility = Visibility.Collapsed;
-                    comment.Visibility = Visibility.Collapsed;
+                    case CommitNodeItemViewModel commitNodeViewModel:
+                        commitView.ViewModel = new CommitViewModel(ViewModel.Repository, commitNodeViewModel.Commit);
+                        selectedItemView.Content = commitView;
+                        break;
                 }
 
                 if (rightColumn.Width == new GridLength(0))
@@ -74,9 +65,9 @@ namespace Gittiup.Views
             }
         }
 
-        private void OnSelectedFileChanged(Ear<string> ear, string oldValue, string newValue)
+        private void OnSelectedFileChanged(ImmutableList<DiffLine> obj)
         {
-            if (newValue != null)
+            if (commits.Visibility != Visibility.Collapsed)
             {
                 ShowSelectedFile();
             }

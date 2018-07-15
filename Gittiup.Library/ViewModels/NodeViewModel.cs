@@ -32,7 +32,7 @@ namespace Gittiup.Library.ViewModels
             Account = account;
             Branch = branch;
 
-            this.Listen(x => x.SelectedItemViewModel).Then(WhenSelectedItemViewModelChanged);
+//            this.Listen(x => x.SelectedItemViewModel).Then(WhenSelectedItemViewModelChanged);
 
             var commits = new List<NodeItemViewModel>();
             if (repository.Head.CanonicalName == branch.CanonicalName)
@@ -66,6 +66,7 @@ namespace Gittiup.Library.ViewModels
             throw new System.NotImplementedException();
         }
 
+/*
         private void WhenSelectedItemViewModelChanged()
         {
             var item = SelectedItemViewModel;
@@ -91,6 +92,7 @@ namespace Gittiup.Library.ViewModels
                 Files = ImmutableList<string>.Empty;
             }
         }
+*/
 
         private string FormatMessage(string commitMessage)
         {
@@ -101,6 +103,7 @@ namespace Gittiup.Library.ViewModels
         /// <summary>
         /// Don't rename to OnSelectedFileChanged as that messes things up with NotifyPropertyChanged.Fody
         /// </summary>
+/*
         private void WhenSelectedFileChanged()
         {
             var selectedFile = SelectedFile;
@@ -134,6 +137,7 @@ namespace Gittiup.Library.ViewModels
             SelectedFileContent = DiffLineGenerator.GenerateLineDiffs(oldContentText, newContentText);
         }
 
+*/
         public void CreateBranch(string branchName)
         {
             Repository.CreateBranch(branchName);

@@ -20,7 +20,6 @@
         </Grid>
         <GridSplitter Grid.Row="1" Height="5" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
         <ListView x:Name="files" Grid.Row="2" ItemsSource="{Binding Files}"
-                  MouseUp="Files_OnMouseUp"
                   SelectedValue="{Binding SelectedFile}" />
     </Grid>
 </local:ChangesViewBase>
