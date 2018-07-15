@@ -8,18 +8,18 @@ using Movel.Ears;
 
 namespace Gittiup.Views
 {
-    public class BranchViewBase : BaseView<BranchViewModel>
+    public class NodeViewBase : BaseView<NodeViewModel>
     {
     }
 
-    public partial class BranchView
+    public partial class NodeView
     {
-        public BranchView()
+        public NodeView()
         {
             InitializeComponent();
         }
 
-        protected override void OnViewModelChanged(BranchViewModel oldModel, BranchViewModel newModel)
+        protected override void OnViewModelChanged(NodeViewModel oldModel, NodeViewModel newModel)
         {
             base.OnViewModelChanged(oldModel, newModel);
             ViewModel.Listen(x => x.SelectedItemViewModel).Then(OnSelectedItemViewModelChanged);
@@ -32,7 +32,7 @@ namespace Gittiup.Views
             fileView.Visibility = Visibility.Collapsed;
         }
 
-        private void OnSelectedItemViewModelChanged(Ear<BranchItemViewModel> ear, BranchItemViewModel oldValue, BranchItemViewModel newValue)
+        private void OnSelectedItemViewModelChanged(Ear<NodeItemViewModel> ear, NodeItemViewModel oldValue, NodeItemViewModel newValue)
         {
             if (newValue != null)
             {
@@ -71,14 +71,6 @@ namespace Gittiup.Views
                     splitterColumn.Width = new GridLength(0);
                     rightColumn.Width = new GridLength(0);
                 }
-            }
-        }
-
-        private void Files_OnMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            if (commits.Visibility != Visibility.Collapsed)
-            {
-                ShowSelectedFile();
             }
         }
 

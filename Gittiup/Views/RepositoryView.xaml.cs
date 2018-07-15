@@ -12,7 +12,7 @@ namespace Gittiup.Views
 
     public partial class RepositoryView
     {
-        private readonly BranchView branchView = new BranchView();
+        private readonly NodeView nodeView = new NodeView();
 
         public RepositoryView()
         {
@@ -37,9 +37,9 @@ namespace Gittiup.Views
             switch (item.Value)
             {
                 case Branch branch:
-                    branchView.ViewModel = new BranchViewModel(item, ViewModel.Repo, ViewModel.Repository.Account, branch);
-                    branchView.ViewModel.Checkout = ViewModel.Checkout;
-                    content.Content = branchView;
+                    nodeView.ViewModel = new NodeViewModel(item, ViewModel.Repo, ViewModel.Repository.Account, branch);
+                    nodeView.ViewModel.Checkout = ViewModel.Checkout;
+                    content.Content = nodeView;
                     break;
             }
         }

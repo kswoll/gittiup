@@ -13,24 +13,19 @@ using Patch = LibGit2Sharp.Patch;
 
 namespace Gittiup.Library.ViewModels
 {
-    public class BranchViewModel : BaseObject
+    public class NodeViewModel : BaseObject
     {
         public RepositoryItemViewModel Item { get; }
         public Repository Repository { get; }
         public AccountModel Account { get; }
         public Branch Branch { get; }
-        public BranchItemViewModel SelectedItemViewModel { get; set; }
-        public string SelectedCommitMessage { get; set; }
-        public ImmutableList<string> Files { get; set; }
-        public ImmutableList<string> StagedFiles { get; set; }
-        public string SelectedFile { get; set; }
-        public ImmutableList<DiffLine> SelectedFileContent { get; set; }
-        public ImmutableList<BranchItemViewModel> Commits { get; set; }
+        public NodeItemViewModel SelectedItemViewModel { get; set; }
+        public ImmutableList<NodeItemViewModel> Items { get; set; }
 
         public IAsyncCommand<RepositoryItemViewModel> Checkout { get; set; }
 //        public IAsyncCommand Commit { get; set; }
 
-        public BranchViewModel(RepositoryItemViewModel item, Repository repository, AccountModel account, Branch branch)
+        public NodeViewModel(RepositoryItemViewModel item, Repository repository, AccountModel account, Branch branch)
         {
             Item = item;
             Repository = repository;
@@ -38,9 +33,8 @@ namespace Gittiup.Library.ViewModels
             Branch = branch;
 
             this.Listen(x => x.SelectedItemViewModel).Then(WhenSelectedItemViewModelChanged);
-            this.Listen(x => x.SelectedFile).Then(WhenSelectedFileChanged);
 
-            var commits = new List<BranchItemViewModel>();
+            var commits = new List<NodeItemViewModel>();
             if (repository.Head.CanonicalName == branch.CanonicalName)
             {
                 var status = repository.RetrieveStatus(new StatusOptions()
@@ -48,14 +42,14 @@ namespace Gittiup.Library.ViewModels
                 });
                 if (status.IsDirty)
                 {
-                    commits.Add(new ChangesViewModel
+                    commits.Add(new ChangesNodeItemViewModel
                     {
                         Status = status
                     });
                 }
             }
 
-            commits.AddRange(branch.Commits.Select(x => new CommitViewModel
+            commits.AddRange(branch.Commits.Select(x => new CommitNodeItemViewModel
             {
                 Commit = x,
                 Message = x.MessageShort,
@@ -63,7 +57,7 @@ namespace Gittiup.Library.ViewModels
                 Author = x.Author.Email
             }));
 
-            Commits = commits.ToImmutableList();
+            Items = commits.ToImmutableList();
 //            Commit = this.CreateCommand(OnCommit, this.Listen(x => x.SelectedItemViewModel.IsCommittable));
         }
 

@@ -111,8 +111,14 @@
     <Compile Include="Converters\EmailToAvatarConverter.cs" />
     <Compile Include="Converters\ObjectNotNullVisibilityConverter.cs" />
     <Compile Include="Utils\VisualTreeExtensions.cs" />
-    <Compile Include="Views\BranchView.xaml.cs">
-      <DependentUpon>BranchView.xaml</DependentUpon>
+    <Compile Include="Views\ChangesView.xaml.cs">
+      <DependentUpon>ChangesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CommitView.xaml.cs">
+      <DependentUpon>CommitView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NodeView.xaml.cs">
+      <DependentUpon>NodeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditAccountDialog.xaml.cs">
       <DependentUpon>EditAccountDialog.xaml</DependentUpon>
@@ -148,7 +154,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\BranchView.xaml">
+    <Page Include="Views\ChangesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CommitView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NodeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
