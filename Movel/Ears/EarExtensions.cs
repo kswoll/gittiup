@@ -79,5 +79,12 @@ namespace Movel.Ears
         {
             ear.Then((_, __, ___) => handler());
         }
+/*
+
+        public static void BindTo<T, TTarget, TValue>(this Ear<T> ear, TTarget target, Expression<Func<TTarget, TValue>> property)
+        {
+            var propertyInfo = property.Get
+        }
+*/
     }
 }

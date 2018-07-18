@@ -18,6 +18,13 @@ namespace Gittiup.Library.Utils
                     new Diff(newText, Operation.Insert)
                 };
             }
+            else if (newText == null)
+            {
+                diffs = new List<Diff>
+                {
+                    new Diff(oldText, Operation.Delete)
+                };
+            }
             else
             {
                 var differ = DiffMatchPatchModule.Default;

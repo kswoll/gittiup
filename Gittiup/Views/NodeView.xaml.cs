@@ -43,7 +43,10 @@ namespace Gittiup.Views
                 switch (newValue)
                 {
                     case CommitNodeItemViewModel commitNodeViewModel:
-                        commitView.ViewModel = new CommitViewModel(ViewModel.Repository, commitNodeViewModel.Commit);
+                        var commitViewModel = new CommitViewModel(ViewModel.Repository, commitNodeViewModel.Commit);
+                        commitViewModel.Listen(x => x.SelectedFileContent).Then(() => ViewModel.SelectedFileContent = commitViewModel.SelectedFileContent);
+                        commitView.ViewModel = commitViewModel;
+
                         selectedItemView.Content = commitView;
                         break;
                 }

@@ -21,6 +21,7 @@ namespace Gittiup.Library.ViewModels
         public Branch Branch { get; }
         public NodeItemViewModel SelectedItemViewModel { get; set; }
         public ImmutableList<NodeItemViewModel> Items { get; set; }
+        public ImmutableList<DiffLine> SelectedFileContent { get; set; }
 
         public IAsyncCommand<RepositoryItemViewModel> Checkout { get; set; }
 //        public IAsyncCommand Commit { get; set; }
