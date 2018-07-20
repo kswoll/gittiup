@@ -43,20 +43,11 @@ namespace Gittiup.Library.ViewModels
                 });
                 if (status.IsDirty)
                 {
-                    commits.Add(new ChangesNodeItemViewModel
-                    {
-                        Status = status
-                    });
+                    commits.Add(new ChangesNodeItemViewModel(status, account));
                 }
             }
 
-            commits.AddRange(branch.Commits.Select(x => new CommitNodeItemViewModel
-            {
-                Commit = x,
-                Message = x.MessageShort,
-                When = x.Author.When.LocalDateTime,
-                Author = x.Author.Email
-            }));
+            commits.AddRange(branch.Commits.Select(x => new CommitNodeItemViewModel(x)));
 
             Items = commits.ToImmutableList();
 //            Commit = this.CreateCommand(OnCommit, this.Listen(x => x.SelectedItemViewModel.IsCommittable));

@@ -5,13 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Gittiup.Views"
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             xmlns:viewModels="clr-namespace:Gittiup.Library.ViewModels;assembly=Gittiup.Library"
              mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModels:ChangesViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Grid.Column="2" VerticalAlignment="Stretch">
+    <Grid VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="5" />
-            <RowDefinition Height="500" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid>
@@ -19,7 +21,9 @@
             <Image x:Name="wip" gif:ImageBehavior.AnimatedSource="pack://application:,,,/Assets/wip.gif" Width="300" Visibility="Collapsed" />
         </Grid>
         <GridSplitter Grid.Row="1" Height="5" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
-        <ListView x:Name="files" Grid.Row="2" ItemsSource="{Binding Files}"
-                  SelectedValue="{Binding SelectedFile}" />
+        <ListView x:Name="unstagedFiles" Grid.Row="2" ItemsSource="{Binding UnstagedFiles}"
+                  SelectedValue="{Binding SelectedUnstagedFile}" />
+        <ListView x:Name="stagedFiles" Grid.Row="3" ItemsSource="{Binding StagedFiles}"
+                  SelectedValue="{Binding SelectedStagedFile}" />
     </Grid>
 </local:ChangesViewBase>

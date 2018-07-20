@@ -46,8 +46,12 @@ namespace Gittiup.Views
                         var commitViewModel = new CommitViewModel(ViewModel.Repository, commitNodeViewModel.Commit);
                         commitViewModel.Listen(x => x.SelectedFileContent).Then(() => ViewModel.SelectedFileContent = commitViewModel.SelectedFileContent);
                         commitView.ViewModel = commitViewModel;
-
                         selectedItemView.Content = commitView;
+                        break;
+                    case ChangesNodeItemViewModel changesNodeViewModel:
+                        var changesViewModel = new ChangesViewModel(ViewModel.Repository, changesNodeViewModel.Status);
+                        changesView.ViewModel = changesViewModel;
+                        selectedItemView.Content = changesView;
                         break;
                 }
 

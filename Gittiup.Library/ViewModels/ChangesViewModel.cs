@@ -24,7 +24,7 @@ namespace Gittiup.Library.ViewModels
             Repository = repository;
             Status = status;
 
-            UnstagedFiles = status.Select(x => x.FilePath).ToImmutableList();
+            UnstagedFiles = status.Untracked.Concat(status.Missing).Concat(status.Modified).Select(x => x.FilePath).ToImmutableList();
             StagedFiles = status.Staged.Select(x => x.FilePath).ToImmutableList();
 
             this.Listen(x => x.SelectedStagedFile).Then(WhenSelectedStagedFileChanged);

@@ -5,9 +5,15 @@ namespace Gittiup.Library.ViewModels
 {
     public class CommitNodeItemViewModel : NodeItemViewModel
     {
-        public Commit Commit { get; set; }
-        public string Message { get; set; }
-        public DateTime? When { get; set; }
-        public string Author { get; set; }
+        public Commit Commit { get; }
+
+        public CommitNodeItemViewModel(Commit commit)
+        {
+            Commit = commit;
+
+            Message = commit.MessageShort;
+            When = commit.Author.When.LocalDateTime;
+            Author = commit.Author.Email;
+        }
     }
 }
