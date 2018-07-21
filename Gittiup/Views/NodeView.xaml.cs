@@ -22,6 +22,7 @@ namespace Gittiup.Views
             InitializeComponent();
 
             commitView.SelectedFileChanged += OnSelectedFileChanged;
+            changesView.SelectedFileChanged += OnSelectedFileChanged;
         }
 
         protected override void OnViewModelChanged(NodeViewModel oldModel, NodeViewModel newModel)
@@ -50,6 +51,7 @@ namespace Gittiup.Views
                         break;
                     case ChangesNodeItemViewModel changesNodeViewModel:
                         var changesViewModel = new ChangesViewModel(ViewModel.Repository, changesNodeViewModel.Status);
+                        changesViewModel.Listen(x => x.SelectedFileContent).Then(() => ViewModel.SelectedFileContent = changesViewModel.SelectedFileContent);
                         changesView.ViewModel = changesViewModel;
                         selectedItemView.Content = changesView;
                         break;

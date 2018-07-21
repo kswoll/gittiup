@@ -22,8 +22,10 @@
         </Grid>
         <GridSplitter Grid.Row="1" Height="5" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
         <ListView x:Name="unstagedFiles" Grid.Row="2" ItemsSource="{Binding UnstagedFiles}"
+                  MouseUp="Files_OnMouseUp"
                   SelectedValue="{Binding SelectedUnstagedFile}" />
         <ListView x:Name="stagedFiles" Grid.Row="3" ItemsSource="{Binding StagedFiles}"
+                  MouseUp="Files_OnMouseUp"
                   SelectedValue="{Binding SelectedStagedFile}" />
     </Grid>
 </local:ChangesViewBase>

@@ -43,11 +43,14 @@ namespace Gittiup.Library.ViewModels
                 return;
             }
 
-            var oldContent = Repository.Lookup<Blob>(Repository.Index[selectedFile].Id);
+//            var oldContent = Repository.Lookup<Blob>(Repository.Index[selectedFile].Id);
+            var oldContent = (Blob)Repository.Head.Tip[selectedFile]?.Target;
 //                var oldContent = (Blob)Branch.Tip[selectedFile]?.Target;
             var oldContentText = oldContent?.GetContentText();
 
-            var newContentText = File.ReadAllText(Path.Combine(Repository.Info.WorkingDirectory, selectedFile)).Replace("\r\n", "\n");
+//            var newContentText = Status.Staged.Single(x => x.FilePath == selectedFile).;
+            var newContent = Repository.Lookup<Blob>(Repository.Index[selectedFile].Id);
+            var newContentText = newContent?.GetContentText();
 
             SelectedFileContent = DiffLineGenerator.GenerateLineDiffs(oldContentText, newContentText);
         }
